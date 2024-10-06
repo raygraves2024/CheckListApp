@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CheckListApp.View.ItemDetailPage"
+             Title="Task Detail">
+    <ScrollView>
+        <VerticalStackLayout Spacing="10" Margin="20">
+
+            <!-- Task Detail Section -->
+            <Frame x:Name="TaskDetailContent" IsVisible="true">
+                <VerticalStackLayout Spacing="10">
+                    <Label x:Name="TitleLabel" FontSize="20" FontAttributes="Bold" Text="Task Title" />
+                    <Label x:Name="DescriptionLabel" Text="Description" />
+                    <Label x:Name="PriorityLabel" Text="Priority Level" />
+                    <Label x:Name="CategoryLabel" Text="Category" />
+                    <Label x:Name="DueDateLabel" Text="Due Date" />
+                    <Label x:Name="RepeatInfoLabel" IsVisible="false" Text="Repeat Information" />
+                    <Label x:Name="CreatedDateLabel" Text="Created Date" />
+                    <Label x:Name="UpdatedDateLabel" Text="Last Updated" />
+                    <HorizontalStackLayout>
+                        <Label Text="Completed: " VerticalOptions="Center" />
+                        <CheckBox x:Name="IsCompletedCheckBox" VerticalOptions="Center" />
+                    </HorizontalStackLayout>
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Action Buttons -->
+            <Button Text="Save" Command="{Binding SaveCommand}" />
+            <Button Text="Delete" BackgroundColor="Red" TextColor="White" Command="{Binding DeleteCommand}" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
