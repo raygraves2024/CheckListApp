@@ -22,27 +22,26 @@ public static class MauiProgram
             })
             .UseMauiCommunityToolkit();
 
-        // Configure logging (if needed)
         builder.Logging.AddConfiguration(builder.Configuration.GetSection("Logging"));
 
-        // Register database
         builder.Services.AddSingleton<TaskDatabase>();
 
-        // Register services
         builder.Services.AddSingleton<UserTaskService>();
         builder.Services.AddSingleton<AuthenticationService>();
         builder.Services.AddSingleton<UserService>();
 
-        // Register view models
         builder.Services.AddTransient<UserTaskViewModel>();
-        builder.Services.AddTransient<MainPageViewModel>();
+        //builder.Services.AddTransient<__MainPageViewModel>();
+        builder.Services.AddTransient<LoginViewModel>();
+        builder.Services.AddTransient<TaskEntryViewModel>();
 
-        // Register pages
         builder.Services.AddTransient<MainPage>();
         builder.Services.AddTransient<UserTaskPage>();
         builder.Services.AddTransient<ItemDetailPage>();
-      
+        builder.Services.AddTransient<LoginPage>();
+        builder.Services.AddTransient<TaskEntryPage>();
 
+        builder.Services.AddSingleton<App>();
 
         return builder.Build();
     }

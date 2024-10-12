@@ -7,7 +7,7 @@
              Title="User Tasks"
              x:Name="UserTaskPageRoot">
 
-    <Grid RowDefinitions="Auto,*">
+    <Grid RowDefinitions="Auto,*,Auto">
         <Label Text="{Binding CurrentUser.Username, StringFormat='Welcome, {0}!'}"
                FontSize="Large"
                Margin="20,10"/>
@@ -16,7 +16,8 @@
                      Command="{Binding LoadUserAndTasksCommand}"
                      IsRefreshing="{Binding IsLoading}">
             <CollectionView ItemsSource="{Binding UserTasks}"
-                            SelectionMode="Single">
+                            SelectionMode="Single"
+                            SelectionChanged="OnItemSelected">
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="model:UserTask">
                         <SwipeView>
@@ -30,11 +31,6 @@
                             </SwipeView.RightItems>
                             <Grid Padding="10">
                                 <Frame>
-                                    <Frame.GestureRecognizers>
-                                        <TapGestureRecognizer 
-                                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:UserTaskViewModel}}, Path=SelectTaskCommand}"
-                                            CommandParameter="{Binding .}"/>
-                                    </Frame.GestureRecognizers>
                                     <VerticalStackLayout>
                                         <Label Text="{Binding Title}" 
                                                FontAttributes="Bold" />
@@ -49,5 +45,13 @@
                 </CollectionView.ItemTemplate>
             </CollectionView>
         </RefreshView>
+
+        <!-- Add the button to run tests -->
+        <Button Grid.Row="2"
+                Text="Run Tests"
+                Command="{Binding RunTestsCommand}"
+                VerticalOptions="Center"
+                HorizontalOptions="Center"
+                Margin="20"/>
     </Grid>
 </ContentPage>

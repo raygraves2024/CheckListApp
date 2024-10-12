@@ -1,12 +1,8 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Diagnostics;
 using CheckListApp.ViewModels;
 using CheckListApp.Model;
 using Microsoft.Maui.Controls;
-using System.Diagnostics;
 
 namespace CheckListApp.View
 {
@@ -21,17 +17,23 @@ namespace CheckListApp.View
             BindingContext = _viewModel;
         }
 
-        protected override void OnAppearing()
+        protected override async void OnAppearing()
         {
             base.OnAppearing();
-            _viewModel.LoadUserAndTasksCommand.Execute(null);
+            await _viewModel.LoadUserAndTasksCommand.ExecuteAsync(null);
+
+            if (_viewModel.UserTasks.Count == 0)
+            {
+                await DisplayAlert("No Tasks", "There are no tasks available. Would you like to add a new task?", "OK");
+                // Here you could navigate to a page to add a new task if desired
+            }
         }
 
-        private async void OnItemSelected(object sender, SelectedItemChangedEventArgs args)
+        private async void OnItemSelected(object sender, SelectionChangedEventArgs args)
         {
-            if (args.SelectedItem != null)
+            if (args.CurrentSelection.Count > 0)
             {
-                var task = args.SelectedItem as UserTask;
+                var task = args.CurrentSelection[0] as UserTask;
                 if (task != null)
                 {
                     if (_viewModel.SelectTaskCommand?.CanExecute(task) == true)

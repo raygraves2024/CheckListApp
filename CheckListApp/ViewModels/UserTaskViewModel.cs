@@ -22,6 +22,7 @@ namespace CheckListApp.ViewModels
             _userService = userService;
             LoadUserAndTasksCommand = new AsyncRelayCommand(LoadUserAndTasksAsync);
             SelectTaskCommand = new AsyncRelayCommand<UserTask>(SelectTaskAsync);
+            RunTestsCommand = new RelayCommand(RunTests);  // Added command for running tests
         }
 
         [ObservableProperty]
@@ -41,6 +42,7 @@ namespace CheckListApp.ViewModels
 
         public IAsyncRelayCommand LoadUserAndTasksCommand { get; }
         public IAsyncRelayCommand<UserTask> SelectTaskCommand { get; }
+        public RelayCommand RunTestsCommand { get; } // Added property for test command
 
         // Load the user and tasks asynchronously
         private async Task LoadUserAndTasksAsync()
@@ -91,6 +93,14 @@ namespace CheckListApp.ViewModels
                 // Pass the TaskID and UserID as parameters to the detail page
                 await Shell.Current.GoToAsync($"{nameof(ItemDetailPage)}?id={task.TaskID}&userId={task.UserId}");
             }
+        }
+
+        // Method to run tests
+        private void RunTests()
+        {
+            var testRepository = new TestRepositories();
+            testRepository.RunAllTests();  // Call the test method from TestRepositories
+            Debug.WriteLine("Test repositories executed successfully.");
         }
     }
 }

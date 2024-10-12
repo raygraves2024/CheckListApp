@@ -1,37 +1,27 @@
-﻿using CheckListApp.Data;
-using CheckListApp.Services;
+﻿using CheckListApp.Services;
 using CheckListApp.View;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace CheckListApp;
 
 public partial class App : Application
 {
-    public static IServiceProvider Services { get; private set; }
+    private readonly IServiceProvider _serviceProvider;
 
-    public App(IServiceProvider serviceProvider)
+    public App(IServiceProvider serviceProvider, AuthenticationService authService)
     {
         InitializeComponent();
 
-        Services = serviceProvider;
+        _serviceProvider = serviceProvider;
 
-        MainPage = new AppShell();
-
-        InitializeAppAsync();
-        Routing.RegisterRoute(nameof(ItemDetailPage), typeof(ItemDetailPage));
-    }
-
-    private async void InitializeAppAsync()
-    {
-        try
+        if (!authService.IsAuthenticated)
         {
-            var database = Services.GetRequiredService<TaskDatabase>();
-            await database.InitializeDatabaseAsync();
+            MainPage = new NavigationPage(_serviceProvider.GetRequiredService<LoginPage>());
         }
-        catch (InvalidOperationException ex)
+        else
         {
-            // Handle database initialization failure
-            Console.WriteLine($"Failed to initialize database: {ex.Message}");
-            // You might want to show an error message to the user or take other appropriate action
+            MainPage = new AppShell();
+            Shell.Current.GoToAsync("//TaskEntryPage");
         }
     }
 }

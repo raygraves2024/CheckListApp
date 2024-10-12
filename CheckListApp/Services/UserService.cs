@@ -16,6 +16,12 @@ namespace CheckListApp.Services
         {
             _database = database;
         }
+        public async Task UpdateTaskAsync(UserTask task)
+        {
+            // Implement your update logic here
+            // This might involve updating a database or making an API call
+            await Task.Delay(100); // Placeholder for actual update operation
+        }
 
         public async Task<Users> GetUserAsync(int userId)
         {

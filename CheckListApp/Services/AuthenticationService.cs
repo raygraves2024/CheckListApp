@@ -1,50 +1,31 @@
-﻿using System;
-using System.Threading.Tasks;
-using System.Collections.Generic;
-using CheckListApp.Data;
-using CheckListApp.Model;
-
-namespace CheckListApp.Services
+﻿namespace CheckListApp.Services
 {
     public class AuthenticationService
     {
-        private readonly TaskDatabase _database;
+        private bool _isAuthenticated = false;
+        private string _currentUser = string.Empty;
 
-        public AuthenticationService(TaskDatabase database)
+        public bool IsAuthenticated => _isAuthenticated;
+        public string CurrentUser => _currentUser;
+
+        public bool Login(string username, string password)
         {
-            _database = database;
+            // TODO: Implement actual authentication logic here
+            // For now, we'll use a simple check
+            if (!string.IsNullOrEmpty(username) && !string.IsNullOrEmpty(password))
+            {
+                _isAuthenticated = true;
+                _currentUser = username;
+                return true;
+            }
+
+            return false;
         }
 
-        public async Task<(Users User, List<UserTask> Tasks)> GetUserAndTasksAsync(int userId = 1)
+        public void Logout()
         {
-            try
-            {
-                await _database.InitializeDatabaseAsync();
-
-                var userTable = await _database.Table<Users>();
-                var user = await userTable
-                    .Where(u => u.UserID == userId)
-                    .FirstOrDefaultAsync();
-
-                if (user == null)
-                {
-                    throw new Exception($"User with ID {userId} not found.");
-                }
-
-                var tasks = await _database.GetTasksForUserAsync(userId);
-
-                return (user, tasks);
-            }
-            catch (InvalidOperationException ex)
-            {
-                Console.WriteLine($"Database initialization failed: {ex.Message}");
-                throw;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error in GetUserAndTasksAsync: {ex.Message}");
-                throw;
-            }
+            _isAuthenticated = false;
+            _currentUser = string.Empty;
         }
     }
 }

@@ -9,6 +9,11 @@
 
 
     <ShellContent
+    Title="Task Entry"
+    ContentTemplate="{DataTemplate view:TaskEntryPage}"
+    Route="TaskEntryPage" />
+    
+    <ShellContent
         Title="Tasks"
         ContentTemplate="{DataTemplate view:UserTaskPage}"
         Route="UserTaskPage" />

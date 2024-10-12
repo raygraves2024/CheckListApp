@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CheckListApp.View.TaskEntryPage"
+             Title="Task Entry">
+    <ScrollView>
+        <VerticalStackLayout Spacing="25" Padding="30,0" VerticalOptions="Center">
+            <Label 
+                Text="Task Entry Form"
+                SemanticProperties.HeadingLevel="Level1"
+                FontSize="32"
+                HorizontalOptions="Center" />
+
+            <Entry
+                x:Name="UserNameEntry"
+                Placeholder="Username"
+                Text="{Binding UserName}"
+                SemanticProperties.Hint="Enter your username"/>
+
+            <Entry
+                x:Name="TaskEntry"
+                Placeholder="Task"
+                SemanticProperties.Hint="Enter the task"/>
+
+            <Editor
+                x:Name="TaskDescriptionEditor"
+                Placeholder="Task Description"
+                HeightRequest="100"
+                SemanticProperties.Hint="Enter the task description"/>
+
+            <DatePicker
+                x:Name="TaskDatePicker"
+                Format="D"
+                SemanticProperties.Hint="Select the task date"/>
+
+            <HorizontalStackLayout Spacing="20" HorizontalOptions="Center">
+                <Button
+                    x:Name="SaveButton"
+                    Text="Save"
+                    SemanticProperties.Hint="Save the task entry"
+                    WidthRequest="100" />
+
+                <Button
+                    x:Name="SubmitButton"
+                    Text="Submit"
+                    SemanticProperties.Hint="Submit the task entry"
+                    WidthRequest="100" />
+            </HorizontalStackLayout>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
