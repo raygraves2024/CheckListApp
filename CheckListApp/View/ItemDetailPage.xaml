@@ -1,65 +1,45 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="CheckListApp.View.ItemDetailPage">
-    
+             x:Class="CheckListApp.View.ItemDetailPage"
+             Title="Task Detail">
     <ScrollView>
-        <VerticalStackLayout Spacing="20" Padding="20">
-            <!-- Title -->
-            <Label Text="Title" FontAttributes="Bold" />
-            <Entry x:Name="TitleEntry" Placeholder="Enter task title" />
+        <VerticalStackLayout Spacing="10" Margin="20">
 
-            <!-- Description -->
-            <Label Text="Description" FontAttributes="Bold" />
-            <Editor x:Name="DescriptionEditor" Placeholder="Enter task description" HeightRequest="100" />
+            <!-- Task Detail Section -->
+            <Frame x:Name="TaskDetailContent" IsVisible="true" BackgroundColor="White">
+                <VerticalStackLayout Spacing="10">
+                    <Label x:Name="TitleLabel" FontSize="20" FontAttributes="Bold" Text="Task Title" />
 
-            <!-- Priority -->
-            <Label Text="Priority" FontAttributes="Bold" />
-            <Picker x:Name="PriorityPicker">
-                <Picker.Items>
-                    <x:String>Low</x:String>
-                    <x:String>Medium</x:String>
-                    <x:String>High</x:String>
-                </Picker.Items>
-            </Picker>
+                    <Label Text="Your Task:" />
+                    <Entry x:Name="TaskEntry" Placeholder="Enter your name" />
 
-            <!-- Category -->
-            <Label Text="Category" FontAttributes="Bold" />
-            <Entry x:Name="CategoryEntry" Placeholder="Enter task category" />
+                    <Label Text="Description:" />
+                    <Entry x:Name="DescriptionEntry" Placeholder="Enter task description" />
 
-            <!-- Due Date -->
-            <Label Text="Due Date" FontAttributes="Bold" />
-            <DatePicker x:Name="DueDatePicker" />
+                    <Label Text="Priority:" />
+                    <Entry x:Name="PriorityEntry" Placeholder="Enter priority level" />
 
-            <!-- Is Completed -->
-            <HorizontalStackLayout>
-                <CheckBox x:Name="IsCompletedCheckBox" />
-                <Label Text="Task Completed" VerticalOptions="Center" Margin="10,0,0,0" />
-            </HorizontalStackLayout>
+                    <Label Text="DueDate:" />
+                    <Entry x:Name="DueDateEntry" Placeholder="Enter due date" />
 
-            <!-- Is Repeating -->
-            <HorizontalStackLayout>
-                <CheckBox x:Name="IsRepeatingCheckBox" />
-                <Label Text="Repeating Task" VerticalOptions="Center" Margin="10,0,0,0" />
-            </HorizontalStackLayout>
+                    <Label x:Name="RepeatInfoLabel" IsVisible="false" Text="Repeat Information" />
+                    <Label x:Name="CreatedDateLabel" Text="Created Date" />
+                    <Label x:Name="UpdatedDateLabel" Text="Last Updated" />
 
-            <!-- Repeat Info (visible only if IsRepeating is checked) -->
-            <VerticalStackLayout x:Name="RepeatInfoLayout" IsVisible="false">
-                <Label Text="Repeat Information" FontAttributes="Bold" />
-                <Entry x:Name="RepeatInfoEntry" Placeholder="Enter repeat information" />
-            </VerticalStackLayout>
+                    <HorizontalStackLayout>
+                        <Label Text="Completed: " VerticalOptions="Center" />
+                        <CheckBox x:Name="IsCompletedCheckBox" VerticalOptions="Center" />
+                    </HorizontalStackLayout>
 
-            <!-- Created Date (Read-only) -->
-            <Label Text="Created Date" FontAttributes="Bold" />
-            <Label x:Name="CreatedDateLabel" />
+                    <Label x:Name="ResultLabel" Text="Saved Data will appear here." Margin="0,20,0,0"/>
 
-            <!-- Updated Date (Read-only) -->
-            <Label Text="Last Updated" FontAttributes="Bold" />
-            <Label x:Name="UpdatedDateLabel" />
+                    <Button Text="Save" Clicked="OnSaveDataClicked"/>
+                    <Button Text="Delete" BackgroundColor="Red" TextColor="White" Command="{Binding DeleteCommand}" />
 
-            <!-- Action Buttons -->
-            <Button x:Name="SaveButton" Text="Save Changes" BackgroundColor="#007AFF" TextColor="White" />
-            <Button x:Name="DeleteButton" Text="Delete Task" BackgroundColor="#FF3B30" TextColor="White" />
+                </VerticalStackLayout>
+            </Frame>
+
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>
