@@ -12,6 +12,13 @@ build_property.RootNamespace = CheckListApp
 build_property.ProjectDir = C:\Users\ray_g\source\repos\CheckListApp\CheckListApp\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
+build_property.CsWinRTAotOptimizerEnabled = true
+build_property.CsWinRTAotExportsEnabled = 
+build_property.CsWinRTRcwFactoryFallbackGeneratorForceOptIn = 
+build_property.CsWinRTRcwFactoryFallbackGeneratorForceOptOut = 
+build_property.CsWinRTCcwLookupTableGeneratorEnabled = true
+build_property.CsWinRTMergeReferencedActivationFactories = 
+build_property.CsWinRTAotWarningLevel = 
 
 [C:/Users/ray_g/source/repos/CheckListApp/CheckListApp/App.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
@@ -48,6 +55,18 @@ build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = CheckListApp.View.ItemDetailPage.xaml
 build_metadata.AdditionalFiles.TargetPath = View\ItemDetailPage.xaml
 build_metadata.AdditionalFiles.RelativePath = View\ItemDetailPage.xaml
+
+[C:/Users/ray_g/source/repos/CheckListApp/CheckListApp/View/LoginPage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = CheckListApp.View.LoginPage.xaml
+build_metadata.AdditionalFiles.TargetPath = View\LoginPage.xaml
+build_metadata.AdditionalFiles.RelativePath = View\LoginPage.xaml
+
+[C:/Users/ray_g/source/repos/CheckListApp/CheckListApp/View/TaskEntryPage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = CheckListApp.View.TaskEntryPage.xaml
+build_metadata.AdditionalFiles.TargetPath = View\TaskEntryPage.xaml
+build_metadata.AdditionalFiles.RelativePath = View\TaskEntryPage.xaml
 
 [C:/Users/ray_g/source/repos/CheckListApp/CheckListApp/View/UserTaskPage.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
