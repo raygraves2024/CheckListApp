@@ -1,7 +1,7 @@
 ﻿using ObjCRuntime;
 using UIKit;
 
-namespace CheckListApp
+namespace CheckListApp.Platforms.iOS
 {
     public class Program
     {

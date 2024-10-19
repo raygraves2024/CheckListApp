@@ -1,12 +1,7 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Users\\ray_g\\source\\repos\\CheckListApp\\",
-  "Documents": [
-    {
-      "AbsoluteMoniker": "D:0:0:{04432177-34DD-41E7-8A20-A8D324E94A54}|CheckListApp\\CheckListApp.csproj|c:\\users\\ray_g\\source\\repos\\checklistapp\\checklistapp\\view\\itemdetailpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{04432177-34DD-41E7-8A20-A8D324E94A54}|CheckListApp\\CheckListApp.csproj|solutionrelative:checklistapp\\view\\itemdetailpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    }
-  ],
+  "Documents": [],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -14,40 +9,15 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 5,
+          "SelectedChildIndex": -1,
           "Children": [
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
-            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
             },
             {
               "$type": "Bookmark",
-              "Name": "ST:128:0:{75188d03-9892-4ae2-abf1-207126247ce5}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
-            },
-            {
-              "$type": "Bookmark",
               "Name": "ST:129:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "ItemDetailPage.xaml",
-              "DocumentMoniker": "C:\\Users\\ray_g\\source\\repos\\CheckListApp\\CheckListApp\\View\\ItemDetailPage.xaml",
-              "RelativeDocumentMoniker": "CheckListApp\\View\\ItemDetailPage.xaml",
-              "ToolTip": "C:\\Users\\ray_g\\source\\repos\\CheckListApp\\CheckListApp\\View\\ItemDetailPage.xaml",
-              "RelativeToolTip": "CheckListApp\\View\\ItemDetailPage.xaml",
-              "ViewState": "AgIAACQAAAAAAAAAAAAAAD0AAAA1AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2024-10-18T19:05:56.152Z",
-              "EditorCaption": ""
             }
           ]
         }

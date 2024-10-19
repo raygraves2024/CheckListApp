@@ -38,7 +38,30 @@
                     x:Name="SaveButton"
                     Text="Save"
                     SemanticProperties.Hint="Save the task entry"
-                    WidthRequest="100" />
+                    WidthRequest="100" 
+                    Clicked="OnSaveDataClicked"
+                    />
+                
+                <Button
+                    x:Name="DeleteButton"
+                    Text="Delete"
+                    SemanticProperties.Hint="Delete the task entry"
+                    WidthRequest="100" 
+                    Clicked= "OnDeleteButtonClicked"
+                    BackgroundColor="Red"
+                    TextColor="White"
+                    />
+                
+                <Button
+                    x:Name="EditButton"
+                    Text="Edit"
+                    SemanticProperties.Hint="Edit the task entry"
+                    WidthRequest="100" 
+                    Clicked= "OnEditButtonClicked"
+                    IsEnabled="False"
+                    BackgroundColor="Green"
+                    TextColor="White"
+                    />
 
                 <Button
                     x:Name="SubmitButton"

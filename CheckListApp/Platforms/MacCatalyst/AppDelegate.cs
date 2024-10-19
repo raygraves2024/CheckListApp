@@ -1,6 +1,6 @@
 ﻿using Foundation;
 
-namespace CheckListApp
+namespace CheckListApp.Platforms.MacCatalyst
 {
     [Register("AppDelegate")]
     public class AppDelegate : MauiUIApplicationDelegate

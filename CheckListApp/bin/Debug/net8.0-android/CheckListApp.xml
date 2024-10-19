@@ -4,14 +4,14 @@
         <name>CheckListApp</name>
     </assembly>
     <members>
-        <member name="M:CheckListApp.Repositories.UserRepository.GetByIdAsync(System.Int32)">
+        <member name="M:CheckListApp.Respository.UserRepository.GetByIdAsync(System.Int32)">
             <summary>
             Retrieves a user by their ID.
             </summary>
             <param name="userId">The ID of the user to retrieve.</param>
             <returns>A Task representing the asynchronous operation. The task result contains the Users object if found, or null if not found.</returns>
         </member>
-        <member name="M:CheckListApp.Repositories.UserRepository.GetAllAsync">
+        <member name="M:CheckListApp.Respository.UserRepository.GetAllAsync">
             <summary>
             Retrieves all users from the database.
             </summary>

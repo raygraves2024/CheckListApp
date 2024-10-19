@@ -5,7 +5,7 @@ using System.Diagnostics;
 using CheckListApp.Data;
 using SQLite;
 
-namespace CheckListApp.Repositories
+namespace CheckListApp.Respository
 {
     public abstract class GenericRepository<T> where T : new()
     {

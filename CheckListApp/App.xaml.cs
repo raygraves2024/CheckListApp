@@ -21,7 +21,7 @@ public partial class App : Application
         else
         {
             MainPage = new AppShell();
-            Shell.Current.GoToAsync("//TaskEntryPage");
+            Shell.Current.GoToAsync("//ItemDetailPage");
         }
     }
 }

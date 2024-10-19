@@ -1,4 +1,4 @@
-package crc64d6ee9ca674b26377;
+package crc64f3e3201970c88d47;
 
 
 public class MainActivity
@@ -11,7 +11,7 @@ public class MainActivity
 	static {
 		__md_methods = 
 			"";
-		mono.android.Runtime.register ("CheckListApp.MainActivity, CheckListApp", MainActivity.class, __md_methods);
+		mono.android.Runtime.register ("CheckListApp.Platforms.Android.MainActivity, CheckListApp", MainActivity.class, __md_methods);
 	}
 
 
@@ -19,7 +19,7 @@ public class MainActivity
 	{
 		super ();
 		if (getClass () == MainActivity.class) {
-			mono.android.TypeManager.Activate ("CheckListApp.MainActivity, CheckListApp", "", this, new java.lang.Object[] {  });
+			mono.android.TypeManager.Activate ("CheckListApp.Platforms.Android.MainActivity, CheckListApp", "", this, new java.lang.Object[] {  });
 		}
 	}
 
@@ -28,7 +28,7 @@ public class MainActivity
 	{
 		super (p0);
 		if (getClass () == MainActivity.class) {
-			mono.android.TypeManager.Activate ("CheckListApp.MainActivity, CheckListApp", "System.Int32, System.Private.CoreLib", this, new java.lang.Object[] { p0 });
+			mono.android.TypeManager.Activate ("CheckListApp.Platforms.Android.MainActivity, CheckListApp", "System.Int32, System.Private.CoreLib", this, new java.lang.Object[] { p0 });
 		}
 	}
 

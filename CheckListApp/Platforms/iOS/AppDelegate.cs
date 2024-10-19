@@ -1,6 +1,6 @@
 ﻿using Foundation;
 
-namespace CheckListApp
+namespace CheckListApp.Platforms.iOS
 {
     [Register("AppDelegate")]
     public class AppDelegate : MauiUIApplicationDelegate

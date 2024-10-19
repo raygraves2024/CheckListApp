@@ -19,7 +19,7 @@ namespace CheckListApp.Model
         public int PriorityLevel { get; set; }
 
         public string? Category { get; set; }
-
+        public string? CreatedTask { get; set; }
         public DateTime DueDate { get; set; }
 
         public bool IsCompleted { get; set; }

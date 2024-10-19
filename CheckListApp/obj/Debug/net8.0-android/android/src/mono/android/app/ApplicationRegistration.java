@@ -5,7 +5,7 @@ public class ApplicationRegistration {
 	public static void registerApplications ()
 	{
 				// Application and Instrumentation ACWs must be registered first.
-		mono.android.Runtime.register ("CheckListApp.MainApplication, CheckListApp, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null", crc64d6ee9ca674b26377.MainApplication.class, crc64d6ee9ca674b26377.MainApplication.__md_methods);
+		mono.android.Runtime.register ("CheckListApp.Platforms.Android.MainApplication, CheckListApp, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null", crc64f3e3201970c88d47.MainApplication.class, crc64f3e3201970c88d47.MainApplication.__md_methods);
 		mono.android.Runtime.register ("Microsoft.Maui.MauiApplication, Microsoft.Maui, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null", crc6488302ad6e9e4df1a.MauiApplication.class, crc6488302ad6e9e4df1a.MauiApplication.__md_methods);
 		
 	}

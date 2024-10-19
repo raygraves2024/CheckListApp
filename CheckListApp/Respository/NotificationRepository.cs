@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using CheckListApp.Model;
 using SQLite;
 
-namespace CheckListApp.Repositories
+namespace CheckListApp.Respository
 {
     public class NotificationRepository : GenericRepository<Notification>
     {
