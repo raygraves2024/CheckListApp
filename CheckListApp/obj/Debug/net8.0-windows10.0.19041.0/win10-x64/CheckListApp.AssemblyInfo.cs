@@ -18,7 +18,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CheckListApp")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0+90d70d6df63223b1e0ad088740421782b988aee6")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0+7472086349c7ae5c67e4eeed44fbab2ab5816813")]
 [assembly: System.Reflection.AssemblyProductAttribute("CheckListApp")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CheckListApp")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
