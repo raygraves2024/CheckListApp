@@ -72,6 +72,7 @@
 	<ItemGroup>
 	  <None Remove="Resources\Raw\checklist.db3" />
 	</ItemGroup>
+  
 
 	<ItemGroup>
 		<PackageReference Include="CommunityToolkit.Common" Version="8.3.2" />
@@ -104,6 +105,9 @@
 	  <MauiXaml Update="View\LoginPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="View\RegistrationPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="View\TaskEntryPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
@@ -111,11 +115,22 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>
+  <ItemGroup>
+    <MauiXaml Update="View\RegistrationPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
+  </ItemGroup>
 
 	<ItemGroup>
 	  <AndroidResource Update="Resources\raw\AboutAssets.txt">
 	    <Generator></Generator>
 	  </AndroidResource>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Update="View\RegistrationPage.xaml.cs">
+	    <DependentUpon>RegistrationPage.xaml</DependentUpon>
+	  </Compile>
 	</ItemGroup>
 
 	<ItemGroup>

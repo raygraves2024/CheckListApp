@@ -13,6 +13,7 @@ public partial class AppShell : Shell
         Routing.RegisterRoute(nameof(MainPage), typeof(MainPage));
         Routing.RegisterRoute(nameof(LoginPage), typeof(LoginPage));
         Routing.RegisterRoute(nameof(TaskEntryPage), typeof(TaskEntryPage));
+        Routing.RegisterRoute(nameof(RegistrationPage), typeof(RegistrationPage));
     }
 
     public async Task NavigateToMainPage()
@@ -24,5 +25,10 @@ public partial class AppShell : Shell
     public async Task NavigateToLoginPage()
     {
         await Shell.Current.GoToAsync(nameof(LoginPage));
+    }
+    // Add this method to navigate to the RegistrationPage
+    public async Task NavigateToRegistrationPage()
+    {
+        await Shell.Current.GoToAsync(nameof(RegistrationPage));
     }
 }

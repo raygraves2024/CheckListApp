@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CheckListApp.View.RegistrationPage"
+             Title="Registration">
+    <ScrollView>
+        <VerticalStackLayout
+            Spacing="25"
+            Padding="30,0"
+            VerticalOptions="Center">
+
+            <Entry
+                x:Name="UsernameEntry"
+                Placeholder="Username"
+                Text="{Binding Username}" />
+
+            <Entry
+                x:Name="PasswordEntry"
+                Placeholder="Password"
+                IsPassword="True"
+                Text="{Binding Password}" />
+
+            <Entry
+                x:Name="EmailEntry"
+                Placeholder="Email"
+                Keyboard="Email"
+                Text="{Binding Email}" />
+
+            <Entry
+                x:Name="FirstNameEntry"
+                Placeholder="First Name"
+                Text="{Binding FirstName}" />
+
+            <Entry
+                x:Name="LastNameEntry"
+                Placeholder="Last Name"
+                Text="{Binding LastName}" />
+
+            <Button
+                x:Name="RegisterButton"
+                Text="Register"
+                Command="{Binding RegisterCommand}"
+                HorizontalOptions="Center" />
+
+            <Label
+                x:Name="StatusMessage"
+                Text="{Binding StatusMessage}"
+                HorizontalOptions="Center" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

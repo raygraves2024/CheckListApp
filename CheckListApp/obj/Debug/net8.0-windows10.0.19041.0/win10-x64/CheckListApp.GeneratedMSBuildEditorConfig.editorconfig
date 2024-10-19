@@ -62,6 +62,12 @@ build_metadata.AdditionalFiles.ManifestResourceName = CheckListApp.View.LoginPag
 build_metadata.AdditionalFiles.TargetPath = View\LoginPage.xaml
 build_metadata.AdditionalFiles.RelativePath = View\LoginPage.xaml
 
+[C:/Users/ray_g/source/repos/CheckListApp/CheckListApp/View/RegistrationPage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = CheckListApp.View.RegistrationPage.xaml
+build_metadata.AdditionalFiles.TargetPath = View\RegistrationPage.xaml
+build_metadata.AdditionalFiles.RelativePath = View\RegistrationPage.xaml
+
 [C:/Users/ray_g/source/repos/CheckListApp/CheckListApp/View/TaskEntryPage.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = CheckListApp.View.TaskEntryPage.xaml

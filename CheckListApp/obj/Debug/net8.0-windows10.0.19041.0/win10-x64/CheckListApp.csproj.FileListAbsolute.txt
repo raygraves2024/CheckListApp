@@ -112,8 +112,15 @@ C:\Users\ray_g\source\repos\CheckListApp\CheckListApp\obj\Debug\net8.0-windows10
 C:\Users\ray_g\source\repos\CheckListApp\CheckListApp\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\Platforms\Windows\App.xbf
 C:\Users\ray_g\source\repos\CheckListApp\CheckListApp\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\XamlSaveStateFile.xml
 C:\Users\ray_g\source\repos\CheckListApp\CheckListApp\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\CheckListApp.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\ray_g\source\repos\CheckListApp\CheckListApp\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\sp\splashSplashScreen.scale-100.png
+C:\Users\ray_g\source\repos\CheckListApp\CheckListApp\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\sp\splashSplashScreen.scale-125.png
+C:\Users\ray_g\source\repos\CheckListApp\CheckListApp\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\sp\splashSplashScreen.scale-150.png
+C:\Users\ray_g\source\repos\CheckListApp\CheckListApp\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\sp\splashSplashScreen.scale-200.png
+C:\Users\ray_g\source\repos\CheckListApp\CheckListApp\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\sp\splashSplashScreen.scale-400.png
 C:\Users\ray_g\source\repos\CheckListApp\CheckListApp\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\mauisplash.stamp
 C:\Users\ray_g\source\repos\CheckListApp\CheckListApp\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\mauifont.stamp
+C:\Users\ray_g\source\repos\CheckListApp\CheckListApp\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\f\OpenSans-Regular.ttf
+C:\Users\ray_g\source\repos\CheckListApp\CheckListApp\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\f\OpenSans-Semibold.ttf
 C:\Users\ray_g\source\repos\CheckListApp\CheckListApp\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\dotnet_bot.scale-400.png
 C:\Users\ray_g\source\repos\CheckListApp\CheckListApp\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\dotnet_bot.scale-200.png
 C:\Users\ray_g\source\repos\CheckListApp\CheckListApp\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\dotnet_bot.scale-150.png
@@ -194,10 +201,3 @@ C:\Users\ray_g\source\repos\CheckListApp\CheckListApp\obj\Debug\net8.0-windows10
 C:\Users\ray_g\source\repos\CheckListApp\CheckListApp\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\qualifiers.txt.intermediate
 C:\Users\ray_g\source\repos\CheckListApp\CheckListApp\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\MultipleQualifiersPerDimensionFound.txt
 C:\Users\ray_g\source\repos\CheckListApp\CheckListApp\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\ProjectArchitectures.txt
-C:\Users\ray_g\source\repos\CheckListApp\CheckListApp\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\sp\splashSplashScreen.scale-100.png
-C:\Users\ray_g\source\repos\CheckListApp\CheckListApp\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\sp\splashSplashScreen.scale-125.png
-C:\Users\ray_g\source\repos\CheckListApp\CheckListApp\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\sp\splashSplashScreen.scale-150.png
-C:\Users\ray_g\source\repos\CheckListApp\CheckListApp\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\sp\splashSplashScreen.scale-200.png
-C:\Users\ray_g\source\repos\CheckListApp\CheckListApp\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\sp\splashSplashScreen.scale-400.png
-C:\Users\ray_g\source\repos\CheckListApp\CheckListApp\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\f\OpenSans-Regular.ttf
-C:\Users\ray_g\source\repos\CheckListApp\CheckListApp\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\f\OpenSans-Semibold.ttf
