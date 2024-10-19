@@ -1,24 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\ray_g\\source\\repos\\CheckListApp\\CheckListApp\\CheckListApp.csproj": {}
+    "C:\\Users\\kitka\\Source\\Repos\\CheckListApp\\CheckListApp\\CheckListApp.csproj": {}
   },
   "projects": {
-    "C:\\Users\\ray_g\\source\\repos\\CheckListApp\\CheckListApp\\CheckListApp.csproj": {
+    "C:\\Users\\kitka\\Source\\Repos\\CheckListApp\\CheckListApp\\CheckListApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\ray_g\\source\\repos\\CheckListApp\\CheckListApp\\CheckListApp.csproj",
+        "projectUniqueName": "C:\\Users\\kitka\\Source\\Repos\\CheckListApp\\CheckListApp\\CheckListApp.csproj",
         "projectName": "CheckListApp",
-        "projectPath": "C:\\Users\\ray_g\\source\\repos\\CheckListApp\\CheckListApp\\CheckListApp.csproj",
-        "packagesPath": "C:\\Users\\ray_g\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\ray_g\\source\\repos\\CheckListApp\\CheckListApp\\obj\\",
+        "projectPath": "C:\\Users\\kitka\\Source\\Repos\\CheckListApp\\CheckListApp\\CheckListApp.csproj",
+        "packagesPath": "C:\\Users\\kitka\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\kitka\\Source\\Repos\\CheckListApp\\CheckListApp\\obj\\",
         "projectStyle": "PackageReference",
         "crossTargeting": true,
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\ray_g\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\kitka\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
