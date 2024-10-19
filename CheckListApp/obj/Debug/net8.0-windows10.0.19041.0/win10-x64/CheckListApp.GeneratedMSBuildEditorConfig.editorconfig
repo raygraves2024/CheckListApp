@@ -9,7 +9,7 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = CheckListApp
-build_property.ProjectDir = C:\Users\ray_g\source\repos\CheckListApp\CheckListApp\
+build_property.ProjectDir = C:\Users\kitka\Source\Repos\CheckListApp\CheckListApp\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.CsWinRTAotOptimizerEnabled = true
@@ -20,55 +20,55 @@ build_property.CsWinRTCcwLookupTableGeneratorEnabled = true
 build_property.CsWinRTMergeReferencedActivationFactories = 
 build_property.CsWinRTAotWarningLevel = 
 
-[C:/Users/ray_g/source/repos/CheckListApp/CheckListApp/App.xaml]
+[C:/Users/kitka/Source/Repos/CheckListApp/CheckListApp/App.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = CheckListApp.App.xaml
 build_metadata.AdditionalFiles.TargetPath = App.xaml
 build_metadata.AdditionalFiles.RelativePath = App.xaml
 
-[C:/Users/ray_g/source/repos/CheckListApp/CheckListApp/AppShell.xaml]
+[C:/Users/kitka/Source/Repos/CheckListApp/CheckListApp/AppShell.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = CheckListApp.AppShell.xaml
 build_metadata.AdditionalFiles.TargetPath = AppShell.xaml
 build_metadata.AdditionalFiles.RelativePath = AppShell.xaml
 
-[C:/Users/ray_g/source/repos/CheckListApp/CheckListApp/MainPage.xaml]
+[C:/Users/kitka/Source/Repos/CheckListApp/CheckListApp/MainPage.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = CheckListApp.MainPage.xaml
 build_metadata.AdditionalFiles.TargetPath = MainPage.xaml
 build_metadata.AdditionalFiles.RelativePath = MainPage.xaml
 
-[C:/Users/ray_g/source/repos/CheckListApp/CheckListApp/Resources/Styles/Colors.xaml]
+[C:/Users/kitka/Source/Repos/CheckListApp/CheckListApp/Resources/Styles/Colors.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = CheckListApp.Resources.Styles.Colors.xaml
 build_metadata.AdditionalFiles.TargetPath = Resources\Styles\Colors.xaml
 build_metadata.AdditionalFiles.RelativePath = Resources\Styles\Colors.xaml
 
-[C:/Users/ray_g/source/repos/CheckListApp/CheckListApp/Resources/Styles/Styles.xaml]
+[C:/Users/kitka/Source/Repos/CheckListApp/CheckListApp/Resources/Styles/Styles.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = CheckListApp.Resources.Styles.Styles.xaml
 build_metadata.AdditionalFiles.TargetPath = Resources\Styles\Styles.xaml
 build_metadata.AdditionalFiles.RelativePath = Resources\Styles\Styles.xaml
 
-[C:/Users/ray_g/source/repos/CheckListApp/CheckListApp/View/ItemDetailPage.xaml]
+[C:/Users/kitka/Source/Repos/CheckListApp/CheckListApp/View/ItemDetailPage.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = CheckListApp.View.ItemDetailPage.xaml
 build_metadata.AdditionalFiles.TargetPath = View\ItemDetailPage.xaml
 build_metadata.AdditionalFiles.RelativePath = View\ItemDetailPage.xaml
 
-[C:/Users/ray_g/source/repos/CheckListApp/CheckListApp/View/LoginPage.xaml]
+[C:/Users/kitka/Source/Repos/CheckListApp/CheckListApp/View/LoginPage.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = CheckListApp.View.LoginPage.xaml
 build_metadata.AdditionalFiles.TargetPath = View\LoginPage.xaml
 build_metadata.AdditionalFiles.RelativePath = View\LoginPage.xaml
 
-[C:/Users/ray_g/source/repos/CheckListApp/CheckListApp/View/TaskEntryPage.xaml]
+[C:/Users/kitka/Source/Repos/CheckListApp/CheckListApp/View/TaskEntryPage.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = CheckListApp.View.TaskEntryPage.xaml
 build_metadata.AdditionalFiles.TargetPath = View\TaskEntryPage.xaml
 build_metadata.AdditionalFiles.RelativePath = View\TaskEntryPage.xaml
 
-[C:/Users/ray_g/source/repos/CheckListApp/CheckListApp/View/UserTaskPage.xaml]
+[C:/Users/kitka/Source/Repos/CheckListApp/CheckListApp/View/UserTaskPage.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = CheckListApp.View.UserTaskPage.xaml
 build_metadata.AdditionalFiles.TargetPath = View\UserTaskPage.xaml
