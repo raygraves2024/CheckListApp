@@ -1,7 +1,28 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Users\\ray_g\\source\\repos\\CheckListApp\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{04432177-34DD-41E7-8A20-A8D324E94A54}|CheckListApp\\CheckListApp.csproj|c:\\users\\ray_g\\source\\repos\\checklistapp\\checklistapp\\checklistapp.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{04432177-34DD-41E7-8A20-A8D324E94A54}|CheckListApp\\CheckListApp.csproj|solutionrelative:checklistapp\\checklistapp.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{04432177-34DD-41E7-8A20-A8D324E94A54}|CheckListApp\\CheckListApp.csproj|c:\\users\\ray_g\\source\\repos\\checklistapp\\checklistapp\\appshell.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{04432177-34DD-41E7-8A20-A8D324E94A54}|CheckListApp\\CheckListApp.csproj|solutionrelative:checklistapp\\appshell.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{04432177-34DD-41E7-8A20-A8D324E94A54}|CheckListApp\\CheckListApp.csproj|c:\\users\\ray_g\\source\\repos\\checklistapp\\checklistapp\\app.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{04432177-34DD-41E7-8A20-A8D324E94A54}|CheckListApp\\CheckListApp.csproj|solutionrelative:checklistapp\\app.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{04432177-34DD-41E7-8A20-A8D324E94A54}|CheckListApp\\CheckListApp.csproj|c:\\users\\ray_g\\source\\repos\\checklistapp\\checklistapp\\appshell.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{04432177-34DD-41E7-8A20-A8D324E94A54}|CheckListApp\\CheckListApp.csproj|solutionrelative:checklistapp\\appshell.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{04432177-34DD-41E7-8A20-A8D324E94A54}|CheckListApp\\CheckListApp.csproj|c:\\users\\ray_g\\source\\repos\\checklistapp\\checklistapp\\viewmodels\\loginviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{04432177-34DD-41E7-8A20-A8D324E94A54}|CheckListApp\\CheckListApp.csproj|solutionrelative:checklistapp\\viewmodels\\loginviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -9,19 +30,81 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": -1,
+          "SelectedChildIndex": 3,
           "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
             },
             {
               "$type": "Bookmark",
-              "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+              "Name": "ST:129:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
             },
             {
-              "$type": "Bookmark",
-              "Name": "ST:129:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "CheckListApp",
+              "DocumentMoniker": "C:\\Users\\ray_g\\source\\repos\\CheckListApp\\CheckListApp\\CheckListApp.csproj",
+              "RelativeDocumentMoniker": "CheckListApp\\CheckListApp.csproj",
+              "ToolTip": "C:\\Users\\ray_g\\source\\repos\\CheckListApp\\CheckListApp\\CheckListApp.csproj",
+              "RelativeToolTip": "CheckListApp\\CheckListApp.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2024-10-21T18:56:56.843Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "AppShell.xaml",
+              "DocumentMoniker": "C:\\Users\\ray_g\\source\\repos\\CheckListApp\\CheckListApp\\AppShell.xaml",
+              "RelativeDocumentMoniker": "CheckListApp\\AppShell.xaml",
+              "ToolTip": "C:\\Users\\ray_g\\source\\repos\\CheckListApp\\CheckListApp\\AppShell.xaml",
+              "RelativeToolTip": "CheckListApp\\AppShell.xaml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACAAAAAXAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2024-10-21T17:59:27.196Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "LoginViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\ray_g\\source\\repos\\CheckListApp\\CheckListApp\\ViewModels\\LoginViewModel.cs",
+              "RelativeDocumentMoniker": "CheckListApp\\ViewModels\\LoginViewModel.cs",
+              "ToolTip": "C:\\Users\\ray_g\\source\\repos\\CheckListApp\\CheckListApp\\ViewModels\\LoginViewModel.cs",
+              "RelativeToolTip": "CheckListApp\\ViewModels\\LoginViewModel.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAqwDYAAAA3AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-21T17:51:58.791Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "AppShell.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\ray_g\\source\\repos\\CheckListApp\\CheckListApp\\AppShell.xaml.cs",
+              "RelativeDocumentMoniker": "CheckListApp\\AppShell.xaml.cs",
+              "ToolTip": "C:\\Users\\ray_g\\source\\repos\\CheckListApp\\CheckListApp\\AppShell.xaml.cs",
+              "RelativeToolTip": "CheckListApp\\AppShell.xaml.cs",
+              "ViewState": "AgIAACgAAAAAAAAAAAAowC8AAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-21T17:45:24.181Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "App.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\ray_g\\source\\repos\\CheckListApp\\CheckListApp\\App.xaml.cs",
+              "RelativeDocumentMoniker": "CheckListApp\\App.xaml.cs",
+              "ToolTip": "C:\\Users\\ray_g\\source\\repos\\CheckListApp\\CheckListApp\\App.xaml.cs",
+              "RelativeToolTip": "CheckListApp\\App.xaml.cs",
+              "ViewState": "AgIAAAwAAAAAAAAAAAA7wDEAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-21T17:45:11.639Z"
             }
           ]
         }

@@ -8,25 +8,8 @@ namespace CheckListApp.Respository
 {
     public class UserRepository : GenericRepository<Users>
     {
-        private static UserRepository _instance;
-        private static readonly object _lock = new object();
-
-        private UserRepository() : base() { }
-
-        public static UserRepository Instance
-        {
-            get
-            {
-                if (_instance == null)
-                {
-                    lock (_lock)
-                    {
-                        _instance ??= new UserRepository();
-                    }
-                }
-                return _instance;
-            }
-        }
+        // Public constructor for dependency injection
+        public UserRepository() : base() { }
 
         /// <summary>
         /// Retrieves a user by their ID.
@@ -65,6 +48,28 @@ namespace CheckListApp.Respository
             }
         }
 
-        // Additional methods can be added here if needed for user-specific operations
+        /// <summary>
+        /// Retrieves a user by their username.
+        /// </summary>
+        /// <param name="username">The username of the user to retrieve.</param>
+        /// <returns>A Task representing the asynchronous operation. The task result contains the Users object if found, or null if not found.</returns>
+        public async Task<Users> GetUserByUsernameAsync(string username)
+        {
+            await InitializeAsync();
+            try
+            {
+                return await (await _database.Table<Users>()).FirstOrDefaultAsync(u => u.Username == username);
+            }
+            catch (Exception ex)
+            {
+                LogError(nameof(GetUserByUsernameAsync), ex);
+                return null;
+            }
+        }
+
+        private void LogError(string methodName, Exception ex)
+        {
+            Console.WriteLine($"Error in {methodName}: {ex.Message}");
+        }
     }
 }

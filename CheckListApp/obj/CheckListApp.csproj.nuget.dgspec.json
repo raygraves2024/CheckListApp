@@ -104,23 +104,23 @@
             },
             "Microsoft.Maui.Controls": {
               "target": "Package",
-              "version": "[8.0.91, )"
+              "version": "[8.0.92, )"
             },
             "Microsoft.Maui.Controls.Compatibility": {
               "target": "Package",
-              "version": "[8.0.91, )"
+              "version": "[8.0.92, )"
             },
             "Microsoft.Maui.Controls.Xaml": {
               "target": "Package",
-              "version": "[8.0.91, )"
+              "version": "[8.0.92, )"
             },
             "Microsoft.Maui.Essentials": {
               "target": "Package",
-              "version": "[8.0.91, )"
+              "version": "[8.0.92, )"
             },
             "Microsoft.Maui.Graphics": {
               "target": "Package",
-              "version": "[8.0.91, )"
+              "version": "[8.0.92, )"
             },
             "Microsoft.NET.ILLink.Tasks": {
               "suppressParent": "All",
@@ -211,23 +211,23 @@
             },
             "Microsoft.Maui.Controls": {
               "target": "Package",
-              "version": "[8.0.91, )"
+              "version": "[8.0.92, )"
             },
             "Microsoft.Maui.Controls.Compatibility": {
               "target": "Package",
-              "version": "[8.0.91, )"
+              "version": "[8.0.92, )"
             },
             "Microsoft.Maui.Controls.Xaml": {
               "target": "Package",
-              "version": "[8.0.91, )"
+              "version": "[8.0.92, )"
             },
             "Microsoft.Maui.Essentials": {
               "target": "Package",
-              "version": "[8.0.91, )"
+              "version": "[8.0.92, )"
             },
             "Microsoft.Maui.Graphics": {
               "target": "Package",
-              "version": "[8.0.91, )"
+              "version": "[8.0.92, )"
             },
             "Microsoft.NET.ILLink.Tasks": {
               "suppressParent": "All",
@@ -318,23 +318,23 @@
             },
             "Microsoft.Maui.Controls": {
               "target": "Package",
-              "version": "[8.0.91, )"
+              "version": "[8.0.92, )"
             },
             "Microsoft.Maui.Controls.Compatibility": {
               "target": "Package",
-              "version": "[8.0.91, )"
+              "version": "[8.0.92, )"
             },
             "Microsoft.Maui.Controls.Xaml": {
               "target": "Package",
-              "version": "[8.0.91, )"
+              "version": "[8.0.92, )"
             },
             "Microsoft.Maui.Essentials": {
               "target": "Package",
-              "version": "[8.0.91, )"
+              "version": "[8.0.92, )"
             },
             "Microsoft.Maui.Graphics": {
               "target": "Package",
-              "version": "[8.0.91, )"
+              "version": "[8.0.92, )"
             },
             "Microsoft.NET.ILLink.Tasks": {
               "suppressParent": "All",
@@ -426,23 +426,23 @@
             },
             "Microsoft.Maui.Controls": {
               "target": "Package",
-              "version": "[8.0.91, )"
+              "version": "[8.0.92, )"
             },
             "Microsoft.Maui.Controls.Compatibility": {
               "target": "Package",
-              "version": "[8.0.91, )"
+              "version": "[8.0.92, )"
             },
             "Microsoft.Maui.Controls.Xaml": {
               "target": "Package",
-              "version": "[8.0.91, )"
+              "version": "[8.0.92, )"
             },
             "Microsoft.Maui.Essentials": {
               "target": "Package",
-              "version": "[8.0.91, )"
+              "version": "[8.0.92, )"
             },
             "Microsoft.Maui.Graphics": {
               "target": "Package",
-              "version": "[8.0.91, )"
+              "version": "[8.0.92, )"
             },
             "SQLite": {
               "target": "Package",

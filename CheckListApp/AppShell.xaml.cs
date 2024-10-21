@@ -1,34 +1,72 @@
 ﻿using CheckListApp.View;
 using Microsoft.Maui;
 using Microsoft.Extensions.DependencyInjection;
+using CheckListApp.Respository;
+using System.Threading.Tasks;
 
-namespace CheckListApp;
-public partial class AppShell : Shell
+namespace CheckListApp
 {
-    public AppShell()
+    public partial class AppShell : Shell
     {
-        InitializeComponent();
+        private readonly TestRepositories _testRepositories;
 
-        Routing.RegisterRoute(nameof(UserTaskPage), typeof(UserTaskPage));
-        Routing.RegisterRoute(nameof(MainPage), typeof(MainPage));
-        Routing.RegisterRoute(nameof(LoginPage), typeof(LoginPage));
-        Routing.RegisterRoute(nameof(TaskEntryPage), typeof(TaskEntryPage));
-        Routing.RegisterRoute(nameof(RegistrationPage), typeof(RegistrationPage));
-    }
+        public AppShell()
+        {
+            InitializeComponent();
 
-    public async Task NavigateToMainPage()
-    {
-        var mainPage = (MainPage)App.Current.Handler.MauiContext.Services.GetService(typeof(MainPage));
-        await Shell.Current.GoToAsync(nameof(MainPage));
-    }
+            Routing.RegisterRoute(nameof(UserTaskPage), typeof(UserTaskPage));
+            Routing.RegisterRoute(nameof(MainPage), typeof(MainPage));
+            Routing.RegisterRoute(nameof(LoginPage), typeof(LoginPage));
+            Routing.RegisterRoute(nameof(TaskEntryPage), typeof(TaskEntryPage));
+            Routing.RegisterRoute(nameof(RegistrationPage), typeof(RegistrationPage));
 
-    public async Task NavigateToLoginPage()
-    {
-        await Shell.Current.GoToAsync(nameof(LoginPage));
-    }
-    // Add this method to navigate to the RegistrationPage
-    public async Task NavigateToRegistrationPage()
-    {
-        await Shell.Current.GoToAsync(nameof(RegistrationPage));
+            // Add a default content to the Shell
+            this.Items.Add(new ShellContent
+            {
+                Route = "main",
+                ContentTemplate = new DataTemplate(() => new MainPage())
+            });
+        }
+
+        public AppShell(IServiceProvider serviceProvider) : this()
+        {
+            // Initialize TestRepositories with the required repositories
+            _testRepositories = new TestRepositories(
+                serviceProvider.GetRequiredService<UserRepository>(),
+                serviceProvider.GetRequiredService<UserTaskRepository>(),
+                serviceProvider.GetRequiredService<CommentRepository>(),
+                serviceProvider.GetRequiredService<NotificationRepository>()
+            );
+        }
+
+        public async Task NavigateToMainPage()
+        {
+            await Shell.Current.GoToAsync("//main");
+        }
+
+        public async Task RunAllTests()
+        {
+            if (_testRepositories != null)
+            {
+                await _testRepositories.RunAllTests();
+            }
+            else
+            {
+                Console.WriteLine("TestRepositories is not initialized. Unable to run tests.");
+            }
+        }
+
+        // Uncomment and modify these methods if needed in the future
+        
+        public async Task NavigateToLoginPage()
+        {
+            await Shell.Current.GoToAsync(nameof(LoginPage));
+        }
+
+        public async Task NavigateToRegistrationPage()
+        {
+            await Shell.Current.GoToAsync(nameof(RegistrationPage));
+        }
+       
     }
 }

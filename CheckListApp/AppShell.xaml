@@ -7,15 +7,28 @@
     xmlns:view="clr-namespace:CheckListApp.View"
     Shell.FlyoutBehavior="Disabled">
 
+    <ShellContent
+    Title="Tasks"
+    ContentTemplate="{DataTemplate view:UserTaskPage}"
+    Route="UserTaskPage" />
+
+    <ShellContent
+    Title="Login"
+    ContentTemplate="{DataTemplate view:LoginPage}"
+    Route="LoginPage" />
 
     <ShellContent
     Title="Task Entry"
     ContentTemplate="{DataTemplate view:TaskEntryPage}"
     Route="TaskEntryPage" />
-    
-    <ShellContent
-        Title="Tasks"
-        ContentTemplate="{DataTemplate view:UserTaskPage}"
-        Route="UserTaskPage" />
 
+    <ShellContent
+    Title="Registration"
+    ContentTemplate="{DataTemplate view:RegistrationPage}"
+    Route="RegistrationPage" />
+
+    <ShellContent
+        Title="Home"
+        ContentTemplate="{DataTemplate local:MainPage}"
+        Route="main" />
 </Shell>

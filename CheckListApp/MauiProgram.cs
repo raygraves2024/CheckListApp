@@ -5,6 +5,9 @@ using CheckListApp.ViewModels;
 using CheckListApp.View;
 using CheckListApp.Data;
 using CommunityToolkit.Maui;
+using CheckListApp.Respository;
+using SQLite;
+using System.IO;
 
 namespace CheckListApp;
 
@@ -26,23 +29,38 @@ public static class MauiProgram
 
         builder.Services.AddSingleton<TaskDatabase>();
 
+        builder.Services.AddSingleton<SQLiteAsyncConnection>(_ =>
+            new SQLiteAsyncConnection(Path.Combine(FileSystem.AppDataDirectory, "checklist.db3")));
+
         builder.Services.AddSingleton<UserTaskService>();
-        builder.Services.AddSingleton<AuthenticationService>();
+        builder.Services.AddScoped<AuthenticationService>();
         builder.Services.AddSingleton<UserService>();
+        builder.Services.AddScoped<UserRepository>();
 
         builder.Services.AddTransient<UserTaskViewModel>();
-        //builder.Services.AddTransient<__MainPageViewModel>();
+        builder.Services.AddTransient<MainPageViewModel>();
         builder.Services.AddTransient<LoginViewModel>();
         builder.Services.AddTransient<TaskEntryViewModel>();
+        builder.Services.AddTransient<RegistrationViewModel>();
 
         builder.Services.AddTransient<MainPage>();
         builder.Services.AddTransient<UserTaskPage>();
         builder.Services.AddTransient<ItemDetailPage>();
         builder.Services.AddTransient<LoginPage>();
         builder.Services.AddTransient<TaskEntryPage>();
+        builder.Services.AddTransient<RegistrationPage>();
+
+       
 
         builder.Services.AddSingleton<App>();
 
         return builder.Build();
+    }
+
+    public static async Task RunDatabaseTests()
+    {
+        var app = CreateMauiApp();
+        var appInstance = app.Services.GetRequiredService<App>();
+        await appInstance.RunDatabaseTests();
     }
 }
