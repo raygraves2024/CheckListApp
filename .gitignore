@@ -2,4 +2,69 @@
 # This .gitignore file was automatically created by Microsoft(R) Visual Studio.
 ################################################################################
 
-/.vs
+# Ignore Visual Studio temporary files, build results, and
+# user-specific files
+.vs/
+*.user
+*.suo
+*.vcxproj.user
+*.opendb
+*.obj
+*.log
+*.patch
+*.pdb
+*.ilk
+*.idb
+*.tlog
+*.lastbuildstate
+*.cache
+*.csproj.user
+
+# Build results
+bin/
+obj/
+debug/
+release/
+
+# Ignore project temporary files
+*.tmp
+*.ide
+*.bak
+
+# Ignore application configuration files
+*.config
+*.env
+
+# Ignore package-related files
+packages/
+.nuget/
+*.nupkg
+
+# Ignore Rider/JetBrains files
+.idea/
+
+# Ignore test results
+TestResults/
+*.trx
+*.coverage
+
+# Ignore database and generated files
+*.mdf
+*.ldf
+*.dbmdl
+*.jfm
+
+# Ignore Web-specific files
+App_Data/
+
+# Ignore publishing settings
+.publishsettings
+
+# Windows specific
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# macOS specific
+.DS_Store
