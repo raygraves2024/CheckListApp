@@ -21,6 +21,7 @@
 *.csproj.user
 
 # Build results
+*.env
 bin/
 obj/
 debug/
