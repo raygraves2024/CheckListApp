@@ -66,6 +66,12 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Remove="Services\RegistriatiionService.cs" />
+	  <Compile Remove="TestContent.cs" />
+	  <Compile Remove="TestRepositories.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <MauiAsset Remove="Resources\Raw\checklist.db3" />
 	</ItemGroup>
 
@@ -128,6 +134,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="Data\TaskDatabase.cs">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Compile>
 	  <Compile Update="View\RegistrationPage.xaml.cs">
 	    <DependentUpon>RegistrationPage.xaml</DependentUpon>
 	  </Compile>

@@ -22,7 +22,7 @@ namespace CheckListApp.ViewModels
             _userService = userService;
             LoadUserAndTasksCommand = new AsyncRelayCommand(LoadUserAndTasksAsync);
             SelectTaskCommand = new AsyncRelayCommand<UserTask>(SelectTaskAsync);
-            RunTestsCommand = new RelayCommand(RunTests);  // Added command for running tests
+            //RunTestsCommand = new RelayCommand(RunTests);  // Added command for running tests
         }
 
         [ObservableProperty]
@@ -96,11 +96,11 @@ namespace CheckListApp.ViewModels
         }
 
         // Method to run tests
-        private void RunTests()
-        {
-            var testRepository = new TestRepositories();
-            testRepository.RunAllTests();  // Call the test method from TestRepositories
-            Debug.WriteLine("Test repositories executed successfully.");
-        }
+        //private void RunTests()
+        //{
+        //    var testRepository = new TestRepositories();
+        //    testRepository.RunAllTests();  // Call the test method from TestRepositories
+        //    Debug.WriteLine("Test repositories executed successfully.");
+        //}
     }
 }

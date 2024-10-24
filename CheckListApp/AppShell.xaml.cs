@@ -8,35 +8,43 @@ namespace CheckListApp
 {
     public partial class AppShell : Shell
     {
-        private readonly TestRepositories _testRepositories;
+        //private readonly TestRepositories _testRepositories;
+        private readonly IServiceProvider _serviceProvider;
 
         public AppShell()
         {
             InitializeComponent();
+            RegisterRoutes();
+        }
 
+        public AppShell(IServiceProvider serviceProvider) : this()
+        {
+            _serviceProvider = serviceProvider;
+
+            // Initialize TestRepositories with the required repositories
+            //_testRepositories = new TestRepositories(
+            //    serviceProvider.GetRequiredService<UserRepository>(),
+            //    serviceProvider.GetRequiredService<UserTaskRepository>(),
+            //    serviceProvider.GetRequiredService<CommentRepository>(),
+            //    serviceProvider.GetRequiredService<NotificationRepository>()
+            //);
+        }
+
+        private void RegisterRoutes()
+        {
             Routing.RegisterRoute(nameof(UserTaskPage), typeof(UserTaskPage));
             Routing.RegisterRoute(nameof(MainPage), typeof(MainPage));
             Routing.RegisterRoute(nameof(LoginPage), typeof(LoginPage));
             Routing.RegisterRoute(nameof(TaskEntryPage), typeof(TaskEntryPage));
             Routing.RegisterRoute(nameof(RegistrationPage), typeof(RegistrationPage));
 
-            // Add a default content to the Shell
+            // Add default content
             this.Items.Add(new ShellContent
             {
                 Route = "main",
-                ContentTemplate = new DataTemplate(() => new MainPage())
+                ContentTemplate = new DataTemplate(() =>
+                    _serviceProvider?.GetService<MainPage>() ?? new MainPage())
             });
-        }
-
-        public AppShell(IServiceProvider serviceProvider) : this()
-        {
-            // Initialize TestRepositories with the required repositories
-            _testRepositories = new TestRepositories(
-                serviceProvider.GetRequiredService<UserRepository>(),
-                serviceProvider.GetRequiredService<UserTaskRepository>(),
-                serviceProvider.GetRequiredService<CommentRepository>(),
-                serviceProvider.GetRequiredService<NotificationRepository>()
-            );
         }
 
         public async Task NavigateToMainPage()
@@ -44,20 +52,18 @@ namespace CheckListApp
             await Shell.Current.GoToAsync("//main");
         }
 
-        public async Task RunAllTests()
-        {
-            if (_testRepositories != null)
-            {
-                await _testRepositories.RunAllTests();
-            }
-            else
-            {
-                Console.WriteLine("TestRepositories is not initialized. Unable to run tests.");
-            }
-        }
+        //public async Task RunAllTests()
+        //{
+        //    if (_testRepositories != null)
+        //    {
+        //        await _testRepositories.RunAllTests();
+        //    }
+        //    else
+        //    {
+        //        Console.WriteLine("TestRepositories is not initialized. Unable to run tests.");
+        //    }
+        //}
 
-        // Uncomment and modify these methods if needed in the future
-        
         public async Task NavigateToLoginPage()
         {
             await Shell.Current.GoToAsync(nameof(LoginPage));
@@ -67,6 +73,5 @@ namespace CheckListApp
         {
             await Shell.Current.GoToAsync(nameof(RegistrationPage));
         }
-       
     }
 }

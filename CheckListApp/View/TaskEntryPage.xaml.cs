@@ -25,13 +25,13 @@ namespace CheckListApp.View
 
         private async void OnSaveDataClicked(object sender, EventArgs e)
         {
-            var userData = new UserData
-            {
-                Task = TaskEntry.Text,
-                Description = TaskDescriptionEditor.Text
-            };
+            //var userData = new UserData
+            //{
+            //    Task = TaskEntry.Text,
+            //    Description = TaskDescriptionEditor.Text
+            //};
 
-            await SaveData(userData);
+            //await SaveData(userData);
         }
 
         private async Task SaveData(UserData userData)

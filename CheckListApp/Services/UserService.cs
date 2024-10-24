@@ -11,15 +11,16 @@ namespace CheckListApp.Services
     public class UserService
     {
         private readonly TaskDatabase _database;
+        private readonly IPasswordHasher _passwordHasher;
 
-        public UserService(TaskDatabase database)
+        public UserService(TaskDatabase database, IPasswordHasher passwordHasher)
         {
-            _database = database;
+            _database = database ?? throw new ArgumentNullException(nameof(database));
+            _passwordHasher = passwordHasher ?? throw new ArgumentNullException(nameof(passwordHasher));
         }
+
         public async Task UpdateTaskAsync(UserTask task)
         {
-            // Implement your update logic here
-            // This might involve updating a database or making an API call
             await Task.Delay(100); // Placeholder for actual update operation
         }
 
@@ -51,19 +52,34 @@ namespace CheckListApp.Services
             return await table.ToListAsync();
         }
 
-        public async Task<int> SaveUserAsync(Users user)
+        public async Task<(bool success, string message)> SaveUserAsync(Users user, string password = null)
         {
-            await _database.InitializeDatabaseAsync();
-            if (user.UserID != 0)
+            try
             {
-                user.UpdatedDate = DateTime.Now;
-                return await _database.UpdateAsync(user);
+                await _database.InitializeDatabaseAsync();
+
+                // If this is a new user and password is provided, hash it
+                if (user.UserID == 0 && !string.IsNullOrEmpty(password))
+                {
+                    user.PasswordHash = _passwordHasher.HashPassword(password);
+                }
+
+                if (user.UserID != 0)
+                {
+                    user.UpdatedDate = DateTime.UtcNow;
+                    await _database.UpdateAsync(user);
+                }
+                else
+                {
+                    user.CreatedDate = DateTime.UtcNow;
+                    user.UpdatedDate = DateTime.UtcNow;
+                    await _database.InsertAsync(user);
+                }
+                return (true, "User saved successfully.");
             }
-            else
+            catch (Exception ex)
             {
-                user.CreatedDate = DateTime.Now;
-                user.UpdatedDate = DateTime.Now;
-                return await _database.InsertAsync(user);
+                return (false, $"Error saving user: {ex.Message}");
             }
         }
 
@@ -73,45 +89,82 @@ namespace CheckListApp.Services
             return await _database.DeleteAsync(user);
         }
 
-        public async Task<Users> AuthenticateUserAsync(string username, string password)
+        public async Task<(bool success, Users user, string message)> AuthenticateUserAsync(string username, string password)
         {
-            var user = await GetUserByUsernameAsync(username);
-            if (user != null)
+            try
             {
-                // In a real application, you should use proper password hashing and verification
-                // This is a simplified example and should not be used in production
-                if (user.Password == password)
+                var user = await GetUserByUsernameAsync(username);
+                if (user == null)
                 {
-                    return user;
+                    return (false, null, "Invalid username or password.");
                 }
+
+                if (string.IsNullOrEmpty(user.PasswordHash))
+                {
+                    return (false, null, "User account requires password reset.");
+                }
+
+                if (_passwordHasher.VerifyPassword(password, user.PasswordHash))
+                {
+                    return (true, user, "Authentication successful.");
+                }
+
+                return (false, null, "Invalid username or password.");
             }
-            return null;
+            catch (Exception ex)
+            {
+                return (false, null, "An error occurred during authentication.");
+            }
         }
 
-        public async Task<bool> ChangePasswordAsync(int userId, string currentPassword, string newPassword)
+        public async Task<(bool success, string message)> ChangePasswordAsync(int userId, string currentPassword, string newPassword)
         {
-            var user = await GetUserAsync(userId);
-            if (user != null && user.Password == currentPassword)
+            try
             {
-                user.Password = newPassword;
-                user.UpdatedDate = DateTime.Now;
+                var user = await GetUserAsync(userId);
+                if (user == null)
+                {
+                    return (false, "User not found.");
+                }
+
+                // Verify current password
+                if (!_passwordHasher.VerifyPassword(currentPassword, user.PasswordHash))
+                {
+                    return (false, "Current password is incorrect.");
+                }
+
+                // Hash and save new password
+                user.PasswordHash = _passwordHasher.HashPassword(newPassword);
+                user.UpdatedDate = DateTime.UtcNow;
                 await _database.UpdateAsync(user);
-                return true;
+
+                return (true, "Password changed successfully.");
             }
-            return false;
+            catch (Exception ex)
+            {
+                return (false, "An error occurred while changing the password.");
+            }
         }
 
-        public async Task<bool> UpdateEmailAsync(int userId, string newEmail)
+        public async Task<(bool success, string message)> UpdateEmailAsync(int userId, string newEmail)
         {
-            var user = await GetUserAsync(userId);
-            if (user != null)
+            try
             {
+                var user = await GetUserAsync(userId);
+                if (user == null)
+                {
+                    return (false, "User not found.");
+                }
+
                 user.Email = newEmail;
-                user.UpdatedDate = DateTime.Now;
+                user.UpdatedDate = DateTime.UtcNow;
                 await _database.UpdateAsync(user);
-                return true;
+                return (true, "Email updated successfully.");
             }
-            return false;
+            catch (Exception ex)
+            {
+                return (false, "An error occurred while updating the email.");
+            }
         }
 
         public async Task<bool> IsUsernameTakenAsync(string username)

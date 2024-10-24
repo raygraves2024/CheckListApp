@@ -47,21 +47,21 @@ namespace CheckListApp.ViewModels
                 return;
             }
 
-            if (await _authService.LoginAsync(Username, Password))
-            {
-                // Create and set the AppShell as the MainPage if it doesn't exist
-                if (Application.Current.MainPage is not AppShell)
-                {
-                    Application.Current.MainPage = new AppShell();
-                }
+        //    if (await _authService.LoginAsync(Username, Password))
+        //    {
+        //        // Create and set the AppShell as the MainPage if it doesn't exist
+        //        if (Application.Current.MainPage is not AppShell)
+        //        {
+        //            Application.Current.MainPage = new AppShell();
+        //        }
 
-                // Now that we've ensured AppShell is set, we can safely use Shell.Current
-                await Shell.Current.GoToAsync("//TaskEntryPage");
-            }
-            else
-            {
-                await Application.Current.MainPage.DisplayAlert("Error", "Invalid username or password.", "OK");
-            }
+        //        // Now that we've ensured AppShell is set, we can safely use Shell.Current
+        //        await Shell.Current.GoToAsync("//TaskEntryPage");
+        //    }
+        //    else
+        //    {
+        //        await Application.Current.MainPage.DisplayAlert("Error", "Invalid username or password.", "OK");
+        //    }
         }
     }
 }

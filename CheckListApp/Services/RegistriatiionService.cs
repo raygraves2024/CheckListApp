@@ -47,7 +47,8 @@ namespace CheckListApp.Services
                 throw new InvalidOperationException("Username already exists.");
             }
 
-            byte[] passwordHash = GeneratePasswordHash(password);
+            byte[] hashBytes = GeneratePasswordHash(password);
+            string passwordHash = Convert.ToBase64String(hashBytes); // Convert byte[] to string
 
             var newUser = new Users
             {

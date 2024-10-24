@@ -3,50 +3,114 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="CheckListApp.View.RegistrationPage"
              Title="Registration">
+
     <ScrollView>
-        <VerticalStackLayout
-            Spacing="25"
-            Padding="30,0"
-            VerticalOptions="Center">
+        <VerticalStackLayout Spacing="10" Padding="20">
+            <Label Text="Create Account" 
+                   FontSize="24" 
+                   HorizontalOptions="Center"
+                   Margin="0,0,0,20"/>
 
-            <Entry
-                x:Name="UsernameEntry"
-                Placeholder="Username"
-                Text="{Binding Username}" />
+            <!-- Username -->
+            <Grid ColumnDefinitions="*, Auto">
+                <Entry x:Name="UsernameEntry"
+                       Placeholder="Username"
+                       Text="{Binding Username}"
+                       IsSpellCheckEnabled="False"
+                       IsTextPredictionEnabled="False"/>
+                <Label Grid.Column="1" 
+                       Text="{Binding UsernameIndicator}" 
+                       TextColor="{Binding UsernameIndicator, Converter={StaticResource IndicatorColorConverter}}"
+                       VerticalOptions="Center"
+                       Margin="5,0"/>
+            </Grid>
 
-            <Entry
-                x:Name="PasswordEntry"
-                Placeholder="Password"
-                IsPassword="True"
-                Text="{Binding Password}" />
+            <!-- Password -->
+            <Grid ColumnDefinitions="*, Auto">
+                <Entry x:Name="PasswordEntry"
+                       Placeholder="Password"
+                       Text="{Binding Password}"
+                       IsPassword="True"/>
+                <Label Grid.Column="1" 
+                       Text="{Binding PasswordIndicator}" 
+                       TextColor="{Binding PasswordIndicator, Converter={StaticResource IndicatorColorConverter}}"
+                       VerticalOptions="Center"
+                       Margin="5,0"/>
+            </Grid>
 
-            <Entry
-                x:Name="EmailEntry"
-                Placeholder="Email"
-                Keyboard="Email"
-                Text="{Binding Email}" />
+            <!-- Password Requirements -->
+            <Label Text="{Binding PasswordRequirements}"
+                   FontSize="12"
+                   TextColor="Gray"
+                   Margin="0,0,0,10"/>
 
-            <Entry
-                x:Name="FirstNameEntry"
-                Placeholder="First Name"
-                Text="{Binding FirstName}" />
+            <!-- Confirm Password -->
+            <Grid ColumnDefinitions="*, Auto">
+                <Entry x:Name="ConfirmPasswordEntry"
+                       Placeholder="Confirm Password"
+                       Text="{Binding ConfirmPassword}"
+                       IsPassword="True"/>
+                <Label Grid.Column="1" 
+                       Text="{Binding ConfirmPasswordIndicator}" 
+                       TextColor="{Binding ConfirmPasswordIndicator, Converter={StaticResource IndicatorColorConverter}}"
+                       VerticalOptions="Center"
+                       Margin="5,0"/>
+            </Grid>
 
-            <Entry
-                x:Name="LastNameEntry"
-                Placeholder="Last Name"
-                Text="{Binding LastName}" />
+            <!-- Email -->
+            <Grid ColumnDefinitions="*, Auto">
+                <Entry x:Name="EmailEntry"
+                       Placeholder="Email"
+                       Text="{Binding Email}"
+                       Keyboard="Email"/>
+                <Label Grid.Column="1" 
+                       Text="{Binding EmailIndicator}" 
+                       TextColor="{Binding EmailIndicator, Converter={StaticResource IndicatorColorConverter}}"
+                       VerticalOptions="Center"
+                       Margin="5,0"/>
+            </Grid>
 
-            <Button
-                x:Name="RegisterButton"
-                Text="Register"
-                Command="{Binding RegisterCommand}"
-                HorizontalOptions="Center" />
+            <!-- First Name -->
+            <Grid ColumnDefinitions="*, Auto">
+                <Entry x:Name="FirstNameEntry"
+                       Placeholder="First Name"
+                       Text="{Binding FirstName}"/>
+                <Label Grid.Column="1" 
+                       Text="{Binding FirstNameIndicator}" 
+                       TextColor="{Binding FirstNameIndicator, Converter={StaticResource IndicatorColorConverter}}"
+                       VerticalOptions="Center"
+                       Margin="5,0"/>
+            </Grid>
 
-            <Label
-                x:Name="StatusMessage"
-                Text="{Binding StatusMessage}"
-                HorizontalOptions="Center" />
+            <!-- Last Name -->
+            <Grid ColumnDefinitions="*, Auto">
+                <Entry x:Name="LastNameEntry"
+                       Placeholder="Last Name"
+                       Text="{Binding LastName}"/>
+                <Label Grid.Column="1" 
+                       Text="{Binding LastNameIndicator}" 
+                       TextColor="{Binding LastNameIndicator, Converter={StaticResource IndicatorColorConverter}}"
+                       VerticalOptions="Center"
+                       Margin="5,0"/>
+            </Grid>
 
+            <!-- Status Message -->
+            <Label Text="{Binding StatusMessage}"
+                   TextColor="{Binding StatusMessageColor}"
+                   HorizontalOptions="Center"
+                   IsVisible="{Binding HasStatusMessage}"/>
+
+            <!-- Register Button -->
+            <Button Text="{Binding RegisterButtonText}"
+                    Command="{Binding RegisterCommand}"
+                    IsEnabled="{Binding IsNotRegistering}"
+                    Margin="0,20,0,0"/>
+
+            <!-- Login Link -->
+            <Button Text="Already have an account? Login"
+                    Command="{Binding NavigateToLoginCommand}"
+                    Style="{StaticResource LinkButton}"
+                    Margin="0,10,0,0"/>
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>
