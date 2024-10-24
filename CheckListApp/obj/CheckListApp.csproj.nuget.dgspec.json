@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\kitka\\Source\\Repos\\CheckListApp\\CheckListApp\\CheckListApp.csproj": {}
+    "C:\\Users\\kitka\\Source\\Repos\\CheckListApp1\\CheckListApp\\CheckListApp.csproj": {}
   },
   "projects": {
-    "C:\\Users\\kitka\\Source\\Repos\\CheckListApp\\CheckListApp\\CheckListApp.csproj": {
+    "C:\\Users\\kitka\\Source\\Repos\\CheckListApp1\\CheckListApp\\CheckListApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\kitka\\Source\\Repos\\CheckListApp\\CheckListApp\\CheckListApp.csproj",
+        "projectUniqueName": "C:\\Users\\kitka\\Source\\Repos\\CheckListApp1\\CheckListApp\\CheckListApp.csproj",
         "projectName": "CheckListApp",
-        "projectPath": "C:\\Users\\kitka\\Source\\Repos\\CheckListApp\\CheckListApp\\CheckListApp.csproj",
+        "projectPath": "C:\\Users\\kitka\\Source\\Repos\\CheckListApp1\\CheckListApp\\CheckListApp.csproj",
         "packagesPath": "C:\\Users\\kitka\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\kitka\\Source\\Repos\\CheckListApp\\CheckListApp\\obj\\",
+        "outputPath": "C:\\Users\\kitka\\Source\\Repos\\CheckListApp1\\CheckListApp\\obj\\",
         "projectStyle": "PackageReference",
         "crossTargeting": true,
         "fallbackFolders": [

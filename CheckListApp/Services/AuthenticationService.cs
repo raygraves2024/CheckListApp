@@ -27,5 +27,6 @@
             _isAuthenticated = false;
             _currentUser = string.Empty;
         }
+
     }
 }

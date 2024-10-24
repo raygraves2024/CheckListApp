@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "1IO/R4l7PSI=",
+  "dgSpecHash": "jYoDcCM9Y8g=",
   "success": true,
-  "projectFilePath": "C:\\Users\\kitka\\Source\\Repos\\CheckListApp\\CheckListApp\\CheckListApp.csproj",
+  "projectFilePath": "C:\\Users\\kitka\\Source\\Repos\\CheckListApp1\\CheckListApp\\CheckListApp.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\kitka\\.nuget\\packages\\communitytoolkit.common\\8.3.2\\communitytoolkit.common.8.3.2.nupkg.sha512",
     "C:\\Users\\kitka\\.nuget\\packages\\communitytoolkit.maui\\9.1.0\\communitytoolkit.maui.9.1.0.nupkg.sha512",

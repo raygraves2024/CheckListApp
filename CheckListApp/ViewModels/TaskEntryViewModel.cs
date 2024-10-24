@@ -1,5 +1,11 @@
 using CheckListApp.Services;
+using CheckListApp.Model;
+using CommunityToolkit.Mvvm.Input;
+using System;
+using System.Collections.ObjectModel; // Import for ObservableCollection
+using System.Linq; // For FirstOrDefault
 using System.Windows.Input;
+using System.Threading.Tasks;
 
 namespace CheckListApp.ViewModels
 {
@@ -11,6 +17,7 @@ namespace CheckListApp.ViewModels
         private string _username;
         private string _taskName;
         private string _taskDescription;
+        private UserTask _selectedTask;
 
         public string Username
         {
@@ -42,17 +49,35 @@ namespace CheckListApp.ViewModels
             }
         }
 
+        public ObservableCollection<UserTask> Tasks { get; } = new ObservableCollection<UserTask>();
+
+        public UserTask SelectedTask
+        {
+            get => _selectedTask;
+            set
+            {
+                _selectedTask = value;
+                OnPropertyChanged();
+                // You might want to clear the task name and description when selecting a task
+                TaskName = _selectedTask?.Title;
+                TaskDescription = _selectedTask?.Description;
+            }
+        }
+
         public ICommand SaveTaskCommand { get; }
+        public ICommand DeleteTaskCommand { get; }
 
         public TaskEntryViewModel(AuthenticationService authService, UserTaskService taskService)
         {
             _authService = authService;
             _taskService = taskService;
             Username = _authService.CurrentUser;
-            SaveTaskCommand = new Command(OnSaveTask);
+
+            SaveTaskCommand = new AsyncRelayCommand(OnSaveTask);
+            DeleteTaskCommand = new AsyncRelayCommand(OnDeleteTask);
         }
 
-        private async void OnSaveTask()
+        private async Task OnSaveTask()
         {
             if (string.IsNullOrWhiteSpace(TaskName))
             {
@@ -60,13 +85,72 @@ namespace CheckListApp.ViewModels
                 return;
             }
 
-            // Here you would typically save the task to your database or service
-            // For this example, we'll just show a success message
-            await Application.Current.MainPage.DisplayAlert("Success", "Task saved successfully!", "OK");
+            try
+            {
+                // Save the task using the service
+                var userTask = new UserTask
+                {
+                    // UserId = Assign appropriate UserId,
+                    Title = TaskName,
+                    Description = TaskDescription,
+                    CreatedDate = DateTime.Now,
+                    UpdatedDate = DateTime.Now,
+                    IsCompleted = false
+                };
 
-            // Clear the form
-            TaskName = string.Empty;
-            TaskDescription = string.Empty;
+                if (SelectedTask == null)
+                {
+                    // New task
+                    await _taskService.SaveTaskAsync(userTask);
+                    Tasks.Add(userTask); // Add to the collection
+                }
+                else
+                {
+                    // Update existing task
+                    SelectedTask.Title = TaskName;
+                    SelectedTask.Description = TaskDescription;
+                    SelectedTask.UpdatedDate = DateTime.Now;
+
+                }
+
+                await Application.Current.MainPage.DisplayAlert("Success", "Task saved successfully!", "OK");
+            }
+            catch (Exception ex)
+            {
+                // Handle any errors that might occur during the save operation
+                await Application.Current.MainPage.DisplayAlert("Error", "Failed to save task: " + ex.Message, "OK");
+            }
+            finally
+            {
+                // Clear the form
+                TaskName = string.Empty;
+                TaskDescription = string.Empty;
+                SelectedTask = null; // Clear selection after saving
+            }
+        }
+
+        private async Task OnDeleteTask()
+        {
+            if (SelectedTask == null)
+            {
+                await Application.Current.MainPage.DisplayAlert("Error", "No task selected.", "OK");
+                return;
+            }
+
+            try
+            {
+                // Delete the task using the service
+                Tasks.Remove(SelectedTask); // Remove from the collection
+                SelectedTask = null; // Clear selection after deletion
+
+                await Application.Current.MainPage.DisplayAlert("Success", "Task deleted successfully!", "OK");
+            }
+            catch (Exception ex)
+            {
+                // Handle any errors that might occur during the delete operation
+                await Application.Current.MainPage.DisplayAlert("Error", "Failed to delete task: " + ex.Message, "OK");
+            }
+
         }
     }
 }
