@@ -84,13 +84,13 @@
 		<PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
 		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.1" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Console" Version="8.0.1" />
-		<PackageReference Include="Microsoft.Maui.Controls" Version="8.0.91">
+		<PackageReference Include="Microsoft.Maui.Controls" Version="8.0.92">
 		  <TreatAsUsed>true</TreatAsUsed>
 		</PackageReference>
-		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="8.0.91" />
-		<PackageReference Include="Microsoft.Maui.Controls.Xaml" Version="8.0.91" />
-		<PackageReference Include="Microsoft.Maui.Essentials" Version="8.0.91" />
-		<PackageReference Include="Microsoft.Maui.Graphics" Version="8.0.91" />
+		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="8.0.92" />
+		<PackageReference Include="Microsoft.Maui.Controls.Xaml" Version="8.0.92" />
+		<PackageReference Include="Microsoft.Maui.Essentials" Version="8.0.92" />
+		<PackageReference Include="Microsoft.Maui.Graphics" Version="8.0.92" />
 		<PackageReference Include="SQLite" Version="3.13.0" />
 		<PackageReference Include="sqlite-net-pcl" Version="1.9.172" />
 		<PackageReference Include="System.Linq" Version="4.3.0" />
@@ -144,6 +144,8 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </None>
 	</ItemGroup>
+
+	<ProjectExtensions><VisualStudio><UserProperties XamarinHotReloadDebuggerTimeoutExceptionCheckListAppHideInfoBar="True" /></VisualStudio></ProjectExtensions>
 
 	<!--<ProjectExtensions><VisualStudio><UserProperties XamarinHotReloadDebuggerTimeoutExceptionCheckListAppHideInfoBar="True" /></VisualStudio></ProjectExtensions>-->
 

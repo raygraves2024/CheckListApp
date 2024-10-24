@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Threading.Tasks;
-using System.Diagnostics;
-using CheckListApp.Data;
 using CheckListApp.Model;
 using CheckListApp.Respository;
 
@@ -13,36 +11,28 @@ namespace CheckListApp
         private readonly UserTaskRepository _taskRepo;
         private readonly CommentRepository _commentRepo;
         private readonly NotificationRepository _notificationRepo;
+        private readonly TestContent _testContent;
+
+        public TestRepositories(UserRepository userRepo, UserTaskRepository taskRepo, CommentRepository commentRepo, NotificationRepository notificationRepo)
+        {
+            _userRepo = userRepo;
+            _taskRepo = taskRepo;
+            _commentRepo = commentRepo;
+            _notificationRepo = notificationRepo;
+            _testContent = new TestContent(userRepo, taskRepo, commentRepo, notificationRepo);
+        }
 
         public TestRepositories()
         {
-            _userRepo = UserRepository.Instance;
-            _taskRepo = UserTaskRepository.Instance;
-            _commentRepo = CommentRepository.Instance;
-            _notificationRepo = NotificationRepository.Instance;
         }
 
         public async Task RunAllTests()
         {
-            await InitializeDatabase();
             await TestUserRepository();
             await TestUserTaskRepository();
             await TestCommentRepository();
             await TestNotificationRepository();
-        }
-
-        private async Task InitializeDatabase()
-        {
-            try
-            {
-                Console.WriteLine("Initializing database...");
-                await TaskDatabase.Instance.InitializeDatabaseAsync();
-                Console.WriteLine("Database initialized successfully.");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error initializing database: {ex.Message}");
-            }
+            await DumpTableContents();
         }
 
         private async Task TestUserRepository()
@@ -276,6 +266,20 @@ namespace CheckListApp
             catch (Exception ex)
             {
                 Console.WriteLine($"Error in TestNotificationRepository: {ex.Message}");
+            }
+        }
+
+        private async Task DumpTableContents()
+        {
+            try
+            {
+                Console.WriteLine("Dumping table contents...");
+                await _testContent.DumpAllTableContents();
+                Console.WriteLine("Table contents dumped successfully.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error dumping table contents: {ex.Message}");
             }
         }
     }

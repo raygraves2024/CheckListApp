@@ -1,6 +1,7 @@
 ﻿using CheckListApp.Services;
 using CommunityToolkit.Mvvm.Input;
 using System.Windows.Input;
+using System.Threading.Tasks;
 
 namespace CheckListApp.ViewModels
 {
@@ -46,7 +47,7 @@ namespace CheckListApp.ViewModels
                 return;
             }
 
-            if (_authService.Login(Username, Password))
+            if (await _authService.LoginAsync(Username, Password))
             {
                 // Create and set the AppShell as the MainPage if it doesn't exist
                 if (Application.Current.MainPage is not AppShell)
@@ -61,7 +62,6 @@ namespace CheckListApp.ViewModels
             {
                 await Application.Current.MainPage.DisplayAlert("Error", "Invalid username or password.", "OK");
             }
-
         }
     }
 }
