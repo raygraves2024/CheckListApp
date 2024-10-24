@@ -22,6 +22,10 @@ namespace CheckListApp
             _testContent = new TestContent(userRepo, taskRepo, commentRepo, notificationRepo);
         }
 
+        public TestRepositories(Repository.IUserRepository userRepository)
+        {
+        }
+
         public TestRepositories()
         {
         }

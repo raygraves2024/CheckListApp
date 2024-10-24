@@ -128,5 +128,10 @@ namespace CheckListApp.Data
                                   .Where(t => t.UserId == userId && t.TaskID == taskId)
                                   .FirstOrDefaultAsync();
         }
+        public async Task ExecuteAsync(string sql)
+        {
+            await EnsureDatabaseInitializedAsync();
+            await _database.ExecuteAsync(sql);
+        }
     }
 }

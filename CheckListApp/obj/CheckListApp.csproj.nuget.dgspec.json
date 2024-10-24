@@ -1,15 +1,15 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\kitka\\source\\repos\\CheckListApp\\CheckListApp\\CheckListApp.csproj": {}
+    "C:\\Users\\kitka\\Source\\Repos\\CheckListApp\\CheckListApp\\CheckListApp.csproj": {}
   },
   "projects": {
-    "C:\\Users\\kitka\\source\\repos\\CheckListApp\\CheckListApp\\CheckListApp.csproj": {
+    "C:\\Users\\kitka\\Source\\Repos\\CheckListApp\\CheckListApp\\CheckListApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\kitka\\source\\repos\\CheckListApp\\CheckListApp\\CheckListApp.csproj",
+        "projectUniqueName": "C:\\Users\\kitka\\Source\\Repos\\CheckListApp\\CheckListApp\\CheckListApp.csproj",
         "projectName": "CheckListApp",
-        "projectPath": "C:\\Users\\kitka\\source\\repos\\CheckListApp\\CheckListApp\\CheckListApp.csproj",
+        "projectPath": "C:\\Users\\kitka\\Source\\Repos\\CheckListApp\\CheckListApp\\CheckListApp.csproj",
         "packagesPath": "C:\\Users\\kitka\\.nuget\\packages\\",
         "outputPath": "C:\\Users\\kitka\\source\\repos\\CheckListApp\\CheckListApp\\obj\\",
         "projectStyle": "PackageReference",

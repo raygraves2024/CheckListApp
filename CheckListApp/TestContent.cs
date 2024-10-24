@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using CheckListApp.Model;
+using CheckListApp.Repository;
 using CheckListApp.Respository;
 
 namespace CheckListApp
