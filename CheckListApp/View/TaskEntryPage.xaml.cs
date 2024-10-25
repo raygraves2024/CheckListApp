@@ -15,6 +15,7 @@ namespace CheckListApp.View
             InitializeComponent();
             LoadData();
             BindingContext = viewModel;
+
         }
 
         public class UserData

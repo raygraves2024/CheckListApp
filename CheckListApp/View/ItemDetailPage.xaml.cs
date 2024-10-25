@@ -2,9 +2,7 @@ using System;
 using System.Diagnostics;
 using Microsoft.Maui.Controls;
 using CheckListApp.Services;
-using Microsoft.VisualBasic;
-using System.Formats.Tar;
-using Microsoft.EntityFrameworkCore.Update;
+using CheckListApp.Data; // Ensure this namespace is included
 
 namespace CheckListApp.View
 {
@@ -15,17 +13,19 @@ namespace CheckListApp.View
         private readonly UserTaskService _userTaskService;
 
         const string TaskKey = "savedTask";
-        const string DescriptionKey = "savedDecription";
+        const string DescriptionKey = "savedDescription";
         const string PriorityKey = "savedPriority";
         const string DueDateKey = "savedDueDate";
+
         public int TaskId { get; set; }
         public int UserId { get; set; }
 
-        public ItemDetailPage()
+        // Constructor now takes TaskDatabase as a parameter
+        public ItemDetailPage(TaskDatabase database)
         {
             InitializeComponent();
             LoadSavedData();
-            _userTaskService = new UserTaskService(); // Initialize the service to load the task details
+            _userTaskService = new UserTaskService(database); // Pass the database to the service
         }
 
         protected override void OnAppearing()
@@ -90,16 +90,16 @@ namespace CheckListApp.View
             string task = TaskEntry.Text;
             string description = DescriptionEntry.Text;
             string priority = PriorityEntry.Text;
-            string duedate = DueDateEntry.Text;
+            string dueDate = DueDateEntry.Text;
 
             // Save the data using Preferences API
             Preferences.Set(TaskKey, task);
             Preferences.Set(DescriptionKey, description);
             Preferences.Set(PriorityKey, priority);
-            Preferences.Set(DueDateKey, duedate);
+            Preferences.Set(DueDateKey, dueDate);
 
             // Display the saved data in the ResultLabel
-            ResultLabel.Text = $"Saved Data: \nTask: {task} \nDescription: {description} \nPriority: {priority} \nDueDate: {duedate}";
+            ResultLabel.Text = $"Saved Data: \nTask: {task} \nDescription: {description} \nPriority: {priority} \nDueDate: {dueDate}";
 
             // Optionally, clear the entry fields
             TaskEntry.Text = string.Empty;

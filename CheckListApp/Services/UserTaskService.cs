@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using System.Diagnostics;
+using System.Linq;
+using System.Threading.Tasks;
 using CheckListApp.Model;
 using CheckListApp.Data;
 
@@ -11,9 +12,9 @@ namespace CheckListApp.Services
     {
         private readonly TaskDatabase _database;
 
-        public UserTaskService()
+        public UserTaskService(TaskDatabase database)
         {
-            _database = TaskDatabase.Instance;
+            _database = database ?? throw new ArgumentNullException(nameof(database));
         }
 
         private async Task EnsureDatabaseInitializedAsync()
@@ -94,14 +95,24 @@ namespace CheckListApp.Services
             }
         }
 
-        public async Task<int> DeleteTaskAsync(UserTask task)
+
+        public async Task<int> DeleteTaskAsync(int taskId)
         {
             await EnsureDatabaseInitializedAsync();
             try
             {
-                var result = await _database.DeleteAsync(task);
-                Debug.WriteLine($"Deleted task {task.TaskID} for user {task.UserId}");
-                return result;
+                var task = await _database.GetTaskAsync(0, taskId); // Assuming userId is not needed for deletion
+                if (task != null)
+                {
+                    var result = await _database.DeleteAsync(task);
+                    Debug.WriteLine($"Deleted task {task.TaskID} for user {task.UserId}");
+                    return result;
+                }
+                else
+                {
+                    Debug.WriteLine($"No task found with ID {taskId} for deletion.");
+                    return 0;
+                }
             }
             catch (Exception ex)
             {

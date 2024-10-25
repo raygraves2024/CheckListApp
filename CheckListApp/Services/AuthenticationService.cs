@@ -200,7 +200,13 @@ namespace CheckListApp.Services
             _currentUser = string.Empty;
         }
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+        public async Task<bool> RegisterAsync(string username, string password)
+=======
         private bool IsValidEmail(string email)
+>>>>>>> a4dd31a68ba90ee67b6f9cf9258f8834a5ee172c
         {
             try
             {
@@ -231,5 +237,6 @@ namespace CheckListApp.Services
 
             return hasNumber && hasUppercase && hasLowercase && hasSpecialChar && isLongEnough;
         }
+>>>>>>> d168323a227eead67c1e8097604120c73eabfc04
     }
 }
