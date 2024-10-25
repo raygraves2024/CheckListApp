@@ -31,4 +31,8 @@
         Title="Home"
         ContentTemplate="{DataTemplate local:MainPage}"
         Route="main" />
+    <ShellContent
+        Title="Splash"
+        ContentTemplate="{DataTemplate view:CustomSplashPage}"
+        Route="SplashPage" />
 </Shell>

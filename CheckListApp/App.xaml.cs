@@ -20,25 +20,15 @@ public partial class App : Application
         _serviceProvider = serviceProvider;
         _authService = authService;
 
-        MainPage = new AppShell(_serviceProvider);
+        // Set CustomSplashPage as the initial page
+        MainPage = _serviceProvider.GetRequiredService<CustomSplashPage>();
 
+        // Move the database initialization to the splash screen
         Task.Run(async () =>
         {
             var taskDatabase = _serviceProvider.GetRequiredService<TaskDatabase>();
             await taskDatabase.InitializeDatabaseAsync();
             await taskDatabase.ExecuteAsync("DELETE FROM Users");
-
-            await MainThread.InvokeOnMainThreadAsync(() =>
-            {
-                if (_authService.IsAuthenticated)
-                {
-                    Shell.Current?.GoToAsync("//LoginPage");
-                }
-                else
-                {
-                    Shell.Current?.GoToAsync("//RegistrationPage");
-                }
-            });
         });
     }
 

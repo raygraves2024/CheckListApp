@@ -16,6 +16,7 @@ namespace CheckListApp.Model
 
         public string LastName { get; set; } = string.Empty;
 
+        public string Password {  get; set; } = string.Empty;
         [NotNull]
         public string PasswordHash { get; set; } = string.Empty;  // Changed from byte[] to string for base64 hash storage
 

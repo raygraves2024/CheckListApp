@@ -9,6 +9,7 @@ using CheckListApp.Repository;
 using SQLite;
 using System.IO;
 using CheckListApp.Respository;
+using CheckListApp.View;
 
 namespace CheckListApp;
 
@@ -55,6 +56,7 @@ public static class MauiProgram
         builder.Services.AddTransient<RegistrationViewModel>();
 
         // Register Pages
+        builder.Services.AddTransient<CustomSplashPage>();
         builder.Services.AddTransient<MainPage>();
         builder.Services.AddTransient<UserTaskPage>();
         builder.Services.AddTransient<ItemDetailPage>();
