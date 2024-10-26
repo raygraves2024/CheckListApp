@@ -1,0 +1,10 @@
+﻿< !--MainPage.xaml-- >
+< ContentPage xmlns = "http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns: x = "http://schemas.microsoft.com/winfx/2009/xaml"
+             x: Class = "YourAppNamespace.MainPage"
+             Title = "Checklist" >
+    < StackLayout Padding = "20" >
+        < Label Text = "Welcome to Your Checklist" FontSize = "Large" HorizontalOptions = "Center" />
+        < !--Add your checklist code here -->
+    </StackLayout>
+</ContentPage>
