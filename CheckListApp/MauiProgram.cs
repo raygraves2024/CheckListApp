@@ -61,6 +61,7 @@ public static class MauiProgram
         builder.Services.AddTransient<LoginPage>();
         builder.Services.AddTransient<TaskEntryPage>();
         builder.Services.AddTransient<RegistrationPage>();
+        builder.Services.AddTransient<CustomSplashPage>();
         builder.Services.AddSingleton<AppShell>();
 
         return builder.Build();

@@ -20,13 +20,14 @@ public partial class App : Application
         _serviceProvider = serviceProvider;
         _authService = authService;
 
-        MainPage = new AppShell(_serviceProvider);
+        //MainPage = new AppShell(_serviceProvider);
+        MainPage = _serviceProvider.GetRequiredService<CustomSplashPage>();
 
         Task.Run(async () =>
         {
             var taskDatabase = _serviceProvider.GetRequiredService<TaskDatabase>();
             await taskDatabase.InitializeDatabaseAsync();
-            await taskDatabase.ExecuteAsync("DELETE FROM Users");
+            //await taskDatabase.ExecuteAsync("DELETE FROM Users");
 
             await MainThread.InvokeOnMainThreadAsync(() =>
             {
