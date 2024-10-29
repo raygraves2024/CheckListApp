@@ -27,7 +27,7 @@ public partial class App : Application
         {
             var taskDatabase = _serviceProvider.GetRequiredService<TaskDatabase>();
             await taskDatabase.InitializeDatabaseAsync();
-            //await taskDatabase.ExecuteAsync("DELETE FROM Users");
+            await taskDatabase.ExecuteAsync("DELETE FROM Users");
 
             await MainThread.InvokeOnMainThreadAsync(() =>
             {

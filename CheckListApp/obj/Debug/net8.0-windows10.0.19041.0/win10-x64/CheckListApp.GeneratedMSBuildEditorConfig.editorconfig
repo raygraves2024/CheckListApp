@@ -1,0 +1,86 @@
+is_global = true
+build_property.MvvmToolkitEnableINotifyPropertyChangingSupport = true
+build_property.TargetFramework = net8.0-windows10.0.19041.0
+build_property.TargetPlatformMinVersion = 10.0.17763.0
+build_property.UsingMicrosoftNETSdkWeb = 
+build_property.ProjectTypeGuids = 9A19103F-16F7-4668-BE54-9A1E7A4F7556
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = CheckListApp
+build_property.ProjectDir = C:\Users\lasch\source\repos\CheckListApp\checklistnew-27\CheckListApp\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
+
+[C:/Users/lasch/source/repos/CheckListApp/checklistnew-27/CheckListApp/App.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = CheckListApp.App.xaml
+build_metadata.AdditionalFiles.TargetPath = App.xaml
+build_metadata.AdditionalFiles.RelativePath = App.xaml
+
+[C:/Users/lasch/source/repos/CheckListApp/checklistnew-27/CheckListApp/AppShell.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = CheckListApp.AppShell.xaml
+build_metadata.AdditionalFiles.TargetPath = AppShell.xaml
+build_metadata.AdditionalFiles.RelativePath = AppShell.xaml
+
+[C:/Users/lasch/source/repos/CheckListApp/checklistnew-27/CheckListApp/MainPage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = CheckListApp.MainPage.xaml
+build_metadata.AdditionalFiles.TargetPath = MainPage.xaml
+build_metadata.AdditionalFiles.RelativePath = MainPage.xaml
+
+[C:/Users/lasch/source/repos/CheckListApp/checklistnew-27/CheckListApp/Resources/Styles/Colors.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = CheckListApp.Resources.Styles.Colors.xaml
+build_metadata.AdditionalFiles.TargetPath = Resources\Styles\Colors.xaml
+build_metadata.AdditionalFiles.RelativePath = Resources\Styles\Colors.xaml
+
+[C:/Users/lasch/source/repos/CheckListApp/checklistnew-27/CheckListApp/Resources/Styles/Styles.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = CheckListApp.Resources.Styles.Styles.xaml
+build_metadata.AdditionalFiles.TargetPath = Resources\Styles\Styles.xaml
+build_metadata.AdditionalFiles.RelativePath = Resources\Styles\Styles.xaml
+
+[C:/Users/lasch/source/repos/CheckListApp/checklistnew-27/CheckListApp/View/CustomSplashPage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = CheckListApp.View.CustomSplashPage.xaml
+build_metadata.AdditionalFiles.TargetPath = View\CustomSplashPage.xaml
+build_metadata.AdditionalFiles.RelativePath = View\CustomSplashPage.xaml
+
+[C:/Users/lasch/source/repos/CheckListApp/checklistnew-27/CheckListApp/View/ItemDetailPage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = CheckListApp.View.ItemDetailPage.xaml
+build_metadata.AdditionalFiles.TargetPath = View\ItemDetailPage.xaml
+build_metadata.AdditionalFiles.RelativePath = View\ItemDetailPage.xaml
+
+[C:/Users/lasch/source/repos/CheckListApp/checklistnew-27/CheckListApp/View/LoginPage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = CheckListApp.View.LoginPage.xaml
+build_metadata.AdditionalFiles.TargetPath = View\LoginPage.xaml
+build_metadata.AdditionalFiles.RelativePath = View\LoginPage.xaml
+
+[C:/Users/lasch/source/repos/CheckListApp/checklistnew-27/CheckListApp/View/RegistrationPage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = CheckListApp.View.RegistrationPage.xaml
+build_metadata.AdditionalFiles.TargetPath = View\RegistrationPage.xaml
+build_metadata.AdditionalFiles.RelativePath = View\RegistrationPage.xaml
+
+[C:/Users/lasch/source/repos/CheckListApp/checklistnew-27/CheckListApp/View/RegistrationSuccess.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = CheckListApp.View.RegistrationSuccess.xaml
+build_metadata.AdditionalFiles.TargetPath = View\RegistrationSuccess.xaml
+build_metadata.AdditionalFiles.RelativePath = View\RegistrationSuccess.xaml
+
+[C:/Users/lasch/source/repos/CheckListApp/checklistnew-27/CheckListApp/View/TaskEntryPage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = CheckListApp.View.TaskEntryPage.xaml
+build_metadata.AdditionalFiles.TargetPath = View\TaskEntryPage.xaml
+build_metadata.AdditionalFiles.RelativePath = View\TaskEntryPage.xaml
+
+[C:/Users/lasch/source/repos/CheckListApp/checklistnew-27/CheckListApp/View/UserTaskPage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = CheckListApp.View.UserTaskPage.xaml
+build_metadata.AdditionalFiles.TargetPath = View\UserTaskPage.xaml
+build_metadata.AdditionalFiles.RelativePath = View\UserTaskPage.xaml
