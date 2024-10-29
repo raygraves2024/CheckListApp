@@ -1,1 +1,0 @@
-C:\Users\lasch\source\repos\CheckListApp\checklistnew-27\CheckListApp\CheckListApp.csproj;x64
