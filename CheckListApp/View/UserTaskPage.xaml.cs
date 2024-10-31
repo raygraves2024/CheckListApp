@@ -49,5 +49,7 @@ namespace CheckListApp.View
                 ((CollectionView)sender).SelectedItem = null;
             }
         }
+
+        
     }
 }

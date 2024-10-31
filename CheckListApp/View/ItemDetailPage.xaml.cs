@@ -37,6 +37,28 @@ namespace CheckListApp.View
            
             Debug.WriteLine($"Navigated with TaskID: {TaskId} for user: {_defaultUsername}");
             LoadTask(TaskId);
+
+            // Check due dates for tasks and show reminders if any
+            CheckDueDates();
+        }
+
+        private async void CheckDueDates()
+        {
+            try
+            {
+                var tasks = await _userTaskService.GetTasksForUserAsync(UserId);
+                foreach (var task in tasks)
+                {
+                    if ((task.DueDate - DateTime.Now).TotalDays <= 1 && !task.IsCompleted)
+                    {
+                        await DisplayAlert("Reminder", $"Task '{task.Title}' is due soon!", "OK");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Error checking due dates: {ex.Message}");
+            }
         }
 
         private async void LoadTask(int taskId)
