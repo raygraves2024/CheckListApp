@@ -22,6 +22,7 @@ namespace CheckListApp.ViewModels
             _userService = userService;
             LoadUserAndTasksCommand = new AsyncRelayCommand(LoadUserAndTasksAsync);
             SelectTaskCommand = new AsyncRelayCommand<UserTask>(SelectTaskAsync);
+            DeleteTaskCommand = new AsyncRelayCommand<UserTask>(DeleteTaskAsync);
             //RunTestsCommand = new RelayCommand(RunTests);  // Added command for running tests
         }
 
@@ -42,6 +43,7 @@ namespace CheckListApp.ViewModels
 
         public IAsyncRelayCommand LoadUserAndTasksCommand { get; }
         public IAsyncRelayCommand<UserTask> SelectTaskCommand { get; }
+        public IAsyncRelayCommand<UserTask> DeleteTaskCommand { get; } // Added DeleteTaskCommand
         public RelayCommand RunTestsCommand { get; } // Added property for test command
 
         // Load the user and tasks asynchronously
@@ -95,10 +97,36 @@ namespace CheckListApp.ViewModels
             }
         }
 
+        // Delete the selected task asynchronously
+        private async Task DeleteTaskAsync(UserTask task)
+        {
+            if (task == null) return;
+
+            try
+            {
+                await _userTaskService.DeleteTaskAsync(task.TaskID);
+                UserTasks.Remove(task);
+                Debug.WriteLine($"Task with ID {task.TaskID} deleted successfully.");
+            }
+            catch (Exception ex)
+            {
+                ErrorMessage = $"Error deleting task: {ex.Message}";
+                Debug.WriteLine($"Error in DeleteTaskAsync: {ex}");
+            }
+        }
+        public UserTaskViewModel()
+        {
+            // Initialize any required default values if needed
+            UserTasks = new ObservableCollection<UserTask>();
+            IsLoading = false;
+            ErrorMessage = string.Empty;
+        }
+
+
         // Method to run tests
         //private void RunTests()
         //{
-        //    var testRepository = new TestRepositories();
+        //    var testRepository = new TestRepositories(); 
         //    testRepository.RunAllTests();  // Call the test method from TestRepositories
         //    Debug.WriteLine("Test repositories executed successfully.");
         //}

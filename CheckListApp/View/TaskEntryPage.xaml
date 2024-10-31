@@ -27,6 +27,7 @@
                 Placeholder="Task Description"
                 HeightRequest="100"
                 SemanticProperties.Hint="Enter the task description"/>
+            <!-- Add to TaskEntryPage.xaml -->
 
             <DatePicker
                 x:Name="TaskDatePicker"

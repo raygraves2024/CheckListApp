@@ -38,6 +38,9 @@ namespace CheckListApp
             Routing.RegisterRoute(nameof(TaskEntryPage), typeof(TaskEntryPage));
             Routing.RegisterRoute(nameof(RegistrationPage), typeof(RegistrationPage));
             Routing.RegisterRoute(nameof(CustomSplashPage), typeof(CustomSplashPage));
+            Routing.RegisterRoute(nameof(ItemDetailPage), typeof(ItemDetailPage));
+            Routing.RegisterRoute(nameof(TaskDetailList), typeof(TaskDetailList));
+                    
             // Add default content
             this.Items.Add(new ShellContent
             {

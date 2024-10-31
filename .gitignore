@@ -4,5 +4,3 @@ git add .gitignore
 git add .
 git commit -m "Remove local files from Git tracking based on .gitignore"
 git push origin ChecklistApp
-
-/CheckListApp/Services/TextValidationBehavior.cs

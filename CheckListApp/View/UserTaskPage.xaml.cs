@@ -10,6 +10,12 @@ namespace CheckListApp.View
     {
         private UserTaskViewModel _viewModel;
 
+        // Parameterless constructor for framework instantiation
+        public UserTaskPage()
+        {
+            InitializeComponent();
+        }
+
         public UserTaskPage(UserTaskViewModel viewModel)
         {
             InitializeComponent();
@@ -21,12 +27,6 @@ namespace CheckListApp.View
         {
             base.OnAppearing();
             await _viewModel.LoadUserAndTasksCommand.ExecuteAsync(null);
-
-            //if (_viewModel.UserTasks.Count == 0)
-            //{
-            //    await DisplayAlert("No Tasks", "There are no tasks available. Would you like to add a new task?", "OK");
-            //    // Here you could navigate to a page to add a new task if desired
-            //}
         }
 
         private async void OnItemSelected(object sender, SelectionChangedEventArgs args)

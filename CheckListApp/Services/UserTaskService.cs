@@ -29,6 +29,12 @@ namespace CheckListApp.Services
             }
         }
 
+        // Added method to match the interface expected by other components
+        public async Task<List<UserTask>> GetTasksAsync(int userId)
+        {
+            return await GetTasksForUserAsync(userId);
+        }
+
         public async Task<List<UserTask>> GetTasksForUserAsync(int userId)
         {
             await EnsureDatabaseInitializedAsync();
@@ -110,7 +116,9 @@ namespace CheckListApp.Services
             }
         }
 
-        
-
+        internal async Task DeleteTaskAsync(int taskID)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
