@@ -63,7 +63,7 @@ namespace CheckListApp.ViewModels
 
                 // If you want to navigate to a new page after loading tasks, you can do it here
                 // For example:
-                // await Shell.Current.GoToAsync("//UserTasksPage");
+                await Shell.Current.GoToAsync("/UserTasksPage");
             }
             catch (Exception ex)
             {

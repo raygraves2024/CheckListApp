@@ -1,9 +1,0 @@
-.vs/
-
-*.log
-
-*.env
-
-bin/
-
-obj/

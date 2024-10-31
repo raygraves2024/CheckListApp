@@ -20,12 +20,12 @@ public partial class RegistrationPage : ContentPage
 
     private async void OnRegistrationSuccessful(object sender, EventArgs e)
     {
-        await Shell.Current.GoToAsync("//LoginPage");
+        await Shell.Current.GoToAsync("/ItemDetailPage");
     }
 
     private async void OnNavigateToLogin(object sender, EventArgs e)
     {
-        await Shell.Current.GoToAsync("//LoginPage");
+        await Shell.Current.GoToAsync("/ItemDetailPage");
     }
 
     protected override void OnDisappearing()

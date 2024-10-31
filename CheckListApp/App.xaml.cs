@@ -27,17 +27,21 @@ public partial class App : Application
         {
             var taskDatabase = _serviceProvider.GetRequiredService<TaskDatabase>();
             await taskDatabase.InitializeDatabaseAsync();
-            //await taskDatabase.ExecuteAsync("DELETE FROM Users");
+            await taskDatabase.ExecuteAsync("DELETE FROM Users");
+            await taskDatabase.ExecuteAsync("DELETE FROM UserTask");
+            Debug.WriteLine("Successfully cleared UserTasks table");
+            Debug.WriteLine("Successfully cleared Users table");
+
 
             await MainThread.InvokeOnMainThreadAsync(() =>
             {
-                if (_authService.IsAuthenticated)
+                if (!_authService.IsAuthenticated)
                 {
-                    Shell.Current?.GoToAsync("//LoginPage");
+                    Shell.Current?.GoToAsync("//UserTaskPage");
                 }
                 else
                 {
-                    Shell.Current?.GoToAsync("//RegistrationPage");
+                    Shell.Current?.GoToAsync("//UserTaskPage");
                 }
             });
         });

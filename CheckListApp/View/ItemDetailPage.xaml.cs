@@ -1,72 +1,79 @@
-using System;
 using System.Diagnostics;
-using Microsoft.Maui.Controls;
 using CheckListApp.Services;
-using Microsoft.VisualBasic;
-using System.Formats.Tar;
-using Microsoft.EntityFrameworkCore.Update;
 
 namespace CheckListApp.View
 {
     [QueryProperty(nameof(TaskId), "id")]
-    [QueryProperty(nameof(UserId), "userId")]
     public partial class ItemDetailPage : ContentPage
     {
         private readonly UserTaskService _userTaskService;
+        private readonly string _defaultUsername = "TestUser";
+        private readonly int _userId = 1; // Assuming a default user ID for TestUser
 
-        const string TaskKey = "savedTask";
-        const string DescriptionKey = "savedDecription";
-        const string PriorityKey = "savedPriority";
-        const string DueDateKey = "savedDueDate";
+        private readonly string TitleKey = "savedTitle";
+        private readonly string TaskKey = "savedTask";
+        private readonly string DescriptionKey = "savedDescription";
+        private readonly string PriorityKey = "savedPriority";
+        private readonly string DueDateKey = "savedDueDate";
         public int TaskId { get; set; }
-        public int UserId { get; set; }
 
         public ItemDetailPage()
         {
             InitializeComponent();
+            _userTaskService = new UserTaskService();
+            Title = $"Task Detail - {_defaultUsername}";
+
+            // Set initial picker selection
+            PriorityPicker.SelectedIndex = 0;
+            // Set initial date
+            DueDatePicker.Date = DateTime.Today;
+
             LoadSavedData();
-            _userTaskService = new UserTaskService(); // Initialize the service to load the task details
         }
 
         protected override void OnAppearing()
         {
             base.OnAppearing();
-
-            // Log the passed TaskId and UserId
-            Debug.WriteLine($"Navigated with TaskID: {TaskId} and UserID: {UserId}");
-
-            // Load the task details using TaskId and UserId
+           
+            Debug.WriteLine($"Navigated with TaskID: {TaskId} for user: {_defaultUsername}");
             LoadTask(TaskId);
         }
 
         private async void LoadTask(int taskId)
         {
-            Debug.WriteLine($"Attempting to load task with TaskID: {taskId} and UserID: {UserId}");
+            Debug.WriteLine($"Attempting to load task with TaskID: {taskId} for user: {_defaultUsername}");
 
             try
             {
-                // Retrieve the task using the UserTaskService
-                var task = await _userTaskService.GetTaskAsync(UserId, taskId);
+                var task = await _userTaskService.GetTaskAsync(_userId, taskId);
 
                 if (task != null)
                 {
-                    Title = task.Title;
-                    TitleLabel.Text = task.Title;
+                    TitleEntry.Text = task.Title;
                     TaskEntry.Text = task.CreatedTask;
                     DescriptionEntry.Text = task.Description;
-                    PriorityEntry.Text = $"Priority: {task.PriorityLevel}";
-                    DueDateEntry.Text = $"Due Date: {task.DueDate.ToShortDateString()}";
-                    IsCompletedCheckBox.IsChecked = task.IsCompleted;
-
-                    // Make task details visible
-                    TaskDetailContent.IsVisible = true;
+                    PriorityPicker.SelectedItem = task.PriorityLevel switch
+                    {
+                        1 => "Low",
+                        2 => "Important",
+                        3 => "Urgent",
+                        _ => "Low"
+                    };
+                    DueDatePicker.Date = task.DueDate;
                 }
                 else
                 {
-                    await DisplayAlert("Error", "Task not found.", "OK");
-                    Debug.WriteLine($"No task found for TaskID: {taskId} and UserID: {UserId}");
-                    await Shell.Current.GoToAsync("..");
+                    // Set default values for new task
+                    TitleEntry.Text = string.Empty;
+                    TaskEntry.Text = string.Empty;
+                    DescriptionEntry.Text = string.Empty;
+                    PriorityPicker.SelectedIndex = 0; // Default to "Low"
+                    DueDatePicker.Date = DateTime.Today;
+
+                    Debug.WriteLine($"No task found for TaskID: {taskId}");
                 }
+
+                TaskDetailContent.IsVisible = true;
             }
             catch (Exception ex)
             {
@@ -77,34 +84,72 @@ namespace CheckListApp.View
 
         private void LoadSavedData()
         {
-            // Load saved data when the page is initialized
-            TaskEntry.Text = Preferences.Get(TaskKey, string.Empty);
-            DescriptionEntry.Text = Preferences.Get(DescriptionKey, string.Empty);
-            PriorityEntry.Text = Preferences.Get(PriorityKey, string.Empty);
-            DueDateEntry.Text = Preferences.Get(DueDateKey, string.Empty);
+            if (Preferences.ContainsKey(TitleKey))
+                TitleEntry.Text = Preferences.Get(TitleKey, string.Empty);
+
+            if (Preferences.ContainsKey(TaskKey))
+                TaskEntry.Text = Preferences.Get(TaskKey, string.Empty);
+
+            if (Preferences.ContainsKey(DescriptionKey))
+                DescriptionEntry.Text = Preferences.Get(DescriptionKey, string.Empty);
+
+            if (Preferences.ContainsKey(PriorityKey))
+                PriorityPicker.SelectedItem = Preferences.Get(PriorityKey, "Low");
+
+            if (Preferences.ContainsKey(DueDateKey))
+            {
+                if (DateTime.TryParse(Preferences.Get(DueDateKey, DateTime.Today.ToString()), out DateTime savedDate))
+                    DueDatePicker.Date = savedDate;
+            }
         }
 
-        private void OnSaveDataClicked(object sender, EventArgs e)
+        private async void OnSaveDataClicked(object sender, EventArgs e)
         {
-            // Get the text from the Entry fields
-            string task = TaskEntry.Text;
-            string description = DescriptionEntry.Text;
-            string priority = PriorityEntry.Text;
-            string duedate = DueDateEntry.Text;
+            try
+            {
+                var task = new Model.UserTask
+                {
+                    TaskID = TaskId,
+                    UserId = _userId,
+                    Title = TitleEntry.Text,
+                    CreatedTask = TaskEntry.Text,
+                    Description = DescriptionEntry.Text,
+                    PriorityLevel = PriorityPicker.SelectedItem?.ToString() switch
+                    {
+                        "Low" => 1,
+                        "Important" => 2,
+                        "Urgent" => 3,
+                        _ => 1
+                    },
+                    DueDate = DueDatePicker.Date,
+                    CreatedDate = DateTime.Now,
+                    UpdatedDate = DateTime.Now
+                };
 
-            // Save the data using Preferences API
-            Preferences.Set(TaskKey, task);
-            Preferences.Set(DescriptionKey, description);
-            Preferences.Set(PriorityKey, priority);
-            Preferences.Set(DueDateKey, duedate);
+                await _userTaskService.SaveTaskAsync(task);
 
-            // Display the saved data in the ResultLabel
-            ResultLabel.Text = $"Saved Data: \nTask: {task} \nDescription: {description} \nPriority: {priority} \nDueDate: {duedate}";
+                // Save to preferences
+                Preferences.Set(TitleKey, task.Title);
+                Preferences.Set(TaskKey, task.CreatedTask);
+                Preferences.Set(DescriptionKey, task.Description);
+                Preferences.Set(PriorityKey, PriorityPicker.SelectedItem?.ToString() ?? "Low");
+                Preferences.Set(DueDateKey, task.DueDate.ToString());
 
-            // Optionally, clear the entry fields
-            TaskEntry.Text = string.Empty;
-            DescriptionEntry.Text = string.Empty;
-            DueDateEntry.Text = string.Empty;
+                await DisplayAlert("Success", "Task saved successfully!", "OK");
+
+                // Navigate to TaskDetailList
+                await Shell.Current.GoToAsync("/TaskDetailList");
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Error saving task: {ex.Message}");
+                await DisplayAlert("Error", "Failed to save task.", "OK");
+            }
+        }
+        private async void OnViewTasksClicked(object sender, EventArgs e)
+        {
+            await Shell.Current.GoToAsync("/TaskDetailList");
         }
     }
 }
+   

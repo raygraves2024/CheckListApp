@@ -58,7 +58,7 @@
 
             <Label x:Name="Member4"
                    StyleId="Member4"
-                   Text="Sarah Williams - QA"
+                   Text="Ray Graves"
                    FontSize="18"
                    Opacity="0"
                    TranslationX="100" />
