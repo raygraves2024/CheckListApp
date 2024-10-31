@@ -1,6 +1,6 @@
-﻿using Microsoft.Maui.Controls;
+using Microsoft.Maui.Controls;
 
-namespace YourAppNamespace
+namespace CheckList.app
 {
     public partial class LoginPage : ContentPage
     {
@@ -34,5 +34,7 @@ namespace YourAppNamespace
             }
         }
     }
-}
+}﻿
+
+    
 
