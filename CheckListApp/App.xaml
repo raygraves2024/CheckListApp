@@ -1,13 +1,14 @@
 ﻿<?xml version = "1.0" encoding = "UTF-8" ?>
 <Application xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:local="clr-namespace:CheckListApp"
+              xmlns:local="clr-namespace:ChecklistApp.Converters"
              x:Class="CheckListApp.App">
+
     <Application.Resources>
         <ResourceDictionary>
-            <Color x:Key="Primary">#512BD4</Color>
-            <Color x:Key="Secondary">#DFD8F7</Color>
-            <Color x:Key="Tertiary">#2B0B98</Color>
+            <Color x:Key="Primary">#428DA4</Color>
+            <Color x:Key="Secondary">#E6F3F8</Color>
+            <Color x:Key="Tertiary">#220F60</Color>
             <Color x:Key="White">White</Color>
             <Color x:Key="Black">Black</Color>
             <Color x:Key="Gray100">#E1E1E1</Color>
@@ -36,6 +37,7 @@
                 <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Gray950}}"/>
             </Style>
 
+
             <Style x:Key="HeaderLabelStyle" TargetType="Label">
                 <Setter Property="FontSize" Value="24"/>
                 <Setter Property="FontAttributes" Value="Bold"/>
@@ -48,6 +50,8 @@
                 <Setter Property="TextColor" Value="{StaticResource White}"/>
                 <Setter Property="Padding" Value="10,5"/>
                 <Setter Property="CornerRadius" Value="5"/>
+                <Setter Property="Margin" Value="5"/>
+                <Setter Property="HeightRequest" Value="45"/>
             </Style>
 
             <Style x:Key="SecondaryButtonStyle" TargetType="Button">
@@ -68,7 +72,28 @@
                 <Setter Property="HasShadow" Value="False"/>
             </Style>
 
+            <Style TargetType="Entry">
+                <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Gray900}}"/>
+                <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource Gray900}, Dark={StaticResource White}}"/>
+                <Setter Property="Margin" Value="5"/>
+                <Setter Property="PlaceholderColor" Value="{StaticResource Gray400}"/>
+            </Style>
+
+            <Style TargetType="Picker">
+                <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Gray900}}"/>
+                <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource Gray900}, Dark={StaticResource White}}"/>
+                <Setter Property="Margin" Value="8"/>
+                <Setter Property="HeightRequest" Value="40"/>
+            </Style>
+
+            <Style x:Key="BodyTextStyle" TargetType="Label">
+                <Setter Property="FontSize" Value="14"/>
+                <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource Gray900}, Dark={StaticResource White}}"/>
+            </Style>
+
+
             <!-- Converters -->
+            <local:IndicatorColorConverter x:Key="IndicatorColorConverter"/>
             <!--<BooleanToObjectConverter x:Key="StringToBoolConverter" TrueObject="True" FalseObject="False"/>-->
         </ResourceDictionary>
     </Application.Resources>

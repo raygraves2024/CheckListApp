@@ -26,6 +26,7 @@
             x:Name="LoginButton"
             Text="Login"
             Command="{Binding LoginCommand}"
+            Style="{StaticResource PrimaryButtonStyle}"
             HeightRequest="50"
             FontAttributes="Bold" />
     </VerticalStackLayout>

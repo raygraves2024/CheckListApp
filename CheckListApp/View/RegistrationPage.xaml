@@ -104,12 +104,13 @@
             <Button Text="{Binding RegisterButtonText}"
                     Command="{Binding RegisterCommand}"
                     IsEnabled="{Binding IsNotRegistering}"
+                    Style="{StaticResource PrimaryButtonStyle}"
                     Margin="0,20,0,0"/>
 
             <!-- Login Link -->
             <Button Text="Already have an account? Login"
                     Command="{Binding NavigateToLoginCommand}"
-                    Style="{StaticResource LinkButton}"
+                    Style="{StaticResource PrimaryButtonStyle}"
                     Margin="0,10,0,0"/>
         </VerticalStackLayout>
     </ScrollView>

@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using Microsoft.Maui.Controls;
 
 namespace ChecklistApp.Converters
 {
@@ -10,7 +11,11 @@ namespace ChecklistApp.Converters
             {
                 return indicator == "✓" ? Colors.Green : Colors.Red;
             }
-            return Colors.Red;
+            else if (value is bool boolValue)
+            {
+                return boolValue ? Colors.Green : Colors.Red;
+            }
+            return Colors.Red; // Default color
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
