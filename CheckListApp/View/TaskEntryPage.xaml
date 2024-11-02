@@ -2,74 +2,76 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="CheckListApp.View.TaskEntryPage"
-             Title="Task Entry">
+             NavigationPage.HasNavigationBar="False"
+             Title="Task Entry"
+             Shell.NavBarIsVisible="False">
+
     <ScrollView>
         <VerticalStackLayout Spacing="25" Padding="30,0" VerticalOptions="Center">
             <Label 
-                Text="Task Entry Form"
-                SemanticProperties.HeadingLevel="Level1"
+                Text="Task Entry"
                 FontSize="32"
+                FontAttributes="Bold"
                 HorizontalOptions="Center" />
 
             <Entry
-                x:Name="UserNameEntry"
-                Placeholder="Username"
-                Text="{Binding UserName}"
-                SemanticProperties.Hint="Enter your username"/>
-
-            <Entry
-                x:Name="TaskEntry"
-                Placeholder="Task"
-                SemanticProperties.Hint="Enter the task"/>
+                x:Name="TaskTitleEntry"
+                Placeholder="Task Title"
+                Text="{Binding Title}"
+                SemanticProperties.Hint="Enter the task title"/>
 
             <Editor
                 x:Name="TaskDescriptionEditor"
                 Placeholder="Task Description"
-                HeightRequest="100"
+                Text="{Binding Description}"
+                AutoSize="TextChanges"
+                Margin="0,5,0,5"
                 SemanticProperties.Hint="Enter the task description"/>
-            <!-- Add to TaskEntryPage.xaml -->
 
             <DatePicker
                 x:Name="TaskDatePicker"
+                Date="{Binding DueDate}"
                 Format="D"
-                SemanticProperties.Hint="Select the task date"/>
+                SemanticProperties.Hint="Select the due date"/>
 
-            <HorizontalStackLayout Spacing="20" HorizontalOptions="Center">
-                <Button
-                    x:Name="SaveButton"
-                    Text="Save"
-                    SemanticProperties.Hint="Save the task entry"
-                    WidthRequest="100" 
-                    Clicked="OnSaveDataClicked"
-                    />
-                
-                <Button
-                    x:Name="DeleteButton"
-                    Text="Delete"
-                    SemanticProperties.Hint="Delete the task entry"
-                    WidthRequest="100" 
-                    Clicked= "OnDeleteButtonClicked"
-                    BackgroundColor="Red"
-                    TextColor="White"
-                    />
-                
-                <Button
-                    x:Name="EditButton"
-                    Text="Edit"
-                    SemanticProperties.Hint="Edit the task entry"
-                    WidthRequest="100" 
-                    Clicked= "OnEditButtonClicked"
-                    IsEnabled="False"
-                    BackgroundColor="Green"
-                    TextColor="White"
-                    />
+            <Picker
+                x:Name="PriorityPicker"
+                Title="Select Priority"
+                SelectedIndexChanged="OnPrioritySelected"
+                HorizontalOptions="Fill">
+                <Picker.ItemsSource>
+                    <x:Array Type="{x:Type x:String}">
+                        <x:String>Low</x:String>
+                        <x:String>Important</x:String>
+                        <x:String>Urgent</x:String>
+                    </x:Array>
+                </Picker.ItemsSource>
+            </Picker>
 
-                <Button
-                    x:Name="SubmitButton"
-                    Text="Submit"
-                    SemanticProperties.Hint="Submit the task entry"
-                    WidthRequest="100" />
-            </HorizontalStackLayout>
+            <Grid ColumnDefinitions="Auto,*" 
+                  HorizontalOptions="Center">
+                <CheckBox
+                    Grid.Column="0"
+                    x:Name="CompletedCheckBox"
+                    IsChecked="{Binding IsCompleted}"
+                    SemanticProperties.Hint="Mark task as complete"
+                    VerticalOptions="Center"/>
+                <Label 
+                    Grid.Column="1"
+                    Text="Mark as Complete"
+                    VerticalOptions="Center"/>
+            </Grid>
+
+            <Button
+                x:Name="UpdateButton"
+                Text="Update Task"
+                SemanticProperties.Hint="Update the task"
+                WidthRequest="200" 
+                Clicked="OnUpdateTaskClicked"
+                BackgroundColor="Green"
+                TextColor="White"
+                HorizontalOptions="Center"
+                Margin="0,10,0,20"/>
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

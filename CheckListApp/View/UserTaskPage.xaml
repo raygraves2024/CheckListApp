@@ -4,29 +4,37 @@
              x:Class="CheckListApp.View.UserTaskPage"
              xmlns:viewmodel="clr-namespace:CheckListApp.ViewModels"
              xmlns:model="clr-namespace:CheckListApp.Model"
-             Title="User Tasks"
-             x:Name="UserTaskPageRoot">
+             Title="User Tasks">
 
     <Grid RowDefinitions="Auto,*,Auto">
-        <Label Text="{Binding CurrentUser.Username, StringFormat='Welcome, {0}!'}"
-               FontSize="Large"
-               Margin="20,10"/>
+        <!-- Header -->
+        <Grid ColumnDefinitions="*,Auto" Padding="20,10">
+            <Label Text="{Binding CurrentUser.Username, StringFormat='Welcome, {0}!'}"
+                   FontSize="Large"
+                   VerticalOptions="Center"/>
+            <Button Grid.Column="1"
+                    Text="Logout"
+                    Clicked="OnLogout_Clicked"
+                    BackgroundColor="Red"
+                    TextColor="White"/>
+        </Grid>
 
+        <!-- Task List -->
         <RefreshView Grid.Row="1" 
                      Command="{Binding LoadUserAndTasksCommand}"
                      IsRefreshing="{Binding IsLoading}">
             <CollectionView ItemsSource="{Binding UserTasks}"
-                            SelectionMode="Single"
-                            SelectionChanged="OnItemSelected">
+                          SelectionMode="Single"
+                          SelectionChanged="OnItemSelected">
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="model:UserTask">
                         <SwipeView>
                             <SwipeView.RightItems>
                                 <SwipeItems>
                                     <SwipeItem Text="Delete"
-                                               BackgroundColor="Red"
-                                               Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:UserTaskViewModel}}, Path=DeleteTaskCommand}"
-                                               CommandParameter="{Binding .}"/>
+                                             BackgroundColor="Red"
+                                             Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:UserTaskViewModel}}, Path=DeleteTaskCommand}"
+                                             CommandParameter="{Binding .}"/>
                                 </SwipeItems>
                             </SwipeView.RightItems>
                             <Grid Padding="10">
@@ -46,12 +54,13 @@
             </CollectionView>
         </RefreshView>
 
-        <!-- Add the button to run tests -->
+        <!-- Add Task Button -->
         <Button Grid.Row="2"
-                Text="Run Tests"
-                Command="{Binding RunTestsCommand}"
-                VerticalOptions="Center"
-                HorizontalOptions="Center"
-                Margin="20"/>
+                Text="Add New Task"
+                Clicked="OnAddTask_Clicked"
+                Margin="20"
+                BackgroundColor="DodgerBlue"
+                TextColor="White"/>
+
     </Grid>
 </ContentPage>

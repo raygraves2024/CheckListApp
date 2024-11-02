@@ -31,4 +31,9 @@
         Title="Home"
         ContentTemplate="{DataTemplate local:MainPage}"
         Route="main" />
+   
+    <ShellContent
+        Title="Item Detail"
+        ContentTemplate="{DataTemplate view:ItemDetailPage}"
+    Route="ItemDetailPage" />
 </Shell>

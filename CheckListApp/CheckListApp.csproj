@@ -77,6 +77,7 @@
 
 	<ItemGroup>
 	  <None Remove="Resources\Raw\checklist.db3" />
+	  <None Remove="View\NewFile" />
 	</ItemGroup>
   
 
@@ -123,12 +124,15 @@
 	  <MauiXaml Update="View\TaskEntryPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="View\UserTaskPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
 	</ItemGroup>
   <ItemGroup>
     <MauiXaml Update="View\RegistrationPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
+    <MauiXaml Update="View\UserTaskPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
+    <MauiXaml Update="View\UserTaskPage_old.xaml">
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>
   </ItemGroup>
@@ -145,6 +149,9 @@
 	  </Compile>
 	  <Compile Update="View\RegistrationPage.xaml.cs">
 	    <DependentUpon>RegistrationPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="View\TaskDetailList.xaml.cs">
+	    <DependentUpon>TaskDetailList.xaml</DependentUpon>
 	  </Compile>
 	</ItemGroup>
 

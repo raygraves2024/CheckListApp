@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using CheckListApp.Model;
+﻿using CheckListApp.Model;
 using CheckListApp.Data;
-using SQLite;
-using System.Linq;
 
 namespace CheckListApp.Services
 {
@@ -189,5 +184,6 @@ namespace CheckListApp.Services
             var table = await _database.Table<Users>();
             return await table.CountAsync();
         }
+
     }
 }

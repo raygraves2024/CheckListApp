@@ -29,7 +29,6 @@ namespace CheckListApp.Services
             }
         }
 
-        // Added method to match the interface expected by other components
         public async Task<List<UserTask>> GetTasksAsync(int userId)
         {
             return await GetTasksForUserAsync(userId);
@@ -56,16 +55,10 @@ namespace CheckListApp.Services
             await EnsureDatabaseInitializedAsync();
             try
             {
-                Debug.WriteLine($"Attempting to retrieve task with ID: {taskId} for user ID: {userId}");
                 var task = await _database.GetTaskAsync(userId, taskId);
-                if (task != null)
-                {
-                    Debug.WriteLine($"Retrieved task: {task.Title} (ID: {task.TaskID}) for user ID: {task.UserId}");
-                }
-                else
-                {
-                    Debug.WriteLine($"No task found with ID {taskId} for user ID: {userId}");
-                }
+                Debug.WriteLine(task != null
+                    ? $"Retrieved task: {task.Title} (ID: {task.TaskID})"
+                    : $"No task found with ID {taskId}");
                 return task;
             }
             catch (Exception ex)
@@ -80,18 +73,18 @@ namespace CheckListApp.Services
             await EnsureDatabaseInitializedAsync();
             try
             {
+                int result;
                 if (task.TaskID != 0)
                 {
-                    var result = await _database.UpdateAsync(task);
-                    Debug.WriteLine($"Updated task {task.TaskID} for user {task.UserId}");
-                    return result;
+                    result = await _database.UpdateAsync(task);
+                    Debug.WriteLine($"Updated task {task.TaskID}");
                 }
                 else
                 {
-                    var result = await _database.InsertAsync(task);
-                    Debug.WriteLine($"Inserted new task for user {task.UserId}, new TaskID: {result}");
-                    return result;
+                    result = await _database.InsertAsync(task);
+                    Debug.WriteLine($"Inserted new task, ID: {result}");
                 }
+                return result;
             }
             catch (Exception ex)
             {
@@ -100,14 +93,23 @@ namespace CheckListApp.Services
             }
         }
 
-        public async Task<int> DeleteTaskAsync(UserTask task)
+        public async Task<bool> DeleteTaskAsync(int taskId)
         {
             await EnsureDatabaseInitializedAsync();
             try
             {
-                var result = await _database.DeleteAsync(task);
-                Debug.WriteLine($"Deleted task {task.TaskID} for user {task.UserId}");
-                return result;
+                // Get task by ID
+                var query = await _database.Table<UserTask>();
+                var task = await query.Where(t => t.TaskID == taskId).FirstOrDefaultAsync();
+
+                if (task != null)
+                {
+                    var result = await _database.DeleteAsync(task);
+                    Debug.WriteLine($"Deleted task {taskId}");
+                    return result > 0;
+                }
+                Debug.WriteLine($"Task {taskId} not found for deletion");
+                return false;
             }
             catch (Exception ex)
             {
@@ -116,9 +118,20 @@ namespace CheckListApp.Services
             }
         }
 
-        internal async Task DeleteTaskAsync(int taskID)
+        public async Task<bool> UpdateTaskAsync(UserTask task)
         {
-            throw new NotImplementedException();
+            await EnsureDatabaseInitializedAsync();
+            try
+            {
+                var result = await _database.UpdateAsync(task);
+                Debug.WriteLine($"Updated task {task.TaskID}");
+                return result > 0;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Error in UpdateTaskAsync: {ex.Message}");
+                throw;
+            }
         }
     }
 }

@@ -2,42 +2,98 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="CheckListApp.View.TaskDetailList"
-             Title="Task List">
+             xmlns:local="clr-namespace:CheckListApp.View"
+             x:Name="taskDetailPage"
+             Title="Tasks"
+             NavigationPage.HasNavigationBar="False"
+             Shell.NavBarIsVisible="False">
 
-    <CollectionView x:Name="TaskListView" ItemsSource="{Binding Tasks}">
-        <CollectionView.ItemTemplate>
-            <DataTemplate>
-                <SwipeView>
-                    <!-- Swipe to Open Task -->
-                    <SwipeView.RightItems>
-                        <SwipeItem Text="Open"
-                                   BackgroundColor="LightBlue"
-                                   IconImageSource="open_icon.png"
-                                   Invoked="OnOpenTaskSwipe"/>
-                    </SwipeView.RightItems>
+    <Grid RowDefinitions="Auto,Auto,*,Auto" 
+          Padding="10">
 
-                    <!-- Task Item Layout with Details -->
-                    <Grid Padding="10">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                        </Grid.RowDefinitions>
+        <!-- Back Button -->
+        <Button Grid.Row="0"
+                Text="Back"
+                Clicked="OnBackButtonClicked"
+                HorizontalOptions="Start"
+                Margin="0,0,0,10"
+                HeightRequest="40"
+                WidthRequest="80"
+                BackgroundColor="DodgerBlue"
+                TextColor="White"
+                CornerRadius="8"/>
 
-                        <!-- Task Title -->
-                        <Label Text="{Binding Title}" 
-                               FontSize="Medium" 
-                               VerticalOptions="Center" />
+        <!-- Header -->
+        <Label Grid.Row="1"
+               Text="Your Tasks" 
+               FontSize="24" 
+               FontAttributes="Bold"
+               Margin="10,0,10,20"
+               BackgroundColor="White"/>
 
-                        <!-- Task Description -->
-                        <Label Text="{Binding Description}"
-                               FontSize="Small"
-                               TextColor="Gray"
-                               VerticalOptions="Start"
-                               Grid.Row="1" />
-                    </Grid>
-                </SwipeView>
-            </DataTemplate>
-        </CollectionView.ItemTemplate>
-    </CollectionView>
+        <!-- Task List -->
+        <RefreshView Grid.Row="2" 
+                    Command="{Binding RefreshCommand}"
+                    IsRefreshing="{Binding IsLoading}">
+            <CollectionView x:Name="TasksCollectionView"
+                          ItemsSource="{Binding Tasks}"
+                          EmptyView="No tasks available">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <SwipeView>
+                            <SwipeView.LeftItems>
+                                <SwipeItems Mode="Execute">
+                                    <SwipeItem Text="Edit"
+                                             BackgroundColor="Blue"
+                                             Command="{Binding Source={x:Reference taskDetailPage}, Path=EditTaskCommand}"
+                                             CommandParameter="{Binding .}"/>
+                                </SwipeItems>
+                            </SwipeView.LeftItems>
+                            <SwipeView.RightItems>
+                                <SwipeItems Mode="Execute">
+                                    <SwipeItem Text="Delete"
+                                             BackgroundColor="Red"
+                                             Command="{Binding Source={x:Reference taskDetailPage}, Path=DeleteTaskCommand}"
+                                             CommandParameter="{Binding .}"/>
+                                </SwipeItems>
+                            </SwipeView.RightItems>
 
+                            <Frame Margin="10" 
+                                   Padding="10"
+                                   BorderColor="LightGray">
+                                <Grid RowDefinitions="Auto,Auto,Auto,Auto" 
+                                      RowSpacing="5">
+                                    <Label Text="{Binding Title}"
+                                           FontSize="16"
+                                           FontAttributes="Bold"/>
+
+                                    <Label Grid.Row="1"
+                                           Text="{Binding Description}"
+                                           FontSize="14"
+                                           TextColor="Gray"/>
+
+                                    <Label Grid.Row="2"
+                                           Text="{Binding DueDate, StringFormat='Due: {0:d}'}"
+                                           FontSize="14"
+                                           TextColor="Gray"/>
+
+                                    <Label Grid.Row="3"
+                                           Text="{Binding PriorityLevel, StringFormat='Priority: {0}'}"
+                                           FontSize="14"
+                                           TextColor="Gray"/>
+                                </Grid>
+                            </Frame>
+                        </SwipeView>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </RefreshView>
+
+        <!-- Loading Indicator -->
+        <ActivityIndicator Grid.RowSpan="4"
+                          IsVisible="{Binding IsLoading}"
+                          IsRunning="{Binding IsLoading}"
+                          HorizontalOptions="Center"
+                          VerticalOptions="Center"/>
+    </Grid>
 </ContentPage>

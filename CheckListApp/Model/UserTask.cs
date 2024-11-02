@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace CheckListApp.Model
 {
-    [Table("UserTasks")]
+    [Table("UserTask")]
     public class UserTask
     {
         [PrimaryKey, AutoIncrement]

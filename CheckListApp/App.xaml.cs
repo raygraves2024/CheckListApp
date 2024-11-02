@@ -5,6 +5,7 @@ using CheckListApp.Data;
 using System.Diagnostics;
 using CheckListApp.Repository;
 using CheckListApp.Respository;
+using CheckListApp.Model;
 
 namespace CheckListApp;
 
@@ -27,12 +28,15 @@ public partial class App : Application
         {
             var taskDatabase = _serviceProvider.GetRequiredService<TaskDatabase>();
             await taskDatabase.InitializeDatabaseAsync();
-            await taskDatabase.ExecuteAsync("DELETE FROM Users");
-            await taskDatabase.ExecuteAsync("DELETE FROM UserTask");
+            //await taskDatabase.ExecuteAsync("DELETE FROM Users");
+            //await taskDatabase.ExecuteAsync("DELETE FROM UserTask");
             Debug.WriteLine("Successfully cleared UserTasks table");
-            Debug.WriteLine("Successfully cleared Users table");
+            //Debug.WriteLine("Successfully cleared Users table");
 
+            // Display users in message box
+            await DisplayUsersInMessageBox();
 
+            // CHANGE THIS TO ROUTE TO LOGIN, IF USER HAS REGISTRED IF NOT REG PAGE
             await MainThread.InvokeOnMainThreadAsync(() =>
             {
                 if (!_authService.IsAuthenticated)
@@ -45,6 +49,48 @@ public partial class App : Application
                 }
             });
         });
+    }
+
+    private async Task DisplayUsersInMessageBox()
+    {
+        try
+        {
+            var userService = _serviceProvider.GetRequiredService<UserService>();
+            var users = await userService.GetAllUsersAsync();
+
+            string userList = "Users in Database:\n\n";
+
+            if (users != null && users.Any())
+            {
+                foreach (var user in users)
+                {
+                    userList += $"ID: {user.UserID}\n";
+                    userList += $"Username: {user.Username}\n";
+                    userList += $"Email: {user.Email}\n";
+                    userList += $"First Name: {user.FirstName}\n";
+                    userList += $"Last Name: {user.LastName}\n";
+                    userList += $"Created: {user.CreatedDate}\n";
+                    userList += "---------------\n";
+                }
+            }
+            else
+            {
+                userList = "No users found in the database.";
+            }
+
+            await MainThread.InvokeOnMainThreadAsync(async () =>
+            {
+                await Application.Current.MainPage.DisplayAlert("Database Users", userList, "OK");
+            });
+        }
+        catch (Exception ex)
+        {
+            await MainThread.InvokeOnMainThreadAsync(async () =>
+            {
+                await Application.Current.MainPage.DisplayAlert("Error",
+                    $"Error retrieving users: {ex.Message}", "OK");
+            });
+        }
     }
 
     //public async Task RunDatabaseTests()
