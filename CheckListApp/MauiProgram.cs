@@ -16,6 +16,12 @@ public static class MauiProgram
 {
     public static MauiApp CreateMauiApp()
     {
+        Microsoft.Maui.Handlers.EntryHandler.Mapper.AppendToMapping("CursorColor", (handler, view) =>
+        {
+#if IOS
+            handler.PlatformView.TintColor = UIKit.UIColor.Blue;
+#endif
+        });
         var builder = MauiApp.CreateBuilder();
         builder
             .UseMauiApp<App>()
