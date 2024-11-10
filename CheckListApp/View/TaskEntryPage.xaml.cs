@@ -1,54 +1,98 @@
 using CheckListApp.Services;
 using Microsoft.Maui.Controls;
-using System;
 using CheckListApp.Model;
 using System.Diagnostics;
 
 namespace CheckListApp.View
 {
+    [QueryProperty(nameof(UserId), "userId")]
+    [QueryProperty(nameof(TaskToEdit), "task")]
+    [QueryProperty(nameof(IsEditing), "isEditing")]
     public partial class TaskEntryPage : ContentPage
     {
         private readonly UserTaskService _userTaskService;
-        private readonly int _userId = 1;
+        private int _userId;
         private UserTask _currentTask;
+        private bool _isEditing;
 
-        public TaskEntryPage()
+        public int UserId
+        {
+            get => _userId;
+            set
+            {
+                _userId = value;
+                Debug.WriteLine($"TaskEntryPage UserId set to: {_userId}");
+            }
+        }
+
+        public UserTask TaskToEdit
+        {
+            get => _currentTask;
+            set
+            {
+                if (value != null)
+                {
+                    _currentTask = value;
+                    LoadTaskData();
+                    Debug.WriteLine($"TaskEntryPage loaded existing task: {_currentTask.TaskID}");
+                }
+            }
+        }
+
+        public bool IsEditing
+        {
+            get => _isEditing;
+            set
+            {
+                _isEditing = value;
+                if (_isEditing)
+                {
+                    Title = "Edit Task";
+                    SaveButton.Text = "Update Task";
+                }
+                else
+                {
+                    Title = "New Task";
+                    SaveButton.Text = "Add Task";
+                }
+            }
+        }
+
+        public TaskEntryPage(UserTaskService userTaskService)
         {
             InitializeComponent();
-            _userTaskService = new UserTaskService();
+            _userTaskService = userTaskService;
+            InitializeNewTask();
+        }
+
+        private void InitializeNewTask()
+        {
             _currentTask = new UserTask
             {
                 DueDate = DateTime.Today,
                 CreatedDate = DateTime.Now,
                 UpdatedDate = DateTime.Now,
-                PriorityLevel = 1  // Default to Low
+                PriorityLevel = 1,  // Default to Low
+                IsCompleted = false
             };
             BindingContext = _currentTask;
-            PriorityPicker.SelectedIndex = 0; // Set default to Low
+            PriorityPicker.SelectedIndex = 0;
         }
 
-        public TaskEntryPage(UserTask existingTask)
+        private void LoadTaskData()
         {
-            InitializeComponent();
-            _userTaskService = new UserTaskService();
-            _currentTask = existingTask;
-            BindingContext = _currentTask;
-
-            // Convert PriorityLevel to picker index (subtract 1 since PriorityLevel starts at 1)
-            PriorityPicker.SelectedIndex = existingTask.PriorityLevel - 1;
-        }
-
-        private void OnPrioritySelected(object sender, EventArgs e)
-        {
-            if (PriorityPicker.SelectedIndex != -1)
+            if (_currentTask != null)
             {
-                // Add 1 to match your priority scale (1-Low, 2-Important, 3-Urgent)
-                _currentTask.PriorityLevel = PriorityPicker.SelectedIndex + 1;
-                Debug.WriteLine($"Priority Level set to: {_currentTask.PriorityLevel} ({PriorityPicker.SelectedItem})");
+                BindingContext = _currentTask;
+                PriorityPicker.SelectedIndex = _currentTask.PriorityLevel - 1;
+                TaskTitleEntry.Text = _currentTask.Title;
+                TaskDescriptionEditor.Text = _currentTask.Description;
+                TaskDatePicker.Date = _currentTask.DueDate;
+                CompletedCheckBox.IsChecked = _currentTask.IsCompleted;
             }
         }
 
-        private async void OnUpdateTaskClicked(object sender, EventArgs e)
+        private async void OnSaveClicked(object sender, EventArgs e)
         {
             try
             {
@@ -64,50 +108,53 @@ namespace CheckListApp.View
                 _currentTask.DueDate = TaskDatePicker.Date;
                 _currentTask.IsCompleted = CompletedCheckBox.IsChecked;
                 _currentTask.UpdatedDate = DateTime.Now;
+                _currentTask.PriorityLevel = PriorityPicker.SelectedIndex + 1;
 
-                // Set Created Date only if it's a new task
-                if (_currentTask.CreatedDate == DateTime.MinValue)
+                if (!_isEditing)
                 {
                     _currentTask.CreatedDate = DateTime.Now;
                 }
 
-                // Debug output
-                Debug.WriteLine($"Updating Task:");
-                Debug.WriteLine($"TaskID: {_currentTask.TaskID}");
-                Debug.WriteLine($"Title: {_currentTask.Title}");
-                Debug.WriteLine($"Description: {_currentTask.Description}");
-                Debug.WriteLine($"Priority Level: {_currentTask.PriorityLevel} ({GetPriorityText(_currentTask.PriorityLevel)})");
-                Debug.WriteLine($"DueDate: {_currentTask.DueDate}");
-                Debug.WriteLine($"IsCompleted: {_currentTask.IsCompleted}");
-                Debug.WriteLine($"Created Date: {_currentTask.CreatedDate}");
-                Debug.WriteLine($"Updated Date: {_currentTask.UpdatedDate}");
-
+                Debug.WriteLine($"Saving task for UserId: {_userId}");
                 await _userTaskService.SaveTaskAsync(_currentTask);
-                await Navigation.PushAsync(new TaskDetailList()); // Go back to previous page
+
+                // Navigate to UserTaskPage
+                await Shell.Current.GoToAsync($"//{nameof(UserTaskPage)}");
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"Error updating task: {ex.Message}");
-                await DisplayAlert("Error", "Failed to update task", "OK");
+                Debug.WriteLine($"Error saving task: {ex.Message}");
+                await DisplayAlert("Error", "Failed to save task", "OK");
             }
         }
 
-        private string GetPriorityText(int priorityLevel)
+        private void OnPrioritySelected(object sender, EventArgs e)
         {
-            return priorityLevel switch
+            if (PriorityPicker.SelectedIndex != -1)
             {
-                1 => "Low",
-                2 => "Important",
-                3 => "Urgent",
-                _ => "Unknown"
-            };
+                _currentTask.PriorityLevel = PriorityPicker.SelectedIndex + 1;
+                Debug.WriteLine($"Priority Level set to: {_currentTask.PriorityLevel}");
+            }
         }
 
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            NavigationPage.SetHasBackButton(this, false);
-            NavigationPage.SetHasNavigationBar(this, false);
+            NavigationPage.SetHasNavigationBar(this, true);
+            NavigationPage.SetHasBackButton(this, true);
+        }
+
+        private async void OnCancelClicked(object sender, EventArgs e)
+        {
+            try
+            {
+                await Shell.Current.GoToAsync($"//{nameof(UserTaskPage)}");
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Error navigating back: {ex.Message}");
+                await DisplayAlert("Error", "Unable to navigate back", "OK");
+            }
         }
     }
 }

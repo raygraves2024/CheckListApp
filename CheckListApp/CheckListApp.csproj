@@ -83,21 +83,21 @@
 
 	<ItemGroup>
 		<PackageReference Include="CommunityToolkit.Common" Version="8.3.2" />
-		<PackageReference Include="CommunityToolkit.Maui" Version="9.1.0" />
-		<PackageReference Include="CommunityToolkit.Maui.Core" Version="9.1.0" />
+		<PackageReference Include="CommunityToolkit.Maui" Version="9.1.1" />
+		<PackageReference Include="CommunityToolkit.Maui.Core" Version="9.1.1" />
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.3.2" />
 		<PackageReference Include="Microsoft.Data.Sqlite.Core" Version="8.0.10" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.10" />
 		<PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
 		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.1" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Console" Version="8.0.1" />
-		<PackageReference Include="Microsoft.Maui.Controls" Version="8.0.92">
+		<PackageReference Include="Microsoft.Maui.Controls" Version="8.0.93">
 		  <TreatAsUsed>true</TreatAsUsed>
 		</PackageReference>
-		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="8.0.92" />
-		<PackageReference Include="Microsoft.Maui.Controls.Xaml" Version="8.0.92" />
-		<PackageReference Include="Microsoft.Maui.Essentials" Version="8.0.92" />
-		<PackageReference Include="Microsoft.Maui.Graphics" Version="8.0.92" />
+		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="8.0.93" />
+		<PackageReference Include="Microsoft.Maui.Controls.Xaml" Version="8.0.93" />
+		<PackageReference Include="Microsoft.Maui.Essentials" Version="8.0.93" />
+		<PackageReference Include="Microsoft.Maui.Graphics" Version="8.0.93" />
 		<PackageReference Include="SQLite" Version="3.13.0" />
 		<PackageReference Include="sqlite-net-pcl" Version="1.9.172" />
 		<PackageReference Include="System.Linq" Version="4.3.0" />
@@ -107,6 +107,9 @@
 
 	<ItemGroup>
 	  <MauiXaml Update="View\CustomSplashPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="View\ErrorPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="View\ItemDetailPage.xaml">

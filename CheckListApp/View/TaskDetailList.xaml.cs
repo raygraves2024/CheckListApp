@@ -7,20 +7,25 @@ using CheckListApp.Services;
 
 namespace CheckListApp.View
 {
+    [QueryProperty(nameof(UserId), "userId")]
     public partial class TaskDetailList : ContentPage, INotifyPropertyChanged
     {
         private readonly UserTaskService _userTaskService;
-        private readonly int _userId = 1;
         private ObservableCollection<UserTask> _tasks;
         private bool _isLoading;
+        private int _userId;
 
-        // Public properties for commands
-        public ICommand RefreshCommand { get; private set; }
-        public ICommand DeleteTaskCommand { get; private set; }
-        public ICommand EditTaskCommand { get; private set; }
-        public ICommand OpenTaskCommand { get; private set; }
+        public int UserId
+        {
+            get => _userId;
+            set
+            {
+                _userId = value;
+                Debug.WriteLine($"TaskDetailList UserId set to: {_userId}");
+                LoadTasks().ConfigureAwait(false);
+            }
+        }
 
-        // Public property for Tasks with proper notification
         public ObservableCollection<UserTask> Tasks
         {
             get => _tasks;
@@ -34,7 +39,6 @@ namespace CheckListApp.View
             }
         }
 
-        // Public property for IsLoading with proper notification
         public bool IsLoading
         {
             get => _isLoading;
@@ -48,6 +52,11 @@ namespace CheckListApp.View
             }
         }
 
+        public ICommand RefreshCommand { get; private set; }
+        public ICommand DeleteTaskCommand { get; private set; }
+        public ICommand EditTaskCommand { get; private set; }
+        public ICommand OpenTaskCommand { get; private set; }
+
         public TaskDetailList()
         {
             InitializeComponent();
@@ -55,6 +64,7 @@ namespace CheckListApp.View
             Tasks = new ObservableCollection<UserTask>();
             InitializeCommands();
             BindingContext = this;
+            Debug.WriteLine("TaskDetailList initialized");
         }
 
         private void InitializeCommands()
@@ -71,7 +81,13 @@ namespace CheckListApp.View
 
             try
             {
-                await Navigation.PushAsync(new TaskEntryPage(task));
+                Debug.WriteLine($"Editing task for UserId: {_userId}");
+                var navigationParameter = new Dictionary<string, object>
+                {
+                    { "userId", _userId },
+                    { "task", task }
+                };
+                await Shell.Current.GoToAsync($"//{nameof(TaskEntryPage)}", navigationParameter);
             }
             catch (Exception ex)
             {
@@ -87,18 +103,15 @@ namespace CheckListApp.View
             try
             {
                 IsLoading = true;
+                Debug.WriteLine($"Loading tasks for UserId: {_userId}");
                 var tasks = await _userTaskService.GetTasksAsync(_userId);
 
                 MainThread.BeginInvokeOnMainThread(() =>
                 {
-                    if (tasks != null)
-                    {
-                        Tasks = new ObservableCollection<UserTask>(tasks);
-                    }
-                    else
-                    {
-                        Tasks = new ObservableCollection<UserTask>();
-                    }
+                    Tasks = tasks != null ?
+                        new ObservableCollection<UserTask>(tasks) :
+                        new ObservableCollection<UserTask>();
+                    Debug.WriteLine($"Loaded {Tasks.Count} tasks");
                 });
             }
             catch (Exception ex)
@@ -128,6 +141,7 @@ namespace CheckListApp.View
                 try
                 {
                     IsLoading = true;
+                    Debug.WriteLine($"Deleting task {task.TaskID} for UserId: {_userId}");
                     await _userTaskService.DeleteTaskAsync(task.TaskID);
 
                     MainThread.BeginInvokeOnMainThread(() =>
@@ -155,8 +169,13 @@ namespace CheckListApp.View
 
             try
             {
-                Debug.WriteLine($"Opening task details for TaskID: {task.TaskID}");
-                await Shell.Current.GoToAsync($"///ItemDetailPage?taskId={task.TaskID}");
+                Debug.WriteLine($"Opening task details for TaskID: {task.TaskID} and UserId: {_userId}");
+                var navigationParameter = new Dictionary<string, object>
+                {
+                    { "userId", _userId },
+                    { "taskId", task.TaskID }
+                };
+                await Shell.Current.GoToAsync($"//ItemDetailPage", navigationParameter);
             }
             catch (Exception ex)
             {
@@ -168,6 +187,7 @@ namespace CheckListApp.View
         protected override async void OnAppearing()
         {
             base.OnAppearing();
+            Debug.WriteLine($"TaskDetailList appeared - Current UserId: {_userId}");
             await LoadTasks();
         }
 
@@ -175,7 +195,8 @@ namespace CheckListApp.View
         {
             try
             {
-                await Shell.Current.GoToAsync("///ItemDetailPage");
+                Debug.WriteLine("Navigating back to UserTaskPage");
+                await Shell.Current.GoToAsync($"//{nameof(UserTaskPage)}");
             }
             catch (Exception ex)
             {
@@ -184,7 +205,6 @@ namespace CheckListApp.View
             }
         }
 
-        // Implement property changed notification
         public new event PropertyChangedEventHandler PropertyChanged;
 
         protected virtual void OnPropertyChanged(string propertyName)

@@ -7,86 +7,63 @@ namespace CheckListApp.View
 {
     public partial class UserTaskPage : ContentPage
     {
-        private UserTaskViewModel _viewModel;
+        private readonly UserTaskViewModel _viewModel;
 
-        // Default constructor for framework instantiation
-        public UserTaskPage()
-        {
-            InitializeComponent();
-            _viewModel = new UserTaskViewModel();
-            BindingContext = _viewModel;
-        }
-
-        // Constructor with ViewModel injection
         public UserTaskPage(UserTaskViewModel viewModel)
         {
             InitializeComponent();
             _viewModel = viewModel;
             BindingContext = viewModel;
+            Debug.WriteLine("UserTaskPage initialized");
         }
 
         protected override async void OnAppearing()
         {
             base.OnAppearing();
 
-            // Safely execute LoadUserAndTasksCommand if initialized
-            if (_viewModel?.LoadUserAndTasksCommand != null)
+            try
             {
-                try
-                {
-                    await _viewModel.LoadUserAndTasksCommand.ExecuteAsync(null);
-                }
-                catch (Exception ex)
-                {
-                    Debug.WriteLine($"Error loading tasks: {ex.Message}");
-                    await DisplayAlert("Error", "Unable to load tasks.", "OK");
-                }
+                await _viewModel.LoadUserAndTasksCommand.ExecuteAsync(null);
+                Debug.WriteLine("Tasks loaded successfully");
             }
-            else
+            catch (Exception ex)
             {
-                Debug.WriteLine("ViewModel or LoadUserAndTasksCommand is null.");
-                await DisplayAlert("Error", "System initialization failed.", "OK");
-            }
-        }
-
-        private async void OnItemSelected(object sender, SelectionChangedEventArgs args)
-        {
-            if (args.CurrentSelection.Count > 0)
-            {
-                var task = args.CurrentSelection[0] as UserTask;
-                if (task != null)
-                {
-                    if (_viewModel.SelectTaskCommand?.CanExecute(task) == true)
-                    {
-                        await _viewModel.SelectTaskCommand.ExecuteAsync(task);
-                    }
-                    else
-                    {
-                        Debug.WriteLine($"Navigating to ItemDetailPage with TaskID: {task.TaskID} and UserID: {task.UserId}");
-                        await Shell.Current.GoToAsync($"{nameof(ItemDetailPage)}?id={task.TaskID}&userId={task.UserId}");
-                    }
-                }
-
-                // Clear selection
-                if (sender is CollectionView collectionView)
-                {
-                    collectionView.SelectedItem = null;
-                }
+                Debug.WriteLine($"Error loading tasks: {ex.Message}");
+                await DisplayAlert("Error", "Unable to load tasks.", "OK");
             }
         }
 
         private async void OnAddTask_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new TaskEntryPage());
+            try
+            {
+                var navigationParameter = new Dictionary<string, object>
+                {
+                    { "userId", _viewModel.CurrentUser?.UserID ?? 1 }
+                };
+                Debug.WriteLine("Navigating to TaskEntryPage for new task");
+                await Shell.Current.GoToAsync($"{nameof(TaskEntryPage)}", navigationParameter);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Error navigating to TaskEntryPage: {ex.Message}");
+                await DisplayAlert("Error", "Unable to add new task.", "OK");
+            }
         }
 
-        private async void OnLogout_Clicked(object sender, EventArgs e)
+        private async void OnDeleteSwipeItemInvoked(object sender, EventArgs e)
         {
-            bool answer = await DisplayAlert("Logout", "Are you sure you want to logout?", "Yes", "No");
-            if (answer)
+            if (sender is SwipeItem swipeItem && swipeItem.CommandParameter is UserTask task)
             {
-                // Add any logout logic here (clear credentials, etc.)
-                await Shell.Current.GoToAsync("//LoginPage");
+                bool confirm = await DisplayAlert(
+                    "Confirm Delete",
+                    "Are you sure you want to delete this task?",
+                    "Yes", "No");
+
+                if (confirm)
+                {
+                    await _viewModel.DeleteTaskCommand.ExecuteAsync(task);
+                }
             }
         }
     }

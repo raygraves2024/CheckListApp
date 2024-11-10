@@ -2,32 +2,105 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="CheckListApp.View.LoginPage"
-             Title="Login">
-    <VerticalStackLayout Spacing="25" Padding="30,0" VerticalOptions="Center">
-        <Image
-            Source="app_logo.png"
-            HeightRequest="100"
-            HorizontalOptions="Center" />
+             xmlns:viewmodel="clr-namespace:CheckListApp.ViewModels"
+             Shell.NavBarIsVisible="False"
+             BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Black}}">
 
-        <Entry
-            x:Name="UsernameEntry"
-            Text="{Binding Username}"
-            Placeholder="Username"
-            HeightRequest="50" />
+    <ScrollView>
+        <Grid RowDefinitions="Auto,*"
+              Padding="20"
+              RowSpacing="20"
+              VerticalOptions="Fill">
 
-        <Entry
-            x:Name="PasswordEntry"
-            Text="{Binding Password}"
-            Placeholder="Password"
-            IsPassword="True"
-            HeightRequest="50" />
+            <!-- Header Section -->
+            <VerticalStackLayout Grid.Row="0" Spacing="5">
+                <Label Text="Welcome Back!"
+                       FontSize="32"
+                       FontAttributes="Bold"
+                       HorizontalOptions="Center"
+                       TextColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}" />
+                <Label Text="Sign in to continue"
+                       FontSize="18"
+                       HorizontalOptions="Center"
+                       TextColor="{AppThemeBinding Light={StaticResource Gray500}, Dark={StaticResource Gray400}}" />
+            </VerticalStackLayout>
 
-        <Button
-            x:Name="LoginButton"
-            Text="Login"
-            Command="{Binding LoginCommand}"
-            Style="{StaticResource PrimaryButtonStyle}"
-            HeightRequest="50"
-            FontAttributes="Bold" />
-    </VerticalStackLayout>
+            <!-- Login Form -->
+            <VerticalStackLayout Grid.Row="1" 
+                               Spacing="20" 
+                               VerticalOptions="Center">
+
+                <!-- Username Entry -->
+                <Frame BorderColor="{AppThemeBinding Light={StaticResource Gray300}, Dark={StaticResource Gray600}}"
+                       Padding="15,5"
+                       CornerRadius="8"
+                       HasShadow="False">
+                    <Entry Placeholder="Username"
+                           Text="{Binding Username}"
+                           TextColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
+                           PlaceholderColor="{AppThemeBinding Light={StaticResource Gray400}, Dark={StaticResource Gray500}}"
+                           BackgroundColor="Transparent"
+                           IsEnabled="{Binding IsNotLoading}"/>
+                </Frame>
+
+                <!-- Password Entry -->
+                <Frame BorderColor="{AppThemeBinding Light={StaticResource Gray300}, Dark={StaticResource Gray600}}"
+                       Padding="15,5"
+                       CornerRadius="8"
+                       HasShadow="False">
+                    <Entry Placeholder="Password"
+                           Text="{Binding Password}"
+                           IsPassword="True"
+                           TextColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
+                           PlaceholderColor="{AppThemeBinding Light={StaticResource Gray400}, Dark={StaticResource Gray500}}"
+                           BackgroundColor="Transparent"
+                           IsEnabled="{Binding IsNotLoading}"/>
+                </Frame>
+
+                <!-- Error Message -->
+                <Label Text="{Binding ErrorMessage}"
+                       IsVisible="{Binding HasErrorMessage}"
+                       TextColor="Red"
+                       HorizontalOptions="Center"/>
+
+                <!-- Login Button -->
+                <Button Text="Login"
+                        Command="{Binding LoginCommand}"
+                        IsEnabled="{Binding CanExecuteLogin}"
+                        HeightRequest="50"
+                        CornerRadius="25"
+                        FontAttributes="Bold"
+                        BackgroundColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}"
+                        TextColor="White">
+                    <Button.Triggers>
+                        <DataTrigger TargetType="Button"
+                                    Binding="{Binding IsLoading}"
+                                    Value="True">
+                            <Setter Property="Text" Value="Logging in..." />
+                        </DataTrigger>
+                    </Button.Triggers>
+                </Button>
+
+                <!-- Register Link -->
+                <HorizontalStackLayout HorizontalOptions="Center" Spacing="5">
+                    <Label Text="Don't have an account?"
+                           TextColor="{AppThemeBinding Light={StaticResource Gray500}, Dark={StaticResource Gray400}}"
+                           VerticalOptions="Center"/>
+                    <Button Text="Register"
+                            Command="{Binding NavigateToRegisterCommand}"
+                            BackgroundColor="Transparent"
+                            TextColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}"
+                            FontAttributes="Bold"
+                            VerticalOptions="Center"
+                            Padding="0"/>
+                </HorizontalStackLayout>
+
+                <!-- Loading Indicator -->
+                <ActivityIndicator IsRunning="{Binding IsLoading}"
+                                 IsVisible="{Binding IsLoading}"
+                                 Color="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}"
+                                 HorizontalOptions="Center"/>
+            </VerticalStackLayout>
+        </Grid>
+    </ScrollView>
 </ContentPage>

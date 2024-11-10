@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using System.Diagnostics;
 using CheckListApp.Model;
 using CheckListApp.Data;
+using System.Linq;
 
 namespace CheckListApp.Services
 {
@@ -41,7 +42,18 @@ namespace CheckListApp.Services
             {
                 var tasks = await _database.GetTasksForUserAsync(userId);
                 Debug.WriteLine($"Retrieved {tasks.Count} tasks for user {userId}");
-                return tasks;
+                Debug.WriteLine($"Completed tasks: {tasks.Count(t => t.IsCompleted)}");
+                Debug.WriteLine($"Incomplete tasks: {tasks.Count(t => !t.IsCompleted)}");
+
+                // Sort tasks here to ensure consistent ordering
+                var sortedTasks = tasks
+                    .OrderBy(t => t.IsCompleted) // Incomplete first
+                    .ThenByDescending(t => !t.IsCompleted ? t.PriorityLevel : 0)
+                    .ThenBy(t => !t.IsCompleted ? t.DueDate : DateTime.MaxValue)
+                    .ThenByDescending(t => t.IsCompleted ? t.UpdatedDate : DateTime.MinValue)
+                    .ToList();
+
+                return sortedTasks;
             }
             catch (Exception ex)
             {
@@ -57,7 +69,7 @@ namespace CheckListApp.Services
             {
                 var task = await _database.GetTaskAsync(userId, taskId);
                 Debug.WriteLine(task != null
-                    ? $"Retrieved task: {task.Title} (ID: {task.TaskID})"
+                    ? $"Retrieved task: {task.Title} (ID: {task.TaskID}, Completed: {task.IsCompleted})"
                     : $"No task found with ID {taskId}");
                 return task;
             }
@@ -77,12 +89,12 @@ namespace CheckListApp.Services
                 if (task.TaskID != 0)
                 {
                     result = await _database.UpdateAsync(task);
-                    Debug.WriteLine($"Updated task {task.TaskID}");
+                    Debug.WriteLine($"Updated task {task.TaskID}, IsCompleted: {task.IsCompleted}");
                 }
                 else
                 {
                     result = await _database.InsertAsync(task);
-                    Debug.WriteLine($"Inserted new task, ID: {result}");
+                    Debug.WriteLine($"Inserted new task, ID: {result}, IsCompleted: {task.IsCompleted}");
                 }
                 return result;
             }
@@ -123,8 +135,9 @@ namespace CheckListApp.Services
             await EnsureDatabaseInitializedAsync();
             try
             {
+                task.UpdatedDate = DateTime.Now; // Ensure the updated date is set
                 var result = await _database.UpdateAsync(task);
-                Debug.WriteLine($"Updated task {task.TaskID}");
+                Debug.WriteLine($"Updated task {task.TaskID}, IsCompleted: {task.IsCompleted}");
                 return result > 0;
             }
             catch (Exception ex)

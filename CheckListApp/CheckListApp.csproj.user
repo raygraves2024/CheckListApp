@@ -14,6 +14,9 @@
     <MauiXaml Update="View\CustomSplashPage.xaml">
       <SubType>Designer</SubType>
     </MauiXaml>
+    <MauiXaml Update="View\ErrorPage.xaml">
+      <SubType>Designer</SubType>
+    </MauiXaml>
     <MauiXaml Update="View\ItemDetailPage.xaml">
       <SubType>Designer</SubType>
     </MauiXaml>

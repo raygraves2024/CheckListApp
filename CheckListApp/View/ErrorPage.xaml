@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CheckListApp.View.ErrorPage"
+             Shell.NavBarIsVisible="False">
+
+    <VerticalStackLayout Spacing="25" 
+                        Padding="30,0" 
+                        VerticalOptions="Center">
+
+        <Image Source="error_icon.png"
+               HeightRequest="100"
+               WidthRequest="100"
+               SemanticProperties.Description="Error icon"/>
+
+        <Label 
+            Text="Oops! Something went wrong"
+            SemanticProperties.HeadingLevel="Level1"
+            FontSize="32"
+            HorizontalOptions="Center" />
+
+        <Label 
+            Text="{Binding ErrorMessage}"
+            SemanticProperties.Description="Error message"
+            FontSize="18"
+            HorizontalOptions="Center" />
+
+        <Button 
+            x:Name="BackToLoginButton"
+            Text="Back to Login"
+            SemanticProperties.Hint="Returns to the login page"
+            Clicked="OnBackToLoginClicked"
+            HorizontalOptions="Center" />
+
+    </VerticalStackLayout>
+</ContentPage>

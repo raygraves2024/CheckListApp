@@ -6,6 +6,7 @@ using System.Runtime.CompilerServices;
 using CommunityToolkit.Mvvm.Input;
 using System.Text.RegularExpressions;
 using CheckListApp.Services;
+using System.Diagnostics;
 
 namespace CheckListApp.ViewModels
 {
@@ -35,6 +36,13 @@ namespace CheckListApp.ViewModels
         private string _firstNameIndicator = "*";
         private string _lastNameIndicator = "*";
 
+        public event PropertyChangedEventHandler? PropertyChanged;
+        public event EventHandler? RegistrationSuccessful;
+        public event EventHandler? NavigateToLoginRequested;
+
+        public ICommand RegisterCommand { get; }
+        public ICommand NavigateToLoginCommand { get; }
+
         public RegistrationViewModel(IAuthenticationService authService, IPasswordHasher passwordHasher)
         {
             _authService = authService ?? throw new ArgumentNullException(nameof(authService));
@@ -53,6 +61,8 @@ namespace CheckListApp.ViewModels
 
             UpdatePasswordRequirements();
         }
+
+        #region Properties
 
         public string Username
         {
@@ -154,6 +164,78 @@ namespace CheckListApp.ViewModels
             }
         }
 
+        public string StatusMessage
+        {
+            get => _statusMessage;
+            set
+            {
+                if (_statusMessage != value)
+                {
+                    _statusMessage = value;
+                    OnPropertyChanged();
+                    OnPropertyChanged(nameof(HasStatusMessage));
+                }
+            }
+        }
+
+        public string StatusMessageColor
+        {
+            get => _statusMessageColor;
+            set
+            {
+                if (_statusMessageColor != value)
+                {
+                    _statusMessageColor = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public string RegisterButtonText
+        {
+            get => _registerButtonText;
+            set
+            {
+                if (_registerButtonText != value)
+                {
+                    _registerButtonText = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public bool IsRegistering
+        {
+            get => _isRegistering;
+            private set
+            {
+                if (_isRegistering != value)
+                {
+                    _isRegistering = value;
+                    OnPropertyChanged();
+                    OnPropertyChanged(nameof(IsNotRegistering));
+                    (RegisterCommand as AsyncRelayCommand)?.NotifyCanExecuteChanged();
+                }
+            }
+        }
+
+        public string PasswordRequirements
+        {
+            get => _passwordRequirements;
+            private set
+            {
+                if (_passwordRequirements != value)
+                {
+                    _passwordRequirements = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public bool IsNotRegistering => !IsRegistering;
+        public bool HasStatusMessage => !string.IsNullOrEmpty(StatusMessage);
+
+        #region Indicators
         public string UsernameIndicator
         {
             get => _usernameIndicator;
@@ -231,87 +313,15 @@ namespace CheckListApp.ViewModels
                 }
             }
         }
+        #endregion
 
-        public string PasswordRequirements
-        {
-            get => _passwordRequirements;
-            private set
-            {
-                if (_passwordRequirements != value)
-                {
-                    _passwordRequirements = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
+        #endregion
 
-        public string StatusMessage
-        {
-            get => _statusMessage;
-            set
-            {
-                if (_statusMessage != value)
-                {
-                    _statusMessage = value;
-                    OnPropertyChanged();
-                    OnPropertyChanged(nameof(HasStatusMessage));
-                }
-            }
-        }
-
-        public string StatusMessageColor
-        {
-            get => _statusMessageColor;
-            set
-            {
-                if (_statusMessageColor != value)
-                {
-                    _statusMessageColor = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        public string RegisterButtonText
-        {
-            get => _registerButtonText;
-            set
-            {
-                if (_registerButtonText != value)
-                {
-                    _registerButtonText = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        public bool IsRegistering
-        {
-            get => _isRegistering;
-            private set
-            {
-                if (_isRegistering != value)
-                {
-                    _isRegistering = value;
-                    OnPropertyChanged();
-                    OnPropertyChanged(nameof(IsNotRegistering));
-                    (RegisterCommand as AsyncRelayCommand)?.NotifyCanExecuteChanged();
-                }
-            }
-        }
-
-        public bool IsNotRegistering => !IsRegistering;
-        public bool HasStatusMessage => !string.IsNullOrEmpty(StatusMessage);
-
-        public ICommand RegisterCommand { get; }
-        public ICommand NavigateToLoginCommand { get; }
-
-        public event EventHandler? RegistrationSuccessful;
-        public event EventHandler? NavigateToLoginRequested;
+        #region Methods
 
         private bool CanRegister()
         {
-            var canRegister = !IsRegistering &&
+            return !IsRegistering &&
                    !string.IsNullOrWhiteSpace(Username) &&
                    !string.IsNullOrWhiteSpace(Password) &&
                    !string.IsNullOrWhiteSpace(ConfirmPassword) &&
@@ -321,8 +331,6 @@ namespace CheckListApp.ViewModels
                    Password == ConfirmPassword &&
                    IsValidEmail(Email) &&
                    _isPasswordValid;
-
-            return canRegister;
         }
 
         private void ValidatePassword(string password)
@@ -370,15 +378,42 @@ namespace CheckListApp.ViewModels
 
         private bool IsValidEmail(string email)
         {
-            try
-            {
-                var addr = new System.Net.Mail.MailAddress(email);
-                return addr.Address == email;
-            }
-            catch
-            {
+            if (string.IsNullOrWhiteSpace(email))
                 return false;
+
+            // Use regex for email validation
+            string pattern = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
+            return Regex.IsMatch(email, pattern, RegexOptions.IgnoreCase);
+        }
+
+        public void ClearFields()
+        {
+            Username = string.Empty;
+            Password = string.Empty;
+            ConfirmPassword = string.Empty;
+            Email = string.Empty;
+            FirstName = string.Empty;
+            LastName = string.Empty;
+            StatusMessage = string.Empty;
+            StatusMessageColor = "Gray";
+            RegisterButtonText = "Register";
+            IsRegistering = false;
+
+            // Reset indicators
+            UsernameIndicator = "*";
+            PasswordIndicator = "*";
+            ConfirmPasswordIndicator = "*";
+            EmailIndicator = "*";
+            FirstNameIndicator = "*";
+            LastNameIndicator = "*";
+
+            // Reset password criteria
+            foreach (var key in _passwordCriteria.Keys.ToList())
+            {
+                _passwordCriteria[key] = false;
             }
+            _isPasswordValid = false;
+            UpdatePasswordRequirements();
         }
 
         private async Task RegisterUser()
@@ -397,19 +432,24 @@ namespace CheckListApp.ViewModels
                     return;
                 }
 
-                var hashedPassword = _passwordHasher.HashPassword(Password);
                 var (success, message) = await _authService.RegisterAsync(
                     Username,
-                    hashedPassword,
+                    Password,
                     Email,
                     FirstName,
                     LastName);
 
                 if (success)
                 {
-                    SetSuccessStatus("Registration successful!");
+                    SetSuccessStatus("Registration successful! You can now login.");
                     ClearFields();
                     OnRegistrationSuccessful();
+
+                    // Navigate to login page after successful registration with a new navigation stack
+                    await MainThread.InvokeOnMainThreadAsync(async () =>
+                    {
+                        await Shell.Current.GoToAsync("//LoginPage", true);
+                    });
                 }
                 else
                 {
@@ -418,12 +458,14 @@ namespace CheckListApp.ViewModels
             }
             catch (Exception ex)
             {
-                SetErrorStatus("An error occurred during registration. Please try again.");
+                Debug.WriteLine($"Registration error: {ex.Message}");
+                SetErrorStatus($"Registration error: {ex.Message}");
             }
             finally
             {
                 IsRegistering = false;
                 RegisterButtonText = "Register";
+                (RegisterCommand as AsyncRelayCommand)?.NotifyCanExecuteChanged();
             }
         }
 
@@ -450,10 +492,19 @@ namespace CheckListApp.ViewModels
             return true;
         }
 
-        private Task ExecuteNavigateToLogin()
+        private async Task ExecuteNavigateToLogin()
         {
-            OnNavigateToLoginRequested();
-            return Task.CompletedTask;
+            try
+            {
+                ClearFields(); // Clear all fields before navigation
+                OnNavigateToLoginRequested();
+                await Shell.Current.GoToAsync("//LoginPage", true);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Navigation error: {ex.Message}");
+                SetErrorStatus("Navigation failed. Please try again.");
+            }
         }
 
         private void SetErrorStatus(string message)
@@ -474,24 +525,6 @@ namespace CheckListApp.ViewModels
             StatusMessageColor = "Gray";
         }
 
-        private void ClearFields()
-        {
-            Username = string.Empty;
-            Password = string.Empty;
-            ConfirmPassword = string.Empty;
-            Email = string.Empty;
-            FirstName = string.Empty;
-            LastName = string.Empty;
-
-            // Reset indicators
-            UsernameIndicator = "*";
-            PasswordIndicator = "*";
-            ConfirmPasswordIndicator = "*";
-            EmailIndicator = "*";
-            FirstNameIndicator = "*";
-            LastNameIndicator = "*";
-        }
-
         protected virtual void OnRegistrationSuccessful()
         {
             RegistrationSuccessful?.Invoke(this, EventArgs.Empty);
@@ -502,11 +535,11 @@ namespace CheckListApp.ViewModels
             NavigateToLoginRequested?.Invoke(this, EventArgs.Empty);
         }
 
-        public event PropertyChangedEventHandler? PropertyChanged;
-
         protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
+        #endregion
     }
 }

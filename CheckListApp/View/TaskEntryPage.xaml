@@ -2,76 +2,96 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="CheckListApp.View.TaskEntryPage"
-             NavigationPage.HasNavigationBar="False"
-             Title="Task Entry"
-             Shell.NavBarIsVisible="False">
+             Title="Task Entry">
 
     <ScrollView>
-        <VerticalStackLayout Spacing="25" Padding="30,0" VerticalOptions="Center">
-            <Label 
-                Text="Task Entry"
-                FontSize="32"
-                FontAttributes="Bold"
-                HorizontalOptions="Center" />
+        <Grid RowDefinitions="Auto,*,Auto" 
+              Padding="20"
+              RowSpacing="20">
 
-            <Entry
-                x:Name="TaskTitleEntry"
-                Placeholder="Task Title"
-                Text="{Binding Title}"
-                SemanticProperties.Hint="Enter the task title"/>
+            <!-- Header Section -->
+            <VerticalStackLayout Grid.Row="0" 
+                               Spacing="15">
 
-            <Editor
-                x:Name="TaskDescriptionEditor"
-                Placeholder="Task Description"
-                Text="{Binding Description}"
-                AutoSize="TextChanges"
-                Margin="0,5,0,5"
-                SemanticProperties.Hint="Enter the task description"/>
+                <!-- Title Entry -->
+                <VerticalStackLayout>
+                    <Label Text="Title"
+                           FontSize="16"
+                           TextColor="Gray"/>
+                    <Entry x:Name="TaskTitleEntry"
+                           Placeholder="Enter task title"
+                           Text="{Binding Title}"/>
+                </VerticalStackLayout>
 
-            <DatePicker
-                x:Name="TaskDatePicker"
-                Date="{Binding DueDate}"
-                Format="D"
-                SemanticProperties.Hint="Select the due date"/>
+                <!-- Description -->
+                <VerticalStackLayout>
+                    <Label Text="Description"
+                           FontSize="16"
+                           TextColor="Gray"/>
+                    <Editor x:Name="TaskDescriptionEditor"
+                            Placeholder="Enter task description"
+                            Text="{Binding Description}"
+                            AutoSize="TextChanges"
+                            MaxLength="500"/>
+                </VerticalStackLayout>
 
-            <Picker
-                x:Name="PriorityPicker"
-                Title="Select Priority"
-                SelectedIndexChanged="OnPrioritySelected"
-                HorizontalOptions="Fill">
-                <Picker.ItemsSource>
-                    <x:Array Type="{x:Type x:String}">
-                        <x:String>Low</x:String>
-                        <x:String>Important</x:String>
-                        <x:String>Urgent</x:String>
-                    </x:Array>
-                </Picker.ItemsSource>
-            </Picker>
+                <!-- Due Date -->
+                <VerticalStackLayout>
+                    <Label Text="Due Date"
+                           FontSize="16"
+                           TextColor="Gray"/>
+                    <DatePicker x:Name="TaskDatePicker"
+                              Date="{Binding DueDate}"
+                              Format="D"/>
+                </VerticalStackLayout>
 
-            <Grid ColumnDefinitions="Auto,*" 
-                  HorizontalOptions="Center">
-                <CheckBox
-                    Grid.Column="0"
-                    x:Name="CompletedCheckBox"
-                    IsChecked="{Binding IsCompleted}"
-                    SemanticProperties.Hint="Mark task as complete"
-                    VerticalOptions="Center"/>
-                <Label 
-                    Grid.Column="1"
-                    Text="Mark as Complete"
-                    VerticalOptions="Center"/>
+                <!-- Priority -->
+                <VerticalStackLayout>
+                    <Label Text="Priority"
+                           FontSize="16"
+                           TextColor="Gray"/>
+                    <Picker x:Name="PriorityPicker"
+                            SelectedIndexChanged="OnPrioritySelected">
+                        <Picker.ItemsSource>
+                            <x:Array Type="{x:Type x:String}">
+                                <x:String>Low</x:String>
+                                <x:String>Important</x:String>
+                                <x:String>Urgent</x:String>
+                            </x:Array>
+                        </Picker.ItemsSource>
+                    </Picker>
+                </VerticalStackLayout>
+
+                <!-- Completed Status -->
+                <HorizontalStackLayout>
+                    <CheckBox x:Name="CompletedCheckBox"
+                             IsChecked="{Binding IsCompleted}"/>
+                    <Label Text="Mark as completed"
+                           VerticalOptions="Center"
+                           Margin="10,0,0,0"/>
+                </HorizontalStackLayout>
+            </VerticalStackLayout>
+
+            <!-- Spacer -->
+            <BoxView Grid.Row="1"/>
+
+            <!-- Buttons Section -->
+            <Grid Grid.Row="2" 
+                  ColumnDefinitions="*,*" 
+                  ColumnSpacing="20">
+
+                <Button Grid.Column="0"
+                        Text="Cancel"
+                        BackgroundColor="Gray"
+                        Clicked="OnCancelClicked"/>
+
+                <Button Grid.Column="1"
+                        x:Name="SaveButton"
+                        Text="Add Task"
+                        BackgroundColor="{StaticResource Primary}"
+                        Clicked="OnSaveClicked"/>
             </Grid>
 
-            <Button
-                x:Name="UpdateButton"
-                Text="Update Task"
-                SemanticProperties.Hint="Update the task"
-                WidthRequest="200" 
-                Clicked="OnUpdateTaskClicked"
-                BackgroundColor="Green"
-                TextColor="White"
-                HorizontalOptions="Center"
-                Margin="0,10,0,20"/>
-        </VerticalStackLayout>
+        </Grid>
     </ScrollView>
 </ContentPage>

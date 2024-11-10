@@ -1,66 +1,129 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="CheckListApp.View.UserTaskPage"
-             xmlns:viewmodel="clr-namespace:CheckListApp.ViewModels"
              xmlns:model="clr-namespace:CheckListApp.Model"
+             xmlns:viewmodel="clr-namespace:CheckListApp.ViewModels"
+             xmlns:converters="clr-namespace:CheckListApp.Converters"
+             x:Class="CheckListApp.View.UserTaskPage"
              Title="User Tasks">
 
-    <Grid RowDefinitions="Auto,*,Auto">
-        <!-- Header -->
-        <Grid ColumnDefinitions="*,Auto" Padding="20,10">
-            <Label Text="{Binding CurrentUser.Username, StringFormat='Welcome, {0}!'}"
-                   FontSize="Large"
-                   VerticalOptions="Center"/>
-            <Button Grid.Column="1"
-                    Text="Logout"
-                    Clicked="OnLogout_Clicked"
-                    BackgroundColor="Red"
-                    TextColor="White"/>
-        </Grid>
+    <ContentPage.Resources>
+        <converters:PriorityColorConverter x:Key="PriorityColorConverter" />
+        <converters:PriorityTextConverter x:Key="PriorityTextConverter" />
+        <converters:DueDateColorConverter x:Key="DueDateColorConverter" />
+        <converters:BoolToStrikethroughConverter x:Key="StrikethroughConverter" />
+        <converters:StringToBooleanConverter x:Key="StringToBooleanConverter"/>
+    </ContentPage.Resources>
 
-        <!-- Task List -->
-        <RefreshView Grid.Row="1" 
-                     Command="{Binding LoadUserAndTasksCommand}"
-                     IsRefreshing="{Binding IsLoading}">
-            <CollectionView ItemsSource="{Binding UserTasks}"
-                          SelectionMode="Single"
-                          SelectionChanged="OnItemSelected">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="model:UserTask">
-                        <SwipeView>
-                            <SwipeView.RightItems>
-                                <SwipeItems>
-                                    <SwipeItem Text="Delete"
-                                             BackgroundColor="Red"
-                                             Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:UserTaskViewModel}}, Path=DeleteTaskCommand}"
-                                             CommandParameter="{Binding .}"/>
-                                </SwipeItems>
-                            </SwipeView.RightItems>
-                            <Grid Padding="10">
-                                <Frame>
-                                    <VerticalStackLayout>
-                                        <Label Text="{Binding Title}" 
-                                               FontAttributes="Bold" />
-                                        <Label Text="{Binding Description}" 
-                                               LineBreakMode="TailTruncation" />
-                                        <Label Text="{Binding DueDate, StringFormat='Due: {0:d}'}" />
-                                    </VerticalStackLayout>
-                                </Frame>
-                            </Grid>
-                        </SwipeView>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
-        </RefreshView>
+    <Grid RowDefinitions="Auto,*" 
+          Padding="10">
 
-        <!-- Add Task Button -->
-        <Button Grid.Row="2"
-                Text="Add New Task"
+        <!-- Header with Add Button -->
+        <Button Grid.Row="0" 
+                Text="Add Task" 
                 Clicked="OnAddTask_Clicked"
-                Margin="20"
-                BackgroundColor="DodgerBlue"
-                TextColor="White"/>
+                BackgroundColor="{StaticResource Primary}"
+                Margin="0,0,0,10"
+                HorizontalOptions="End"/>
 
+        <!-- Tasks List -->
+        <CollectionView Grid.Row="1"
+                      ItemsSource="{Binding UserTasks}"
+                      SelectionMode="None">
+            <CollectionView.EmptyView>
+                <VerticalStackLayout HorizontalOptions="Center" 
+                                   VerticalOptions="Center">
+                    <Label Text="No tasks found" 
+                           FontSize="18" 
+                           TextColor="Gray"
+                           HorizontalOptions="Center"/>
+                    <Label Text="Tap 'Add Task' to create a new task" 
+                           FontSize="14" 
+                           TextColor="Gray"
+                           HorizontalOptions="Center"/>
+                </VerticalStackLayout>
+            </CollectionView.EmptyView>
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="model:UserTask">
+                    <SwipeView>
+                        <SwipeView.LeftItems>
+                            <SwipeItems Mode="Execute">
+                                <SwipeItem Text="Edit"
+                                          BackgroundColor="{StaticResource Primary}"
+                                          Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:UserTaskViewModel}}, Path=EditTaskCommand}"
+                                          CommandParameter="{Binding .}"/>
+                            </SwipeItems>
+                        </SwipeView.LeftItems>
+
+                        <SwipeView.RightItems>
+                            <SwipeItems Mode="Execute">
+                                <SwipeItem Text="Delete"
+                                          BackgroundColor="Red"
+                                          Invoked="OnDeleteSwipeItemInvoked"
+                                          CommandParameter="{Binding .}"/>
+                            </SwipeItems>
+                        </SwipeView.RightItems>
+
+                        <Frame Margin="0,5" 
+                               Padding="10" 
+                               BorderColor="LightGray">
+                            <Grid RowDefinitions="Auto,Auto,Auto" 
+                                  ColumnDefinitions="*">
+                                <!-- Task Title and Priority -->
+                                <Grid Grid.Row="0" 
+                                      Grid.Column="0" 
+                                      ColumnDefinitions="*,Auto">
+                                    <Label Text="{Binding Title}" 
+                                           FontSize="18" 
+                                           TextDecorations="{Binding IsCompleted, Converter={StaticResource StrikethroughConverter}}"
+                                           LineBreakMode="TailTruncation"/>
+                                    <Border Grid.Column="1" 
+                                            Padding="5,2"
+                                            BackgroundColor="{Binding PriorityLevel, Converter={StaticResource PriorityColorConverter}}"
+                                            StrokeShape="RoundRectangle 5">
+                                        <Label Text="{Binding PriorityLevel, Converter={StaticResource PriorityTextConverter}}"
+                                               TextColor="White"
+                                               FontSize="12"/>
+                                    </Border>
+                                </Grid>
+
+                                <!-- Task Description -->
+                                <Label Grid.Row="1" 
+                                       Grid.Column="0"
+                                       Text="{Binding Description}"
+                                       TextColor="Gray"
+                                       TextDecorations="{Binding IsCompleted, Converter={StaticResource StrikethroughConverter}}"
+                                       LineBreakMode="TailTruncation"
+                                       MaxLines="2"
+                                       Margin="0,5"/>
+
+                                <!-- Due Date -->
+                                <HorizontalStackLayout Grid.Row="2" 
+                                                     Grid.Column="0"
+                                                     Spacing="5">
+                                    <Label Text="Due:"
+                                           FontSize="12"
+                                           TextColor="Gray"/>
+                                    <Label Text="{Binding DueDate, StringFormat='{0:MMM dd, yyyy}'}"
+                                           FontSize="12"
+                                           TextDecorations="{Binding IsCompleted, Converter={StaticResource StrikethroughConverter}}"
+                                           TextColor="{Binding DueDate, Converter={StaticResource DueDateColorConverter}}"/>
+                                </HorizontalStackLayout>
+                            </Grid>
+                        </Frame>
+                    </SwipeView>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <!-- Error Message -->
+        <Label Grid.Row="1"
+               Text="{Binding ErrorMessage}"
+               TextColor="Red"
+               HorizontalOptions="Center"
+               VerticalOptions="Center"
+               IsVisible="{Binding ErrorMessage, Converter={StaticResource StringToBooleanConverter}}"
+               Margin="20"/>
     </Grid>
 </ContentPage>

@@ -10,6 +10,14 @@ namespace CheckListApp.View
         {
             InitializeComponent();
             NavigationPage.SetHasNavigationBar(this, false);
+
+            // Set initial opacity to 0
+            if (LogoImage != null) LogoImage.Opacity = 0;
+            if (ProjectLabel != null) ProjectLabel.Opacity = 0;
+            if (Member1 != null) Member1.Opacity = 0;
+            if (Member2 != null) Member2.Opacity = 0;
+            if (Member3 != null) Member3.Opacity = 0;
+            if (Member4 != null) Member4.Opacity = 0;
         }
 
         protected override void OnAppearing()
@@ -102,59 +110,11 @@ namespace CheckListApp.View
                         // Fade in the white overlay
                         await overlay.FadeTo(1, 500);
                     }
-
-                    // Set the main page to AppShell and navigate
-                    var shell = Handler.MauiContext?.Services.GetService<AppShell>();
-                    if (shell != null)
-                    {
-                        Application.Current.MainPage = shell;
-
-                        // Then navigate based on authentication
-                        var authService = Handler.MauiContext?.Services.GetService<IAuthenticationService>();
-                        if (authService != null)
-                        {
-                            if (authService.IsAuthenticated)
-                            {
-                                await Shell.Current.GoToAsync("//LoginPage");
-                            }
-                            else
-                            {
-                                await Shell.Current.GoToAsync("//RegistrationPage");
-                            }
-                        }
-                        else
-                        {
-                            Debug.WriteLine("Authentication service not found");
-                            await Shell.Current.GoToAsync("//LoginPage");
-                        }
-                    }
-                    else
-                    {
-                        Debug.WriteLine("AppShell service not found");
-                        // Fallback to direct page creation if service isn't available
-                        Application.Current.MainPage = new AppShell();
-                        await Shell.Current.GoToAsync("//LoginPage");
-                    }
                 });
             }
             catch (Exception ex)
             {
                 Debug.WriteLine($"Animation error: {ex.Message}");
-
-                await MainThread.InvokeOnMainThreadAsync(async () =>
-                {
-                    // Fallback navigation in case of animation failure
-                    try
-                    {
-                        var shell = Handler.MauiContext?.Services.GetService<AppShell>();
-                        Application.Current.MainPage = shell ?? new AppShell();
-                        await Shell.Current.GoToAsync("//LoginPage");
-                    }
-                    catch (Exception navEx)
-                    {
-                        Debug.WriteLine($"Navigation error: {navEx.Message}");
-                    }
-                });
             }
         }
 

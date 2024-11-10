@@ -40,7 +40,8 @@ namespace CheckListApp
             Routing.RegisterRoute(nameof(CustomSplashPage), typeof(CustomSplashPage));
             Routing.RegisterRoute(nameof(ItemDetailPage), typeof(ItemDetailPage));
             Routing.RegisterRoute(nameof(TaskDetailList), typeof(TaskDetailList));
-          
+            Routing.RegisterRoute(nameof(ErrorPage), typeof(ErrorPage));
+
 
             // Add default content
             this.Items.Add(new ShellContent
@@ -53,7 +54,7 @@ namespace CheckListApp
 
         public async Task NavigateToMainPage()
         {
-            await Shell.Current.GoToAsync("//main");
+            //await Shell.Current.GoToAsync("//main");
         }
 
         //public async Task RunAllTests()

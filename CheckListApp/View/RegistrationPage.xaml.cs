@@ -2,6 +2,7 @@ using CheckListApp.ViewModels;
 using CheckListApp.Services;
 using CheckListApp.Data;
 using System.Diagnostics;
+using CheckListApp.Model;
 
 namespace CheckListApp.View;
 
@@ -28,24 +29,27 @@ public partial class RegistrationPage : ContentPage
     {
         try
         {
-            // Initialize database if not already initialized
             await _taskDatabase.InitializeDatabaseAsync();
 
-            // Clear the UserTask table
-            await _taskDatabase.ExecuteAsync("DELETE FROM UserTask");
-            Debug.WriteLine("Successfully cleared UserTasks table");
+            // Use Table method instead of direct query
+            var users = await _taskDatabase.GetAllAsync<Users>();
+            var lastUser = users.OrderByDescending(u => u.UserID).FirstOrDefault();
 
-            // Navigate to the ItemDetailPage
-            await Shell.Current.GoToAsync("/ItemDetailPage");
+            if (lastUser != null)
+            {
+                await DisplayAlert("Registration Success",
+                    $"User Created:\nID: {lastUser.UserID}\nUsername: {lastUser.Username}",
+                    "OK");
+            }
+
+            await Shell.Current.GoToAsync("/LoginPage");
         }
         catch (Exception ex)
         {
             Debug.WriteLine($"Error during registration navigation: {ex.Message}");
-            // Still navigate even if database operations fail
-            await Shell.Current.GoToAsync("/ItemDetailPage");
+            await Shell.Current.GoToAsync("/ErrorPage");
         }
     }
-
     private async void OnNavigateToLogin(object sender, EventArgs e)
     {
         try
@@ -53,18 +57,19 @@ public partial class RegistrationPage : ContentPage
             // Initialize database if not already initialized
             await _taskDatabase.InitializeDatabaseAsync();
 
-            // Clear the UserTask table
-            await _taskDatabase.ExecuteAsync("DELETE FROM UserTask");
-            Debug.WriteLine("Successfully cleared UserTasks table");
+            // Clear the UserTask and Users table
+            //await _taskDatabase.ExecuteAsync("DELETE FROM Users");
+            //await _taskDatabase.ExecuteAsync("DELETE FROM UserTask");
+            //await _taskDatabase.ExecuteAsync("DELETE FROM sqlite_sequence WHERE name='Users'");
+            Debug.WriteLine("Successfully cleared tables");
 
-            // Navigate to the ItemDetailPage
-            await Shell.Current.GoToAsync("/ItemDetailPage");
+            // Navigate to the LoginPage
+            await Shell.Current.GoToAsync("/LoginPage");
         }
         catch (Exception ex)
         {
             Debug.WriteLine($"Error during login navigation: {ex.Message}");
-            // Still navigate even if database operations fail
-            await Shell.Current.GoToAsync("/ItemDetailPage");
+            await Shell.Current.GoToAsync($"ErrorPage?message={Uri.EscapeDataString("Error")}");
         }
     }
 

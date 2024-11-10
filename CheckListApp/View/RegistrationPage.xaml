@@ -2,116 +2,195 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="CheckListApp.View.RegistrationPage"
-             Title="Registration">
+             Shell.NavBarIsVisible="False"
+             BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Black}}">
 
     <ScrollView>
-        <VerticalStackLayout Spacing="10" Padding="20">
-            <Label Text="Create Account" 
-                   FontSize="24" 
-                   HorizontalOptions="Center"
-                   Margin="0,0,0,20"/>
+        <Grid RowDefinitions="Auto,*"
+              Padding="20"
+              RowSpacing="20">
 
-            <!-- Username -->
-            <Grid ColumnDefinitions="*, Auto">
-                <Entry x:Name="UsernameEntry"
-                       Placeholder="Username"
-                       Text="{Binding Username}"
-                       IsSpellCheckEnabled="False"
-                       IsTextPredictionEnabled="False"/>
-                <Label Grid.Column="1" 
-                       Text="{Binding UsernameIndicator}" 
-                       TextColor="{Binding UsernameIndicator, Converter={StaticResource IndicatorColorConverter}}"
-                       VerticalOptions="Center"
-                       Margin="5,0"/>
-            </Grid>
+            <!-- Header -->
+            <VerticalStackLayout Grid.Row="0" Spacing="5">
+                <Label Text="Create Account"
+                       FontSize="32"
+                       FontAttributes="Bold"
+                       HorizontalOptions="Center"
+                       TextColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}" />
+                <Label Text="Sign up to get started"
+                       FontSize="18"
+                       HorizontalOptions="Center"
+                       TextColor="{AppThemeBinding Light={StaticResource Gray500}, Dark={StaticResource Gray400}}" />
+            </VerticalStackLayout>
 
-            <!-- Password -->
-            <Grid ColumnDefinitions="*, Auto">
-                <Entry x:Name="PasswordEntry"
-                       Placeholder="Password"
-                       Text="{Binding Password}"
-                       IsPassword="True"/>
-                <Label Grid.Column="1" 
-                       Text="{Binding PasswordIndicator}" 
-                       TextColor="{Binding PasswordIndicator, Converter={StaticResource IndicatorColorConverter}}"
-                       VerticalOptions="Center"
-                       Margin="5,0"/>
-            </Grid>
+            <!-- Registration Form -->
+            <VerticalStackLayout Grid.Row="1" Spacing="15">
 
-            <!-- Password Requirements -->
-            <Label Text="{Binding PasswordRequirements}"
-                   FontSize="12"
-                   TextColor="Gray"
-                   Margin="0,0,0,10"/>
+                <!-- Username -->
+                <Frame BorderColor="{AppThemeBinding Light={StaticResource Gray300}, Dark={StaticResource Gray600}}"
+                       Padding="15,5"
+                       CornerRadius="8"
+                       HasShadow="False">
+                    <Grid ColumnDefinitions="*,Auto">
+                        <Entry Grid.Column="0"
+                               Placeholder="Username"
+                               Text="{Binding Username}"
+                               TextColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
+                               PlaceholderColor="{AppThemeBinding Light={StaticResource Gray400}, Dark={StaticResource Gray500}}"
+                               BackgroundColor="Transparent"
+                               IsEnabled="{Binding IsNotRegistering}"/>
+                        <Label Grid.Column="1"
+                               Text="{Binding UsernameIndicator}"
+                               TextColor="{Binding UsernameIndicator, Converter={StaticResource IndicatorColorConverter}}"
+                               VerticalOptions="Center"/>
+                    </Grid>
+                </Frame>
 
-            <!-- Confirm Password -->
-            <Grid ColumnDefinitions="*, Auto">
-                <Entry x:Name="ConfirmPasswordEntry"
-                       Placeholder="Confirm Password"
-                       Text="{Binding ConfirmPassword}"
-                       IsPassword="True"/>
-                <Label Grid.Column="1" 
-                       Text="{Binding ConfirmPasswordIndicator}" 
-                       TextColor="{Binding ConfirmPasswordIndicator, Converter={StaticResource IndicatorColorConverter}}"
-                       VerticalOptions="Center"
-                       Margin="5,0"/>
-            </Grid>
+                <!-- Email -->
+                <Frame BorderColor="{AppThemeBinding Light={StaticResource Gray300}, Dark={StaticResource Gray600}}"
+                       Padding="15,5"
+                       CornerRadius="8"
+                       HasShadow="False">
+                    <Grid ColumnDefinitions="*,Auto">
+                        <Entry Grid.Column="0"
+                               Placeholder="Email"
+                               Text="{Binding Email}"
+                               Keyboard="Email"
+                               TextColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
+                               PlaceholderColor="{AppThemeBinding Light={StaticResource Gray400}, Dark={StaticResource Gray500}}"
+                               BackgroundColor="Transparent"
+                               IsEnabled="{Binding IsNotRegistering}"/>
+                        <Label Grid.Column="1"
+                               Text="{Binding EmailIndicator}"
+                               TextColor="{Binding EmailIndicator, Converter={StaticResource IndicatorColorConverter}}"
+                               VerticalOptions="Center"/>
+                    </Grid>
+                </Frame>
 
-            <!-- Email -->
-            <Grid ColumnDefinitions="*, Auto">
-                <Entry x:Name="EmailEntry"
-                       Placeholder="Email"
-                       Text="{Binding Email}"
-                       Keyboard="Email"/>
-                <Label Grid.Column="1" 
-                       Text="{Binding EmailIndicator}" 
-                       TextColor="{Binding EmailIndicator, Converter={StaticResource IndicatorColorConverter}}"
-                       VerticalOptions="Center"
-                       Margin="5,0"/>
-            </Grid>
+                <!-- First Name -->
+                <Frame BorderColor="{AppThemeBinding Light={StaticResource Gray300}, Dark={StaticResource Gray600}}"
+                       Padding="15,5"
+                       CornerRadius="8"
+                       HasShadow="False">
+                    <Grid ColumnDefinitions="*,Auto">
+                        <Entry Grid.Column="0"
+                               Placeholder="First Name"
+                               Text="{Binding FirstName}"
+                               TextColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
+                               PlaceholderColor="{AppThemeBinding Light={StaticResource Gray400}, Dark={StaticResource Gray500}}"
+                               BackgroundColor="Transparent"
+                               IsEnabled="{Binding IsNotRegistering}"/>
+                        <Label Grid.Column="1"
+                               Text="{Binding FirstNameIndicator}"
+                               TextColor="{Binding FirstNameIndicator, Converter={StaticResource IndicatorColorConverter}}"
+                               VerticalOptions="Center"/>
+                    </Grid>
+                </Frame>
 
-            <!-- First Name -->
-            <Grid ColumnDefinitions="*, Auto">
-                <Entry x:Name="FirstNameEntry"
-                       Placeholder="First Name"
-                       Text="{Binding FirstName}"/>
-                <Label Grid.Column="1" 
-                       Text="{Binding FirstNameIndicator}" 
-                       TextColor="{Binding FirstNameIndicator, Converter={StaticResource IndicatorColorConverter}}"
-                       VerticalOptions="Center"
-                       Margin="5,0"/>
-            </Grid>
+                <!-- Last Name -->
+                <Frame BorderColor="{AppThemeBinding Light={StaticResource Gray300}, Dark={StaticResource Gray600}}"
+                       Padding="15,5"
+                       CornerRadius="8"
+                       HasShadow="False">
+                    <Grid ColumnDefinitions="*,Auto">
+                        <Entry Grid.Column="0"
+                               Placeholder="Last Name"
+                               Text="{Binding LastName}"
+                               TextColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
+                               PlaceholderColor="{AppThemeBinding Light={StaticResource Gray400}, Dark={StaticResource Gray500}}"
+                               BackgroundColor="Transparent"
+                               IsEnabled="{Binding IsNotRegistering}"/>
+                        <Label Grid.Column="1"
+                               Text="{Binding LastNameIndicator}"
+                               TextColor="{Binding LastNameIndicator, Converter={StaticResource IndicatorColorConverter}}"
+                               VerticalOptions="Center"/>
+                    </Grid>
+                </Frame>
 
-            <!-- Last Name -->
-            <Grid ColumnDefinitions="*, Auto">
-                <Entry x:Name="LastNameEntry"
-                       Placeholder="Last Name"
-                       Text="{Binding LastName}"/>
-                <Label Grid.Column="1" 
-                       Text="{Binding LastNameIndicator}" 
-                       TextColor="{Binding LastNameIndicator, Converter={StaticResource IndicatorColorConverter}}"
-                       VerticalOptions="Center"
-                       Margin="5,0"/>
-            </Grid>
+                <!-- Password -->
+                <Frame BorderColor="{AppThemeBinding Light={StaticResource Gray300}, Dark={StaticResource Gray600}}"
+                       Padding="15,5"
+                       CornerRadius="8"
+                       HasShadow="False">
+                    <Grid ColumnDefinitions="*,Auto">
+                        <Entry Grid.Column="0"
+                               Placeholder="Password"
+                               Text="{Binding Password}"
+                               IsPassword="True"
+                               TextColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
+                               PlaceholderColor="{AppThemeBinding Light={StaticResource Gray400}, Dark={StaticResource Gray500}}"
+                               BackgroundColor="Transparent"
+                               IsEnabled="{Binding IsNotRegistering}"/>
+                        <Label Grid.Column="1"
+                               Text="{Binding PasswordIndicator}"
+                               TextColor="{Binding PasswordIndicator, Converter={StaticResource IndicatorColorConverter}}"
+                               VerticalOptions="Center"/>
+                    </Grid>
+                </Frame>
 
-            <!-- Status Message -->
-            <Label Text="{Binding StatusMessage}"
-                   TextColor="{Binding StatusMessageColor}"
-                   HorizontalOptions="Center"
-                   IsVisible="{Binding HasStatusMessage}"/>
+                <!-- Confirm Password -->
+                <Frame BorderColor="{AppThemeBinding Light={StaticResource Gray300}, Dark={StaticResource Gray600}}"
+                       Padding="15,5"
+                       CornerRadius="8"
+                       HasShadow="False">
+                    <Grid ColumnDefinitions="*,Auto">
+                        <Entry Grid.Column="0"
+                               Placeholder="Confirm Password"
+                               Text="{Binding ConfirmPassword}"
+                               IsPassword="True"
+                               TextColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
+                               PlaceholderColor="{AppThemeBinding Light={StaticResource Gray400}, Dark={StaticResource Gray500}}"
+                               BackgroundColor="Transparent"
+                               IsEnabled="{Binding IsNotRegistering}"/>
+                        <Label Grid.Column="1"
+                               Text="{Binding ConfirmPasswordIndicator}"
+                               TextColor="{Binding ConfirmPasswordIndicator, Converter={StaticResource IndicatorColorConverter}}"
+                               VerticalOptions="Center"/>
+                    </Grid>
+                </Frame>
 
-            <!-- Register Button -->
-            <Button Text="{Binding RegisterButtonText}"
-                    Command="{Binding RegisterCommand}"
-                    IsEnabled="{Binding IsNotRegistering}"
-                    Style="{StaticResource PrimaryButtonStyle}"
-                    Margin="0,20,0,0"/>
+                <!-- Password Requirements -->
+                <Label Text="{Binding PasswordRequirements}"
+                       TextColor="{AppThemeBinding Light={StaticResource Gray500}, Dark={StaticResource Gray400}}"
+                       FontSize="14"/>
 
-            <!-- Login Link -->
-            <Button Text="Already have an account? Login"
-                    Command="{Binding NavigateToLoginCommand}"
-                    Style="{StaticResource PrimaryButtonStyle}"
-                    Margin="0,10,0,0"/>
-        </VerticalStackLayout>
+                <!-- Status Message -->
+                <Label Text="{Binding StatusMessage}"
+                       IsVisible="{Binding HasStatusMessage}"
+                       TextColor="{Binding StatusMessageColor}"
+                       HorizontalOptions="Center"/>
+
+                <!-- Register Button -->
+                <Button Text="{Binding RegisterButtonText}"
+                        Command="{Binding RegisterCommand}"
+                        IsEnabled="{Binding CanRegister}"
+                        HeightRequest="50"
+                        CornerRadius="25"
+                        FontAttributes="Bold"
+                        BackgroundColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}"
+                        TextColor="White"
+                        Margin="0,10"/>
+
+                <!-- Login Link -->
+                <HorizontalStackLayout HorizontalOptions="Center" Spacing="5">
+                    <Label Text="Already have an account?"
+                           TextColor="{AppThemeBinding Light={StaticResource Gray500}, Dark={StaticResource Gray400}}"
+                           VerticalOptions="Center"/>
+                    <Button Text="Login"
+                            Command="{Binding NavigateToLoginCommand}"
+                            BackgroundColor="Transparent"
+                            TextColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}"
+                            FontAttributes="Bold"
+                            VerticalOptions="Center"
+                            Padding="0"/>
+                </HorizontalStackLayout>
+
+                <!-- Loading Indicator -->
+                <ActivityIndicator IsRunning="{Binding IsRegistering}"
+                                 IsVisible="{Binding IsRegistering}"
+                                 Color="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}"
+                                 HorizontalOptions="Center"/>
+            </VerticalStackLayout>
+        </Grid>
     </ScrollView>
 </ContentPage>

@@ -4,9 +4,9 @@
              x:Class="CheckListApp.View.TaskDetailList"
              xmlns:local="clr-namespace:CheckListApp.View"
              x:Name="taskDetailPage"
-             Title="Tasks"
              NavigationPage.HasNavigationBar="False"
-             Shell.NavBarIsVisible="False">
+             Shell.NavBarIsVisible="False"
+             Title="Task detail list">
 
     <Grid RowDefinitions="Auto,Auto,*,Auto" 
           Padding="10">
