@@ -93,11 +93,14 @@ namespace CheckListApp.View
             try
             {
                 var tasks = await _userTaskService.GetTasksForUserAsync(_userId);
+
                 foreach (var task in tasks)
                 {
+                    // Check if task is due within the next day and not completed
                     if ((task.DueDate - DateTime.Now).TotalDays <= 1 && !task.IsCompleted)
                     {
-                        await DisplayAlert("Reminder", $"Task '{task.Title}' is due soon!", "OK");
+                        // Use SendNotification to notify about upcoming task
+                        SendNotification(task.Title, task.DueDate);
                     }
                 }
             }
@@ -106,6 +109,18 @@ namespace CheckListApp.View
                 Debug.WriteLine($"Error checking due dates: {ex.Message}");
             }
         }
+
+        private async void SendNotification(string taskTitle, DateTime dueDate)
+        {
+            string message = $"The task '{taskTitle}' is due on {dueDate:MMMM dd, yyyy}. Please check your tasks.";
+
+            // Log the notification message
+            Debug.WriteLine($"Notification: {message}");
+
+            // Display notification alert within the app
+            await DisplayAlert("Upcoming Task Due", message, "OK");
+        }
+
 
         private async void OnSaveDataClicked(object sender, EventArgs e)
         {
