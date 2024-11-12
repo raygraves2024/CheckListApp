@@ -87,13 +87,14 @@ namespace CheckListApp.View
             }
         }
 
-        // Method to check for upcoming due dates and notify the user
+        
+    
+        // Updated CheckDueDates method
         private async void CheckDueDates()
         {
             try
             {
                 var tasks = await _userTaskService.GetTasksForUserAsync(_userId);
-
                 foreach (var task in tasks)
                 {
                     // Check if task is due within the next day and not completed
@@ -109,6 +110,8 @@ namespace CheckListApp.View
                 Debug.WriteLine($"Error checking due dates: {ex.Message}");
             }
         }
+
+
 
         private async void SendNotification(string taskTitle, DateTime dueDate)
         {
